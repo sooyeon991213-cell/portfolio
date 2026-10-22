@@ -51,7 +51,8 @@
     </article>`).join("");
   byId("hero-stats").querySelectorAll(".stat-value").forEach(countUp);
 
-  byId("about-badge").textContent = data.about.badge;
+  if (data.about.badge) byId("about-badge").textContent = data.about.badge;
+  else byId("about-badge").closest(".proof-badge").hidden = true;
   optionalRich(byId("about-copy"), data.about.copy);
   if (data.about.capabilities.length) {
     const list = byId("capabilities");
