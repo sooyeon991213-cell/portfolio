@@ -58,7 +58,7 @@
   const renderDetail = (project) => {
     detailPanel.innerHTML = `
       <div class="detail-header">
-        <div><p class="eyebrow">${escapeHTML(project.period)}${project.previousCompany ? " · 이전 회사" : ""}</p><h3>${escapeHTML(project.name)}</h3></div>
+        <div><p class="eyebrow">${escapeHTML(project.period)}${project.previousCompany ? " · 이전 회사" : ""}</p><h3>${escapeHTML(project.name)}</h3>${project.role ? `<p class="detail-role">역할 · ${escapeHTML(project.role)}</p>` : ""}</div>
         <button class="detail-close" type="button" aria-label="프로젝트 상세 닫기">×</button>
       </div>
       <div class="detail-sections">
