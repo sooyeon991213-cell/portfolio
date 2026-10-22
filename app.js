@@ -7,6 +7,13 @@
     element.textContent = value;
     element.hidden = false;
   };
+  // content.js에서 **굵게** 로 감싼 부분을 강조해서 보여줌
+  const rich = (value) => escapeHTML(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  const optionalRich = (element, value) => {
+    if (!value) return;
+    element.innerHTML = rich(value);
+    element.hidden = false;
+  };
 
   optionalText(byId("hero-name"), data.hero.name);
   optionalText(byId("hero-intro"), data.hero.intro);
@@ -17,7 +24,7 @@
     </article>`).join("");
 
   byId("about-badge").textContent = data.about.badge;
-  optionalText(byId("about-copy"), data.about.copy);
+  optionalRich(byId("about-copy"), data.about.copy);
   if (data.about.capabilities.length) {
     const list = byId("capabilities");
     list.innerHTML = data.about.capabilities.map((item) => `<li>${escapeHTML(item)}</li>`).join("");
@@ -62,10 +69,10 @@
         <button class="detail-close" type="button" aria-label="프로젝트 상세 닫기">×</button>
       </div>
       <div class="detail-sections">
-        <section class="detail-block"><h4>과제</h4><p class="detail-copy">${escapeHTML(project.task)}</p></section>
-        <section class="detail-block"><h4>한 일</h4><p class="detail-copy">${escapeHTML(project.work)}</p></section>
+        <section class="detail-block"><h4>과제</h4><p class="detail-copy">${rich(project.task)}</p></section>
+        <section class="detail-block"><h4>한 일</h4><p class="detail-copy">${rich(project.work)}</p></section>
         <section class="detail-block"><h4>성과</h4>${metricMarkup(project.metrics)}${imageMarkup(project)}</section>
-        ${project.insight ? `<section class="detail-block"><h4>인사이트</h4><p class="detail-copy">${escapeHTML(project.insight)}</p></section>` : ""}
+        ${project.insight ? `<section class="detail-block"><h4>배운 점</h4><p class="detail-copy">${rich(project.insight)}</p></section>` : ""}
       </div>`;
     detailPanel.hidden = false;
     detailPanel.querySelector(".detail-close").addEventListener("click", closeProject);
@@ -99,7 +106,7 @@
       ${entry.numbers.length ? `<div class="timeline-numbers">${entry.numbers.map((item) => `<span class="timeline-number"><strong>${escapeHTML(item.value)}</strong>${escapeHTML(item.label)}</span>`).join("")}</div>` : ""}
     </article>`).join("");
 
-  optionalText(byId("automation-summary"), data.automation.summary);
+  optionalRich(byId("automation-summary"), data.automation.summary);
   byId("tool-list").innerHTML = data.automation.tools.map((tool, index) => `
     <article class="tool-card">
       <p class="tool-index">0${index + 1} / ${escapeHTML(tool.stack)}</p>
@@ -107,9 +114,9 @@
       ${tool.image ? `<figure class="tool-figure"><img src="${escapeHTML(tool.image)}" alt="${escapeHTML(tool.name)} 화면" loading="lazy" />${tool.caption ? `<figcaption>${escapeHTML(tool.caption)}</figcaption>` : ""}</figure>` : ""}
       ${tool.steps ? `<ol class="tool-steps">${tool.steps.map((step) => `<li>${escapeHTML(step)}</li>`).join("")}</ol>` : ""}
       <dl class="tool-facts">
-        <div><dt>문제</dt><dd>${escapeHTML(tool.problem)}</dd></div>
-        <div><dt>만든 것</dt><dd>${escapeHTML(tool.built)}</dd></div>
-        <div><dt>효과</dt><dd>${escapeHTML(tool.effect)}</dd></div>
+        <div><dt>문제</dt><dd>${rich(tool.problem)}</dd></div>
+        <div><dt>만든 것</dt><dd>${rich(tool.built)}</dd></div>
+        <div><dt>효과</dt><dd>${rich(tool.effect)}</dd></div>
       </dl>
     </article>`).join("");
   if (data.contact.email) {
