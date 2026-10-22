@@ -28,12 +28,12 @@
   const detailPanel = byId("project-detail");
   const projectById = (id) => data.projects.find((project) => project.id === id);
   projectList.innerHTML = data.projects.map((project, index) => `
-    <button class="project-card${project.id === "blackfriday" || project.id === "jinramen" ? " project-card--number" : ""}" type="button" data-project="${escapeHTML(project.id)}" aria-expanded="false" aria-controls="project-detail">
+    <button class="project-card" type="button" data-project="${escapeHTML(project.id)}" aria-expanded="false" aria-controls="project-detail">
       <span class="project-card-top">
         <span class="project-number">0${index + 1} / CASE STUDY</span>
         ${project.previousCompany ? '<span class="project-tag previous">이전 회사</span>' : '<span class="project-tag">PROJECT</span>'}
       </span>
-      ${project.id === "blackfriday" || project.id === "jinramen" ? `<span class="project-number-art" aria-hidden="true">0${index + 1}</span>` : ""}
+      ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
       <span class="project-title">${escapeHTML(project.name)}</span>
       <span class="project-card-bottom">
         <span class="project-period">${escapeHTML(project.period)}</span>
@@ -99,10 +99,19 @@
       ${entry.numbers.length ? `<div class="timeline-numbers">${entry.numbers.map((item) => `<span class="timeline-number"><strong>${escapeHTML(item.value)}</strong>${escapeHTML(item.label)}</span>`).join("")}</div>` : ""}
     </article>`).join("");
 
-  byId("automation-client").textContent = data.automation.title;
   optionalText(byId("automation-summary"), data.automation.summary);
-  byId("automation-workflow").textContent = data.automation.workflow;
-  byId("automation-result").textContent = data.automation.result;
+  byId("tool-list").innerHTML = data.automation.tools.map((tool, index) => `
+    <article class="tool-card">
+      <p class="tool-index">0${index + 1} / ${escapeHTML(tool.stack)}</p>
+      <h3>${escapeHTML(tool.name)}</h3>
+      ${tool.image ? `<figure class="tool-figure"><img src="${escapeHTML(tool.image)}" alt="${escapeHTML(tool.name)} 화면" loading="lazy" />${tool.caption ? `<figcaption>${escapeHTML(tool.caption)}</figcaption>` : ""}</figure>` : ""}
+      ${tool.steps ? `<ol class="tool-steps">${tool.steps.map((step) => `<li>${escapeHTML(step)}</li>`).join("")}</ol>` : ""}
+      <dl class="tool-facts">
+        <div><dt>문제</dt><dd>${escapeHTML(tool.problem)}</dd></div>
+        <div><dt>만든 것</dt><dd>${escapeHTML(tool.built)}</dd></div>
+        <div><dt>효과</dt><dd>${escapeHTML(tool.effect)}</dd></div>
+      </dl>
+    </article>`).join("");
   if (data.contact.email) {
     const email = escapeHTML(data.contact.email);
     byId("contact-email").innerHTML = `<a href="mailto:${email}">${email} ↗</a>`;
