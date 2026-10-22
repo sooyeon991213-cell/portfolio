@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f8f5" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="퍼포먼스 마케터 포트폴리오 — 핵심 성과, 프로젝트, 경력과 업무 자동화 사례." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="석수연 · 퍼포먼스 마케터 포트폴리오" />
+    <meta property="og:description" content="문제, 실행, 성과를 숫자로 보여주는 퍼포먼스 마케터 포트폴리오." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>석수연 · 퍼포먼스 마케터 포트폴리오</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header">
+      <a class="wordmark" href="#home" aria-label="포트폴리오 첫 화면">P<span>.</span></a>
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#career">Career</a>
+        <a href="#automation">AI · Automation</a>
+      </nav>
+      <div class="header-actions">
+        <a class="contact-link" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+        <button class="theme-toggle" type="button" aria-label="다크 모드 전환" title="다크 모드 전환">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.7A8.4 8.4 0 0 1 8.3 3.8 8.5 8.5 0 1 0 20.2 15.7Z" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero section-wrap" id="home" aria-labelledby="hero-title">
+        <div class="hero-topline"><span class="eyebrow">PERFORMANCE MARKETING</span><span class="hero-years">5년차 · PORTFOLIO</span></div>
+        <div class="hero-heading-row">
+          <div>
+            <p id="hero-name" class="hero-name" hidden></p>
+            <h1 id="hero-title">퍼포먼스<br /><span>마케터</span></h1>
+            <p id="hero-intro" class="hero-intro" hidden></p>
+          </div>
+          <a class="hero-scroll" href="#projects"><span>SELECTED WORK</span><span class="scroll-arrow" aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-rule"><span></span></div>
+        <div class="stats-grid" id="hero-stats" aria-label="핵심 성과"></div>
+      </section>
+
+      <section class="section-wrap section-block about-section" id="about" aria-labelledby="about-title">
+        <div class="section-heading">
+          <p class="eyebrow">01 / ABOUT</p>
+          <h2 id="about-title">핵심 역량</h2>
+        </div>
+        <div class="about-content">
+          <div class="proof-badge"><span class="badge-mark" aria-hidden="true">✳</span><span id="about-badge"></span></div>
+          <p class="about-copy" id="about-copy" hidden></p>
+          <ul class="capability-list" id="capabilities" hidden></ul>
+        </div>
+      </section>
+
+      <section class="projects-section section-block" id="projects" aria-labelledby="projects-title">
+        <div class="section-wrap">
+          <div class="section-heading projects-heading">
+            <div><p class="eyebrow">02 / SELECTED WORK</p><h2 id="projects-title">프로젝트</h2></div>
+            <p class="section-aside">PROJECTS <span>↘</span></p>
+          </div>
+          <div class="project-list" id="project-list"></div>
+          <div class="project-detail" id="project-detail" hidden aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="section-wrap section-block career-section" id="career" aria-labelledby="career-title">
+        <div class="section-heading">
+          <p class="eyebrow">03 / EXPERIENCE</p>
+          <h2 id="career-title">경력</h2>
+        </div>
+        <div class="timeline" id="career-list"></div>
+      </section>
+
+      <section class="automation-section section-block" id="automation" aria-labelledby="automation-title">
+        <div class="section-wrap">
+          <div class="section-heading">
+            <p class="eyebrow">04 / SYSTEMS &amp; OPERATIONS</p>
+            <h2 id="automation-title">AI · Automation</h2>
+          </div>
+          <article class="automation-card">
+            <div class="automation-index">LX / 2026</div>
+            <div class="automation-main">
+              <p class="eyebrow">업무 자동화 역량</p>
+              <h3 id="automation-client"></h3>
+              <p id="automation-summary" class="automation-copy" hidden></p>
+            </div>
+            <div class="automation-detail">
+              <div><span>WORKFLOW</span><p id="automation-workflow"></p></div>
+              <div><span>OUTCOME</span><p id="automation-result"></p></div>
+            </div>
+            <span class="automation-orbit orbit-one" aria-hidden="true"></span>
+            <span class="automation-orbit orbit-two" aria-hidden="true"></span>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section section-block" id="contact" aria-labelledby="contact-title">
+        <div class="section-wrap contact-inner">
+          <div>
+            <p class="eyebrow">05 / CONTACT</p>
+            <h2 id="contact-title">Contact</h2>
+          </div>
+          <div id="contact-email" class="contact-email"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-wrap">
+      <a class="wordmark" href="#home" aria-label="페이지 위로">P<span>.</span></a>
+      <span>PERFORMANCE MARKETING · PORTFOLIO</span>
+      <a href="#home" class="back-top">BACK TO TOP ↑</a>
+    </footer>
+    <script src="./content.js"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
