@@ -157,7 +157,7 @@ h1.results strong { font-weight: 800; background: linear-gradient(transparent 58
 .detail-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0 24px; margin: 0; padding-block: 18px; border-bottom: 1px solid var(--line); }
 .detail-fact { padding-block: 8px; }
 .detail-fact dt { color: var(--muted); font-size: 10px; font-weight: 720; letter-spacing: .12em; }
-.detail-fact dd { margin: 6px 0 0; font-size: 13px; line-height: 1.5; }
+.detail-fact dd { margin: 6px 0 0; font-size: 13px; line-height: 1.5; word-break: keep-all; }
 .fact-bar { display: block; max-width: 160px; height: 6px; margin-top: 8px; background: var(--line); border-radius: 3px; overflow: hidden; }
 .fact-bar i { display: block; height: 100%; background: var(--accent); }
 .detail-sections.single { grid-template-columns: minmax(0, 1fr); }
@@ -168,10 +168,11 @@ h1.results strong { font-weight: 800; background: linear-gradient(transparent 58
 .detail-list li { position: relative; padding-left: 16px; }
 .detail-list li::before { content: ""; position: absolute; left: 0; top: .85em; width: 7px; height: 1px; background: var(--ink); }
 .detail-list strong { color: var(--ink); font-weight: 700; }
-.creative-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.creative-grid.count-1, .creative-grid.count-3 .creative:first-child { grid-column: 1 / -1; }
+.detail-fact.wide { grid-column: 1 / -1; }
+.creative-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
 .creative { margin: 0; }
-.creative img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: contain; background: var(--soft); }
+.creative img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: var(--soft); }
+.creative figcaption { margin-top: 6px; line-height: 1.45; }
 .creative a:hover img { opacity: .9; }
 .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-top: 12px; }
 .chart { margin: 0; padding: 18px 18px 16px; border: 1px solid var(--line); }
@@ -280,6 +281,7 @@ h1.results strong { font-weight: 800; background: linear-gradient(transparent 58
   h1 { font-size: clamp(62px, 16vw, 90px); }
   h1.results { font-size: clamp(30px, 8.2vw, 54px); }
   .chart-grid { grid-template-columns: minmax(0, 1fr); }
+  .creative-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-scroll { display: none; }
   .scroll-arrow { width: 30px; height: 30px; }
   .hero-rule { margin-top: 46px; }

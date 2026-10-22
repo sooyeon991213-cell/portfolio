@@ -90,7 +90,7 @@
   };
 
   // 그래프: 막대 끝에 값, 마우스를 올리면 data-tip 말풍선. 색은 legend 순서(s0 회색, s1 초록)
-  const formatValue = (value, unit = "") => `${Number.isInteger(value) ? value : value.toFixed(1)}${unit}`;
+  const formatValue = (value, unit = "") => `${Number.isInteger(value) ? value.toLocaleString("ko-KR") : value.toFixed(1)}${unit}`;
   const chartHead = (chart) => `<figcaption class="chart-head"><strong>${escapeHTML(chart.title)}</strong>${chart.note ? `<span>${escapeHTML(chart.note)}</span>` : ""}</figcaption>`;
   const legendMarkup = (names) => names ? `<div class="chart-legend">${names.map((name, index) => `<span><i class="swatch s${index}"></i>${escapeHTML(name)}</span>`).join("")}</div>` : "";
   const columnChart = (chart, unit) => {
@@ -136,7 +136,7 @@
   const listMarkup = (items) => `<ul class="detail-list">${items.map((item) => `<li>${rich(item)}</li>`).join("")}</ul>`;
   // 업종·매체·팀·기여도를 한 줄로. bar가 있으면 기여도 막대를 그림
   const factMarkup = (facts) => facts.length ? `<dl class="detail-facts">${facts.map((fact) => `
-    <div class="detail-fact"><dt>${escapeHTML(fact.label)}</dt><dd>${escapeHTML(fact.value)}${fact.bar ? `<span class="fact-bar" aria-hidden="true"><i style="width:${Number(fact.bar)}%"></i></span>` : ""}</dd></div>`).join("")}</dl>` : "";
+    <div class="detail-fact${fact.wide ? " wide" : ""}"><dt>${escapeHTML(fact.label)}</dt><dd>${escapeHTML(fact.value)}${fact.bar ? `<span class="fact-bar" aria-hidden="true"><i style="width:${Number(fact.bar)}%"></i></span>` : ""}</dd></div>`).join("")}</dl>` : "";
   const renderDetail = (project) => {
     const insight = project.insight || [];
     const charts = project.charts || [];
@@ -148,9 +148,9 @@
       </div>
       ${factMarkup(project.facts || [])}
       <div class="detail-sections${hasImages ? "" : " single"}">
-        <section class="detail-block"><h4>한 일</h4>${listMarkup(project.work)}</section>
-        ${hasImages ? `<section class="detail-block"><h4>소재</h4>${imageMarkup(project)}</section>` : ""}
         <section class="detail-block wide"><h4>결과</h4>${metricMarkup(project.metrics)}${charts.length ? `<div class="chart-grid">${charts.map(chartMarkup).join("")}</div>` : ""}</section>
+        <section class="detail-block"><h4>한 일</h4>${listMarkup(project.work)}</section>
+        ${hasImages ? `<section class="detail-block"><h4>대표 소재</h4>${imageMarkup(project)}${project.imagesNote ? `<p class="detail-caption">${escapeHTML(project.imagesNote)}</p>` : ""}</section>` : ""}
         ${insight.length ? `<section class="detail-block wide"><h4>돌아보면</h4>${listMarkup(insight)}</section>` : ""}
       </div>`;
     detailPanel.hidden = false;

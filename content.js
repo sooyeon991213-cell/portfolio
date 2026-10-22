@@ -45,8 +45,8 @@ window.PORTFOLIO = {
       facts: [
         { label: "업종", value: "인테리어 · 건자재" },
         { label: "광고비", value: "2026년 1~9월 19.3억 (최대 월 4.8억)" },
-        { label: "팀", value: "3명 (본부장 · 본인 · 매니저)" },
-        { label: "기여도", value: "80%", bar: 80 }
+        { label: "기여도", value: "80%", bar: 80 },
+        { label: "매체", value: "검색: 네이버 파워링크 · 브랜드검색 · 플레이스, Google SA / 디스플레이: Meta · Google Demand Gen · PMax · 네이버 GFA · 카카오 비즈보드 · TikTok · DV360 · 당근", wide: true }
       ],
       work: [
         "실무 PM으로 미디어믹스 설계, 매체 운영, 소재 기획, 성과 리포트 담당",
@@ -56,11 +56,13 @@ window.PORTFOLIO = {
         "도구는 Python, Playwright, Google Sheets API, Chart.js, Claude Code로 직접 개발 (아래 AI · Automation 참고)"
       ],
       images: [
-        { src: "./assets/lx-top-keyvisual.jpg", result: "9월 DA 소재 상담신청 1위 · 129건", caption: "지인페스타 20주년 키비주얼" },
-        { src: "./assets/lx-top-diamant.jpg", result: "9월 DA 소재 상담신청 2위 · 56건", caption: "디아망 포티스 후기형 영상" },
-        { src: "./assets/lx-top-window.jpg", result: "D2C 창호 소재 상담신청 1위 · 26건", caption: "창호 교체 전 브랜드 비교 (확장형)" },
-        { src: "./assets/lx-top-kitchen.jpg", result: "상담신청 단가 가장 낮은 소재", caption: "D2C 주방 · 맞춤 키친 (상담신청 10건 이상 소재 기준)" }
+        { src: "./assets/lx-top-keyvisual.jpg", result: "상담신청 1위 · 129건", caption: "지인페스타 20주년 키비주얼" },
+        { src: "./assets/lx-top-diamant.jpg", result: "상담신청 2위 · 56건", caption: "디아망 포티스 후기형 영상" },
+        { src: "./assets/lx-top-noh.jpg", result: "상담신청 3위 · 46건", caption: "큰손 노희영 주방 편 영상" },
+        { src: "./assets/lx-top-kvmotion.jpg", result: "상담신청 4위 · 단가 2번째로 낮음", caption: "지인페스타 키비주얼 모션그래픽" },
+        { src: "./assets/lx-top-kitchen.jpg", result: "상담신청 단가 가장 낮음", caption: "D2C 주방 · 맞춤 키친" }
       ],
+      imagesNote: "2026년 9월 DA 소재 270개 기준 · 단가는 상담신청 10건 이상 소재끼리 비교",
       metrics: [
         { value: "258%", label: "DA 상담신청 목표 달성률(8월) · 6~9월 4개월 연속 초과" },
         { value: "-42.7%", label: "SA 상담신청 CPA · 1월→9월, 예산이 44% 줄어도 상담신청 수 유지" },
@@ -92,6 +94,23 @@ window.PORTFOLIO = {
             { label: "상담신청", before: 100, after: 98 },
             { label: "상담신청 CPA", before: 100, after: 57.3 }
           ]
+        },
+        {
+          type: "columns",
+          title: "월별 집행 광고비",
+          note: "2026년 · SA + DA · 3월·9월은 지인페스타",
+          unit: "억",
+          items: [
+            { label: "1월", value: 1.7 },
+            { label: "2월", value: 1.9 },
+            { label: "3월", value: 4.8 },
+            { label: "4월", value: 2.4 },
+            { label: "5월", value: 1.5 },
+            { label: "6월", value: 0.8 },
+            { label: "7월", value: 1.0 },
+            { label: "8월", value: 1.3 },
+            { label: "9월", value: 3.8 }
+          ]
         }
       ],
       insight: [
@@ -108,10 +127,9 @@ window.PORTFOLIO = {
       goal: "5개국 글로벌 캠페인 중 인도네시아 전담: 18–34세 도달, 영상 조회, 구매 전환까지",
       facts: [
         { label: "업종", value: "식품 · 글로벌 브랜딩" },
-        { label: "매체", value: "Meta · TikTok" },
         { label: "광고비", value: "인도네시아 약 1억 원" },
-        { label: "팀", value: "3명 (본부장 · 본인 · 대리)" },
-        { label: "역할", value: "인도네시아 전담, 멕시코 서포트" }
+        { label: "역할", value: "인도네시아 전담, 멕시코 서포트" },
+        { label: "매체", value: "Meta · TikTok (도달 · 영상 조회 · 장바구니 · 구매 최적화 캠페인)", wide: true }
       ],
       work: [
         "인도네시아 캠페인 구조 설계: Reach : View : Conversion = **56 : 24 : 20**, 전환 단계까지 커버",
@@ -177,10 +195,9 @@ window.PORTFOLIO = {
       goal: "앱에 새로 생긴 소셜(여행 동행) 기능, 게시글 하루 100건 만들기",
       facts: [
         { label: "업종", value: "여행 결제 앱" },
-        { label: "매체", value: "Meta · Google · TikTok + 신규 매체 테스트" },
         { label: "광고비", value: "월 3.9억~6억 (7~9월 미디어믹스)" },
-        { label: "팀", value: "3명 (팀장 · 본인 · 매니저)" },
-        { label: "기여도", value: "70%", bar: 70 }
+        { label: "기여도", value: "70%", bar: 70 },
+        { label: "매체", value: "앱: Meta · Google · TikTok · Apple Search Ads / 네이버: GFA · 브랜드검색 / 그 외: Threads · 마이리얼트립 · 트리플 · 데이블 · 키로뷰(인천공항) / 테스트: X · 사람인 · 에브리타임", wide: true }
       ],
       work: [
         "iOS SKAN 4.0 전환값 다시 매핑: 게시글 작성과 소셜 탭 조회를 가장 높은 값으로",
@@ -203,6 +220,17 @@ window.PORTFOLIO = {
         { value: "+113%", label: "게시글 수 · Meta 소재 운영 변경, CPA 상승은 7%에서 막음" }
       ],
       charts: [
+        {
+          type: "columns",
+          title: "광고 기여 게시글 수",
+          note: "캠페인 단계별 · 최종보고 기준",
+          unit: "건",
+          items: [
+            { label: "초반 안정화", value: 526 },
+            { label: "예산 확대 (+41%)", value: 741 },
+            { label: "브랜드필름 (+69%)", value: 1249 }
+          ]
+        },
         {
           type: "pairs",
           title: "바꾸기 전과 후의 비용",
@@ -250,6 +278,17 @@ window.PORTFOLIO = {
         { value: "92%", label: "CRM 앱 푸시 참여율 · 새 사용자율 64%" },
         { value: "98%", label: "Google Demand Gen 새 사용자 비중" },
         { value: "+303명", label: "일본 팝업 캠페인, 하루 만에 늘어난 팔로워" }
+      ],
+      charts: [
+        {
+          type: "bars",
+          title: "블랙프라이데이 매체별 ROAS",
+          unit: "%",
+          items: [
+            { label: "Google", value: 767 },
+            { label: "Meta", value: 525 }
+          ]
+        }
       ],
       insight: []
     }
