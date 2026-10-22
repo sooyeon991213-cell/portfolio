@@ -62,17 +62,23 @@
     const table = rows ? `<div class="metric-table-wrap"><table class="metric-table"><thead><tr><th>지표</th><th>변경 전</th><th>변경 후</th></tr></thead><tbody>${rows}</tbody></table></div>` : "";
     return cards + table;
   };
+  const listMarkup = (items) => `<ul class="detail-list">${items.map((item) => `<li>${rich(item)}</li>`).join("")}</ul>`;
+  // 업종·매체·팀·기여도를 한 줄로. bar가 있으면 기여도 막대를 그림
+  const factMarkup = (facts) => facts.length ? `<dl class="detail-facts">${facts.map((fact) => `
+    <div class="detail-fact"><dt>${escapeHTML(fact.label)}</dt><dd>${escapeHTML(fact.value)}${fact.bar ? `<span class="fact-bar" aria-hidden="true"><i style="width:${Number(fact.bar)}%"></i></span>` : ""}</dd></div>`).join("")}</dl>` : "";
   const renderDetail = (project) => {
+    const insight = project.insight || [];
     detailPanel.innerHTML = `
       <div class="detail-header">
-        <div><p class="eyebrow">${escapeHTML(project.period)}${project.previousCompany ? " · 이전 회사" : ""}</p><h3>${escapeHTML(project.name)}</h3>${project.role ? `<p class="detail-role">역할 · ${escapeHTML(project.role)}</p>` : ""}</div>
+        <div><p class="eyebrow">${escapeHTML(project.period)}${project.previousCompany ? " · 이전 회사" : ""}</p><h3>${escapeHTML(project.name)}</h3>${project.goal ? `<p class="detail-goal">${rich(project.goal)}</p>` : ""}</div>
         <button class="detail-close" type="button" aria-label="프로젝트 상세 닫기">×</button>
       </div>
-      <div class="detail-sections">
-        <section class="detail-block"><h4>과제</h4><p class="detail-copy">${rich(project.task)}</p></section>
-        <section class="detail-block"><h4>한 일</h4><p class="detail-copy">${rich(project.work)}</p></section>
-        <section class="detail-block"><h4>성과</h4>${metricMarkup(project.metrics)}${imageMarkup(project)}</section>
-        ${project.insight ? `<section class="detail-block"><h4>배운 점</h4><p class="detail-copy">${rich(project.insight)}</p></section>` : ""}
+      ${factMarkup(project.facts || [])}
+      <div class="detail-sections${project.image ? "" : " single"}">
+        <section class="detail-block"><h4>한 일</h4>${listMarkup(project.work)}</section>
+        ${project.image ? `<section class="detail-block"><h4>소재</h4>${imageMarkup(project)}</section>` : ""}
+        <section class="detail-block wide"><h4>결과</h4>${metricMarkup(project.metrics)}</section>
+        ${insight.length ? `<section class="detail-block wide"><h4>돌아보면</h4>${listMarkup(insight)}</section>` : ""}
       </div>`;
     detailPanel.hidden = false;
     detailPanel.querySelector(".detail-close").addEventListener("click", closeProject);
