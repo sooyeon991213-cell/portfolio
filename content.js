@@ -56,9 +56,10 @@ window.PORTFOLIO = {
         "도구는 Python, Playwright, Google Sheets API, Chart.js, Claude Code로 직접 개발 (아래 AI · Automation 참고)"
       ],
       images: [
-        { src: "./assets/lx-ad-consult.jpg", caption: "상담신청 캠페인 · 혜택 강조 (Meta)" },
-        { src: "./assets/lx-ad-festa.jpg", caption: "지인페스타 · 분할형 주방 (Demand Gen)" },
-        { src: "./assets/lx-ad-wallpaper.jpg", caption: "시공가이드 · 벽지 (Demand Gen)" }
+        { src: "./assets/lx-top-keyvisual.jpg", result: "9월 DA 소재 상담신청 1위 · 129건", caption: "지인페스타 20주년 키비주얼" },
+        { src: "./assets/lx-top-diamant.jpg", result: "9월 DA 소재 상담신청 2위 · 56건", caption: "디아망 포티스 후기형 영상" },
+        { src: "./assets/lx-top-window.jpg", result: "D2C 창호 소재 상담신청 1위 · 26건", caption: "창호 교체 전 브랜드 비교 (확장형)" },
+        { src: "./assets/lx-top-kitchen.jpg", result: "상담신청 단가 가장 낮은 소재", caption: "D2C 주방 · 맞춤 키친 (상담신청 10건 이상 소재 기준)" }
       ],
       metrics: [
         { value: "258%", label: "DA 상담신청 목표 달성률(8월) · 6~9월 4개월 연속 초과" },
@@ -122,9 +123,9 @@ window.PORTFOLIO = {
         "중간 · 최종 성과보고서 작성, 국가별 Brand Lift Study 결과 취합"
       ],
       images: [
-        { src: "./assets/jinramen-indonesia.jpg", caption: "인도네시아 Jin Hero 6초 영상" },
-        { src: "./assets/jin-conv-a.jpg", caption: "구매전환 A안 · 가격 강조" },
-        { src: "./assets/jin-conv-b.jpg", caption: "구매전환 B안 · 모델 강조" }
+        { src: "./assets/jinramen-indonesia.jpg", result: "TikTok 진 소재 5종 중 2초 VTR 1위 · 20.6%", caption: "인도네시아 Jin Hero 6초 영상" },
+        { src: "./assets/jin-midnight.jpg", result: "Meta 진 소재 5종 중 3초 VTR 1위 · 18.56%", caption: "인도네시아 Jin Midnight 영상" },
+        { src: "./assets/jin-conv-a.jpg", result: "구매전환 베스트 크리에이티브", caption: "가격 강조 템플릿 · 장바구니 CPA 가장 낮고 ROAS도 우수" }
       ],
       metrics: [
         { value: "224%", label: "인도네시아 TikTok 도달 KPI · 2초 조회 KPI 219%" },
@@ -191,9 +192,9 @@ window.PORTFOLIO = {
         "미디어믹스, 세팅, 광고주 커뮤니케이션, 월간 보고까지 실무 담당"
       ],
       images: [
-        { src: "./assets/travelwallet-still.jpg", caption: "브랜드필름 스틸컷 소재" },
-        { src: "./assets/tw-ad-osaka.jpg", caption: "브랜드필름 2차 이미지 · 오사카 에피소드" },
-        { src: "./assets/tw-ad-food.jpg", caption: "8월 B안 · 맛집 장면" }
+        { src: "./assets/travelwallet-still.jpg", result: "Meta Events 캠페인 최다 소진 소재 중 하나, 효율 유지", caption: "브랜드필름 스틸컷 · 항공샷" },
+        { src: "./assets/tw-ad-osaka.jpg", result: "인스타그램 소셜 성과 1위 에피소드", caption: "브랜드필름 오사카 편 스틸컷" },
+        { src: "./assets/tw-ad-shanghai.jpg", result: "틱톡 소셜 성과 1위 에피소드", caption: "브랜드필름 상하이 편 영상" }
       ],
       metrics: [
         { value: "+69%", label: "광고 기여 게시글 · 브랜드필름 투입 후 일 100건 목표 달성" },
@@ -265,7 +266,6 @@ window.PORTFOLIO = {
       period: "2022.07 — 2024.12",
       detail: "광고대행사 마케팅팀 매니저 · 2024년 크리마 자회사로 편입되며 이름이 바뀐 같은 회사 · 월 4억 원 규모, 8개 업체, 10개 매체 동시 운영",
       numbers: [
-        { value: "-9%", label: "CPA · Meta 웨비나 공식 사례 (카탈로그 소재 수 A/B 테스트)" },
         { value: "500%+", label: "평균 ROAS · GA4 기반 5개 업체 구글 광고" },
         { value: "36% → 20%", label: "장바구니 → 결제 이탈률 · iOS 혜택 누락 오류를 찾아 개선" },
         { value: "+30%", label: "T사 쇼핑몰 2030 회원가입률 (6개월 평균, ROAS 1.2배)" },

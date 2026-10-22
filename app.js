@@ -85,7 +85,7 @@
     return images.length ? `<div class="creative-grid count-${images.length}">${images.map((image) => `
       <figure class="creative">
         <a href="${escapeHTML(image.src)}" target="_blank" rel="noopener"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.caption || project.name)}" loading="lazy" /></a>
-        ${image.caption ? `<figcaption class="detail-caption">${escapeHTML(image.caption)}</figcaption>` : ""}
+        ${image.result || image.caption ? `<figcaption class="detail-caption">${image.result ? `<strong>${escapeHTML(image.result)}</strong>` : ""}${escapeHTML(image.caption || "")}</figcaption>` : ""}
       </figure>`).join("")}</div>` : "";
   };
 
