@@ -60,36 +60,43 @@
     list.hidden = false;
   }
 
-  const projectList = byId("project-list");
-  const detailPanel = byId("project-detail");
-  const projectById = (id) => data.projects.find((project) => project.id === id);
-  projectList.innerHTML = data.projects.map((project, index) => `
-    <button class="project-card${project.previousCompany ? " previous" : ""}" type="button" data-project="${escapeHTML(project.id)}" aria-expanded="false" aria-controls="project-detail">
-      <span class="project-card-top">
-        <span class="project-number">0${index + 1} / CASE STUDY</span>
-        ${project.previousCompany ? '<span class="project-tag previous">이전 회사</span>' : `<span class="project-tag current">${project.current ? "와이즈버즈 · 진행 중" : "와이즈버즈"}</span>`}
-      </span>
-      ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
-      <span class="project-title">${escapeHTML(project.name)}</span>
-      <span class="project-card-bottom">
-        <span class="project-period">${escapeHTML(project.period)}</span>
-        <span class="project-role">역할 <span class="project-role-value">${escapeHTML(project.role)}</span></span>
-        <span class="project-open" aria-hidden="true">＋</span>
-      </span>
-    </button>`).join("");
+  // 프로젝트: 유형(퍼포먼스/브랜딩)별 카드 → 누르면 그 자리에서 한 화면짜리 케이스 카드(팝업)로 열림
+  const projects = data.projects;
+  const brandStyle = (project) => project.color ? `--brand:${project.color[0]};--brand-dark:${project.color[1]}` : "";
+  const groups = data.projectGroups || [{ type: "", title: "" }];
+  byId("project-list").innerHTML = groups.map((group) => {
+    const items = projects.filter((project) => !group.type || project.type === group.type);
+    return `
+    <div class="project-group">
+      ${group.title ? `<div class="project-group-head"><h3>${escapeHTML(group.title)}<span>${items.length}</span></h3>${group.note ? `<p>${escapeHTML(group.note)}</p>` : ""}</div>` : ""}
+      <div class="project-grid">${items.map((project) => `
+        <button class="project-card" type="button" data-index="${projects.indexOf(project)}" style="${brandStyle(project)}" aria-haspopup="dialog">
+          <span class="project-card-top">
+            <span class="project-brand"><i aria-hidden="true"></i>${escapeHTML(project.brand || "")}</span>
+            <span class="project-tag">${escapeHTML(project.company || "")}${project.current ? " · 진행 중" : ""}</span>
+          </span>
+          ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
+          <span class="project-title">${escapeHTML(project.name)}</span>
+          <span class="project-card-bottom">
+            <span class="project-period">${escapeHTML(project.period)}</span>
+            <span class="project-open">자세히 보기 <b aria-hidden="true">→</b></span>
+          </span>
+        </button>`).join("")}</div>
+    </div>`;
+  }).join("");
 
   const projectImages = (project) => project.images || (project.image ? [{ src: project.image, caption: project.imageCaption }] : []);
   // 소재는 눌러서 원본 크기로 볼 수 있게
   const imageMarkup = (project) => {
     const images = projectImages(project);
-    return images.length ? `<div class="creative-grid count-${images.length}">${images.map((image) => `
+    return images.length ? `<div class="creative-grid">${images.map((image) => `
       <figure class="creative">
         <a href="${escapeHTML(image.src)}" target="_blank" rel="noopener"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.caption || project.name)}" loading="lazy" /></a>
         ${image.result || image.caption ? `<figcaption class="detail-caption">${image.result ? `<strong>${escapeHTML(image.result)}</strong>` : ""}${escapeHTML(image.caption || "")}</figcaption>` : ""}
       </figure>`).join("")}</div>` : "";
   };
 
-  // 그래프: 막대 끝에 값, 마우스를 올리면 data-tip 말풍선. 색은 legend 순서(s0 회색, s1 초록)
+  // 그래프: 막대 끝에 값, 마우스를 올리면 data-tip 말풍선. 색은 legend 순서(s0 회색, s1 브랜드 색)
   const formatValue = (value, unit = "") => `${Number.isInteger(value) ? value.toLocaleString("ko-KR") : value.toFixed(1)}${unit}`;
   const chartHead = (chart) => `<figcaption class="chart-head"><strong>${escapeHTML(chart.title)}</strong>${chart.note ? `<span>${escapeHTML(chart.note)}</span>` : ""}</figcaption>`;
   const legendMarkup = (names) => names ? `<div class="chart-legend">${names.map((name, index) => `<span><i class="swatch s${index}"></i>${escapeHTML(name)}</span>`).join("")}</div>` : "";
@@ -125,57 +132,88 @@
       ${chartHead(chart)}${legendMarkup(chart.legend)}
       ${chart.type === "columns" ? columnChart(chart, chart.unit || "") : barChart(chart, chart.unit || "")}
     </figure>`;
-  const metricMarkup = (metrics) => {
-    const cards = metrics.length ? `<div class="metric-grid">${metrics.map((metric) => `
-      <article class="metric-card"><strong class="metric-value">${escapeHTML(metric.value)}</strong><span class="metric-label">${escapeHTML(metric.label)}</span></article>`).join("")}</div>` : "";
-    const rows = metrics.filter((metric) => metric.before || metric.after).map((metric) => `
-      <tr><td>${escapeHTML(metric.label)}</td><td>${escapeHTML(metric.before)}</td><td>${escapeHTML(metric.after || metric.value)}</td></tr>`).join("");
-    const table = rows ? `<div class="metric-table-wrap"><table class="metric-table"><thead><tr><th>지표</th><th>변경 전</th><th>변경 후</th></tr></thead><tbody>${rows}</tbody></table></div>` : "";
-    return cards + table;
-  };
   const listMarkup = (items) => `<ul class="detail-list">${items.map((item) => `<li>${rich(item)}</li>`).join("")}</ul>`;
-  // 업종·매체·팀·기여도를 한 줄로. bar가 있으면 기여도 막대를 그림
+  // 업종·광고비·기여도·매체. bar가 있으면 기여도 막대를 그림
   const factMarkup = (facts) => facts.length ? `<dl class="detail-facts">${facts.map((fact) => `
     <div class="detail-fact${fact.wide ? " wide" : ""}"><dt>${escapeHTML(fact.label)}</dt><dd>${escapeHTML(fact.value)}${fact.bar ? `<span class="fact-bar" aria-hidden="true"><i style="width:${Number(fact.bar)}%"></i></span>` : ""}</dd></div>`).join("")}</dl>` : "";
-  const renderDetail = (project) => {
+
+  // 케이스 카드: 왼쪽은 정보 · # 핵심 전략 · # 돌아보면, 오른쪽은 결과 숫자 · 그래프 · 대표 소재
+  const caseModal = document.createElement("div");
+  caseModal.className = "case-backdrop";
+  caseModal.hidden = true;
+  document.body.appendChild(caseModal);
+  let openIndex = -1;
+  let lastFocus = null;
+  const caseMarkup = (project, index) => {
+    const charts = (project.charts || []).slice(0, 2);
     const insight = project.insight || [];
-    const charts = project.charts || [];
-    const hasImages = projectImages(project).length > 0;
-    detailPanel.innerHTML = `
-      <div class="detail-header">
-        <div><p class="eyebrow">${escapeHTML(project.period)}${project.previousCompany ? " · 이전 회사" : ""}</p><h3>${escapeHTML(project.name)}</h3>${project.goal ? `<p class="detail-goal">${rich(project.goal)}</p>` : ""}</div>
-        <button class="detail-close" type="button" aria-label="프로젝트 상세 닫기">×</button>
+    const images = imageMarkup(project);
+    return `
+    <article class="case-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
+      <header class="case-head">
+        <div>
+          <p class="case-eyebrow"><span class="case-type">${escapeHTML(project.type)} 캠페인</span>${escapeHTML(project.brand || "")} · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}</p>
+          <h3 id="case-title">${escapeHTML(project.name)}</h3>
+          ${project.goal ? `<p class="case-goal">${rich(project.goal)}</p>` : ""}
+        </div>
+        <div class="case-nav">
+          <button type="button" class="case-step" data-step="-1" aria-label="이전 프로젝트">←</button>
+          <span>${index + 1} / ${projects.length}</span>
+          <button type="button" class="case-step" data-step="1" aria-label="다음 프로젝트">→</button>
+          <button type="button" class="case-close" aria-label="닫기">×</button>
+        </div>
+      </header>
+      <div class="case-body">
+        <div class="case-left">
+          ${factMarkup(project.facts || [])}
+          <section class="case-block"><h4># 핵심 전략</h4>${listMarkup(project.work)}</section>
+          ${insight.length ? `<section class="case-block"><h4># 돌아보면</h4>${listMarkup(insight)}</section>` : ""}
+        </div>
+        <div class="case-right">
+          <div class="case-kpis">${project.metrics.slice(0, 4).map((metric) => `
+            <div class="case-kpi"><strong>${escapeHTML(metric.value)}</strong><span>${escapeHTML(metric.label)}</span></div>`).join("")}</div>
+          ${charts.length ? `<div class="case-charts count-${charts.length}">${charts.map(chartMarkup).join("")}</div>` : ""}
+          ${images ? `<div class="case-creatives"><h4># 대표 소재</h4>${images}${project.imagesNote ? `<p class="detail-caption">${escapeHTML(project.imagesNote)}</p>` : ""}</div>` : ""}
+        </div>
       </div>
-      ${factMarkup(project.facts || [])}
-      <div class="detail-sections${hasImages ? "" : " single"}">
-        <section class="detail-block wide"><h4>결과</h4>${metricMarkup(project.metrics)}${charts.length ? `<div class="chart-grid">${charts.map(chartMarkup).join("")}</div>` : ""}</section>
-        <section class="detail-block"><h4>한 일</h4>${listMarkup(project.work)}</section>
-        ${hasImages ? `<section class="detail-block"><h4>대표 소재</h4>${imageMarkup(project)}${project.imagesNote ? `<p class="detail-caption">${escapeHTML(project.imagesNote)}</p>` : ""}</section>` : ""}
-        ${insight.length ? `<section class="detail-block wide"><h4>돌아보면</h4>${listMarkup(insight)}</section>` : ""}
-      </div>`;
-    detailPanel.hidden = false;
-    detailPanel.querySelector(".detail-close").addEventListener("click", closeProject);
+    </article>`;
   };
-  const closeProject = () => {
-    projectList.querySelectorAll(".project-card").forEach((card) => {
-      card.setAttribute("aria-expanded", "false");
-    });
-    detailPanel.hidden = true;
-    detailPanel.innerHTML = "";
+  const openCase = (index) => {
+    openIndex = (index + projects.length) % projects.length;
+    caseModal.innerHTML = caseMarkup(projects[openIndex], openIndex);
+    caseModal.hidden = false;
+    document.documentElement.classList.add("case-open");
+    history.replaceState(null, "", `#case-${projects[openIndex].id}`);
+    caseModal.querySelector(".case-close").focus({ preventScroll: true });
   };
-  projectList.addEventListener("click", (event) => {
+  const closeCase = () => {
+    caseModal.hidden = true;
+    caseModal.innerHTML = "";
+    openIndex = -1;
+    document.documentElement.classList.remove("case-open");
+    history.replaceState(null, "", "#projects");
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  };
+  byId("project-list").addEventListener("click", (event) => {
     const card = event.target.closest(".project-card");
     if (!card) return;
-    const wasOpen = card.getAttribute("aria-expanded") === "true";
-    closeProject();
-    if (!wasOpen) {
-      card.setAttribute("aria-expanded", "true");
-      renderDetail(projectById(card.dataset.project));
-      if (window.matchMedia("(max-width: 760px)").matches) {
-        detailPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
-    }
+    lastFocus = card;
+    openCase(Number(card.dataset.index));
   });
+  caseModal.addEventListener("click", (event) => {
+    if (event.target === caseModal || event.target.closest(".case-close")) return closeCase();
+    const step = event.target.closest(".case-step");
+    if (step) openCase(openIndex + Number(step.dataset.step));
+  });
+  document.addEventListener("keydown", (event) => {
+    if (caseModal.hidden) return;
+    if (event.key === "Escape") closeCase();
+    if (event.key === "ArrowRight") openCase(openIndex + 1);
+    if (event.key === "ArrowLeft") openCase(openIndex - 1);
+  });
+  // #case-lxhausys 처럼 링크로 들어오면 그 프로젝트를 바로 연다
+  const linked = projects.findIndex((project) => location.hash === `#case-${project.id}`);
+  if (linked >= 0) openCase(linked);
 
   byId("career-list").innerHTML = data.career.map((entry) => `
     <article class="timeline-item">
