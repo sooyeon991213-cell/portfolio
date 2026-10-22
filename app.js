@@ -15,13 +15,41 @@
     element.hidden = false;
   };
 
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // 숫자 부분만 0부터 목표값까지 올라가게 (월 6억, -42.7%, +4.3%p 처럼 앞뒤 글자는 그대로)
+  const countUp = (element) => {
+    const text = element.textContent;
+    const match = text.match(/\d+(?:\.\d+)?/);
+    if (!match || reduceMotion) return;
+    const before = text.slice(0, match.index);
+    const after = text.slice(match.index + match[0].length);
+    const target = Number(match[0]);
+    const decimals = (match[0].split(".")[1] || "").length;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / 1100, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = before + (target * eased).toFixed(decimals) + after;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    // 탭이 백그라운드라 애니메이션이 멈춰도 최종 숫자는 꼭 보이게
+    setTimeout(() => { element.textContent = text; }, 1400);
+  };
+
   optionalText(byId("hero-name"), data.hero.name);
   optionalText(byId("hero-intro"), data.hero.intro);
+  if (data.hero.title) {
+    const title = byId("hero-title");
+    title.innerHTML = data.hero.title.map(rich).join("<br />");
+    title.classList.add("results");
+  }
   byId("hero-stats").innerHTML = data.hero.stats.map((stat) => `
     <article class="stat-card">
       <strong class="stat-value">${escapeHTML(stat.value)}</strong>
       <span class="stat-label">${escapeHTML(stat.label)}</span>
     </article>`).join("");
+  byId("hero-stats").querySelectorAll(".stat-value").forEach(countUp);
 
   byId("about-badge").textContent = data.about.badge;
   optionalRich(byId("about-copy"), data.about.copy);
@@ -35,10 +63,10 @@
   const detailPanel = byId("project-detail");
   const projectById = (id) => data.projects.find((project) => project.id === id);
   projectList.innerHTML = data.projects.map((project, index) => `
-    <button class="project-card" type="button" data-project="${escapeHTML(project.id)}" aria-expanded="false" aria-controls="project-detail">
+    <button class="project-card${project.previousCompany ? " previous" : ""}" type="button" data-project="${escapeHTML(project.id)}" aria-expanded="false" aria-controls="project-detail">
       <span class="project-card-top">
         <span class="project-number">0${index + 1} / CASE STUDY</span>
-        ${project.previousCompany ? '<span class="project-tag previous">이전 회사</span>' : '<span class="project-tag">PROJECT</span>'}
+        ${project.previousCompany ? '<span class="project-tag previous">이전 회사</span>' : `<span class="project-tag current">${project.current ? "와이즈버즈 · 진행 중" : "와이즈버즈"}</span>`}
       </span>
       ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
       <span class="project-title">${escapeHTML(project.name)}</span>
@@ -49,11 +77,53 @@
       </span>
     </button>`).join("");
 
-  const imageMarkup = (project) => project.image ? `
-    <figure class="detail-figure">
-      <img class="detail-image" src="${escapeHTML(project.image)}" alt="${escapeHTML(project.name)} 프로젝트 대시보드" />
-      ${project.imageCaption ? `<figcaption class="detail-caption">${escapeHTML(project.imageCaption)}</figcaption>` : ""}
-    </figure>` : "";
+  const projectImages = (project) => project.images || (project.image ? [{ src: project.image, caption: project.imageCaption }] : []);
+  // 소재는 눌러서 원본 크기로 볼 수 있게
+  const imageMarkup = (project) => {
+    const images = projectImages(project);
+    return images.length ? `<div class="creative-grid count-${images.length}">${images.map((image) => `
+      <figure class="creative">
+        <a href="${escapeHTML(image.src)}" target="_blank" rel="noopener"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.caption || project.name)}" loading="lazy" /></a>
+        ${image.caption ? `<figcaption class="detail-caption">${escapeHTML(image.caption)}</figcaption>` : ""}
+      </figure>`).join("")}</div>` : "";
+  };
+
+  // 그래프: 막대 끝에 값, 마우스를 올리면 data-tip 말풍선. 색은 legend 순서(s0 회색, s1 초록)
+  const formatValue = (value, unit = "") => `${Number.isInteger(value) ? value : value.toFixed(1)}${unit}`;
+  const chartHead = (chart) => `<figcaption class="chart-head"><strong>${escapeHTML(chart.title)}</strong>${chart.note ? `<span>${escapeHTML(chart.note)}</span>` : ""}</figcaption>`;
+  const legendMarkup = (names) => names ? `<div class="chart-legend">${names.map((name, index) => `<span><i class="swatch s${index}"></i>${escapeHTML(name)}</span>`).join("")}</div>` : "";
+  const columnChart = (chart, unit) => {
+    const max = Math.max(chart.target || 0, ...chart.items.map((item) => item.value)) * 1.15;
+    const pct = (value) => `${(value / max) * 100}%`;
+    return `
+      <div class="col-plot">
+        ${chart.target ? `<span class="target-line" style="bottom:${pct(chart.target)}"></span>` : ""}
+        ${chart.items.map((item) => `<div class="col-slot"><span class="bar col ${chart.target && item.value < chart.target ? "s0" : "s1"}" style="height:${pct(item.value)}" data-tip="${escapeHTML(`${item.label} ${formatValue(item.value, unit)}`)}"><b>${formatValue(item.value, unit)}</b></span></div>`).join("")}
+      </div>
+      <div class="col-labels">${chart.items.map((item) => `<span>${escapeHTML(item.label)}</span>`).join("")}</div>`;
+  };
+  const barChart = (chart, unit) => {
+    const pairs = chart.type === "pairs";
+    const values = chart.items.flatMap((item) => pairs ? [item.before, item.after] : [item.value]);
+    const max = Math.max(chart.target || 0, ...values) * 1.18;
+    const pct = (value) => `${(value / max) * 100}%`;
+    const bar = (value, tone, tip) => `<span class="bar hbar s${tone}" style="width:${pct(value)}" data-tip="${escapeHTML(tip)}"><b>${formatValue(value, unit)}</b></span>`;
+    return `<div class="hbar-rows">${chart.items.map((item) => `
+      <div class="hbar-row">
+        <span class="hbar-label">${escapeHTML(item.label)}</span>
+        <div class="hbar-track">
+          ${chart.target ? `<i class="target-tick" style="left:${pct(chart.target)}"></i>` : ""}
+          ${pairs
+            ? bar(item.before, 0, `${chart.legend[0]} ${formatValue(item.before, unit)}`) + bar(item.after, 1, `${chart.legend[1]} ${formatValue(item.after, unit)}`)
+            : bar(item.value, item.group ?? 1, `${item.label} ${formatValue(item.value, unit)}`)}
+        </div>
+      </div>`).join("")}</div>`;
+  };
+  const chartMarkup = (chart) => `
+    <figure class="chart">
+      ${chartHead(chart)}${legendMarkup(chart.legend)}
+      ${chart.type === "columns" ? columnChart(chart, chart.unit || "") : barChart(chart, chart.unit || "")}
+    </figure>`;
   const metricMarkup = (metrics) => {
     const cards = metrics.length ? `<div class="metric-grid">${metrics.map((metric) => `
       <article class="metric-card"><strong class="metric-value">${escapeHTML(metric.value)}</strong><span class="metric-label">${escapeHTML(metric.label)}</span></article>`).join("")}</div>` : "";
@@ -68,16 +138,18 @@
     <div class="detail-fact"><dt>${escapeHTML(fact.label)}</dt><dd>${escapeHTML(fact.value)}${fact.bar ? `<span class="fact-bar" aria-hidden="true"><i style="width:${Number(fact.bar)}%"></i></span>` : ""}</dd></div>`).join("")}</dl>` : "";
   const renderDetail = (project) => {
     const insight = project.insight || [];
+    const charts = project.charts || [];
+    const hasImages = projectImages(project).length > 0;
     detailPanel.innerHTML = `
       <div class="detail-header">
         <div><p class="eyebrow">${escapeHTML(project.period)}${project.previousCompany ? " · 이전 회사" : ""}</p><h3>${escapeHTML(project.name)}</h3>${project.goal ? `<p class="detail-goal">${rich(project.goal)}</p>` : ""}</div>
         <button class="detail-close" type="button" aria-label="프로젝트 상세 닫기">×</button>
       </div>
       ${factMarkup(project.facts || [])}
-      <div class="detail-sections${project.image ? "" : " single"}">
+      <div class="detail-sections${hasImages ? "" : " single"}">
         <section class="detail-block"><h4>한 일</h4>${listMarkup(project.work)}</section>
-        ${project.image ? `<section class="detail-block"><h4>소재</h4>${imageMarkup(project)}</section>` : ""}
-        <section class="detail-block wide"><h4>결과</h4>${metricMarkup(project.metrics)}</section>
+        ${hasImages ? `<section class="detail-block"><h4>소재</h4>${imageMarkup(project)}</section>` : ""}
+        <section class="detail-block wide"><h4>결과</h4>${metricMarkup(project.metrics)}${charts.length ? `<div class="chart-grid">${charts.map(chartMarkup).join("")}</div>` : ""}</section>
         ${insight.length ? `<section class="detail-block wide"><h4>돌아보면</h4>${listMarkup(insight)}</section>` : ""}
       </div>`;
     detailPanel.hidden = false;
