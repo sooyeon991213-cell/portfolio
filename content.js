@@ -297,6 +297,7 @@ window.PORTFOLIO = {
         { label: "업종", value: "식품 · 글로벌 브랜딩" },
         { label: "광고비", value: "인도네시아 약 1억 원" },
         { label: "역할", value: "인도네시아 전담, 멕시코 서포트" },
+        { label: "기여도", value: "60%", bar: 60 },
         { label: "매체", value: "Meta · TikTok (도달 · 영상 조회 · 장바구니 · 구매 최적화 캠페인)", wide: true }
       ],
       work: [
