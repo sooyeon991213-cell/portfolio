@@ -380,7 +380,7 @@ window.PORTFOLIO = {
     }
   ],
   automation: {
-    summary: "LX하우시스 Z:IN을 맡으면서 반복 업무를 **Python과 Claude Code로 직접 자동화**했습니다. 셋 다 지금 매일, 매주 쓰고 있는 도구입니다.",
+    summary: "LX하우시스를 담당하며 반복 업무를 Python과 Claude Code로 직접 자동화했습니다.",
     tools: [
       {
         name: "통합 성과 대시보드 · 월간 리포트 자동화",
