@@ -57,17 +57,17 @@ button { cursor: pointer; }
 .theme-toggle { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: transparent; transition: background .2s, border-color .2s; }
 .theme-toggle:hover { background: var(--soft); }
 .theme-icon { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.hero { min-height: 680px; padding-top: clamp(72px, 11vw, 144px); padding-bottom: 50px; display: flex; flex-direction: column; }
+.hero { min-height: 680px; padding-top: clamp(40px, 4.5vw, 64px); padding-bottom: 50px; display: flex; flex-direction: column; }
 .hero-topline, .hero-heading-row { display: flex; justify-content: space-between; align-items: flex-start; }
 .eyebrow { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; font-weight: 720; letter-spacing: .16em; text-transform: uppercase; }
 .hero-years { color: var(--muted); font-size: 11px; font-weight: 560; }
-.hero-heading-row { flex: 1; padding-top: clamp(42px, 7vw, 88px); align-items: flex-end; }
+.hero-heading-row { flex: 1; padding-top: clamp(28px, 3.5vw, 48px); align-items: flex-end; }
 .hero-name { margin: 0 0 14px; font-size: clamp(22px, 3vw, 36px); font-weight: 550; letter-spacing: -.055em; }
 h1 { margin: 0; max-width: 820px; font-size: clamp(62px, 10.2vw, 132px); font-weight: 720; line-height: .93; letter-spacing: -.088em; }
 h1 span { color: var(--muted); font-weight: 480; }
 h1.results { max-width: none; font-size: clamp(34px, 7.6vw, 96px); line-height: 1.08; letter-spacing: -.065em; }
 h1.results strong { font-weight: 800; background: linear-gradient(transparent 58%, var(--accent) 58%, var(--accent) 92%, transparent 92%); }
-.hero-intro { max-width: 520px; margin: 28px 0 0; color: var(--muted); font-size: 16px; line-height: 1.75; letter-spacing: -.02em; }
+.hero-intro { max-width: 600px; margin: 28px 0 0; color: var(--muted); font-size: 16px; line-height: 1.75; letter-spacing: -.02em; word-break: keep-all; }
 .hero-scroll { display: flex; flex-direction: column; align-items: flex-end; gap: 19px; padding-bottom: 10px; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
 .scroll-arrow { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; font-size: 15px; transition: transform .25s ease, background .25s ease; }
 .hero-scroll:hover .scroll-arrow { transform: translateY(4px); background: var(--accent); border-color: var(--accent); }
@@ -77,6 +77,9 @@ h1.results strong { font-weight: 800; background: linear-gradient(transparent 58
 .stat-card { padding: 26px 24px 0 0; min-height: 124px; }
 .stat-card + .stat-card { padding-left: 26px; border-left: 1px solid var(--line); }
 .stat-value { display: block; font-size: clamp(28px, 4vw, 48px); font-weight: 650; line-height: 1.1; letter-spacing: -.065em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stat-tag { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 12px; font-size: 12px; font-weight: 700; letter-spacing: -.02em; }
+.stat-tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--brand, var(--accent)); }
+:root[data-theme="dark"] .stat-tag i { background: var(--brand-dark, var(--accent)); }
 .stat-label { display: block; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 530; letter-spacing: -.02em; word-break: keep-all; }
 .section-block { padding-block: clamp(78px, 10vw, 138px); }
 .section-heading { display: grid; grid-template-columns: minmax(140px, .44fr) 1fr; align-items: start; margin-bottom: 60px; }
@@ -334,6 +337,8 @@ html.case-open { overflow: hidden; }
   .stat-card:last-child { border-bottom: 0; }
   .stat-value { font-size: 30px; }
   .stat-label { margin: 0; text-align: right; }
+  .stat-card, .stat-card + .stat-card { flex-wrap: wrap; row-gap: 4px; }
+  .stat-tag { flex-basis: 100%; margin-bottom: 0; font-size: 11px; }
   .section-block { padding-block: 73px; }
   .section-heading { display: block; margin-bottom: 35px; }
   .section-heading h2 { margin: 14px 0 0; font-size: 39px; }

@@ -11,13 +11,14 @@
 window.PORTFOLIO = {
   hero: {
     name: "석수연 · 퍼포먼스 마케터",
-    title: ["상담신청 단가 **80%** 절감", "리포트 수작업 **0건**"],
-    intro: "와이즈버즈에서 LX하우시스 Z:IN을 실무 PM으로 운영하고 있습니다. 광고를 돌리면서 필요한 리포트·모니터링 도구는 Python과 Claude Code로 직접 만듭니다.",
+    title: ["상담신청 단가 **80%** 절감", "광고비 **19.3억** 운영"],
+    intro: "인테리어, 여행 앱, 식품, 이커머스 광고를 운영했습니다. 지금은 와이즈버즈에서 LX하우시스 Z:IN 실무 PM으로 2026년 1~9월 광고비 19.3억 원을 집행했습니다. 리포트·모니터링 도구는 Python과 Claude Code로 직접 만듭니다.",
+    // 업종마다 대표 성과 하나씩 · tag: 업종, project: 그 프로젝트 브랜드 색으로 점을 칠함
     stats: [
-      { value: "19.3억", label: "LX하우시스 2026년 1~9월 집행 광고비 · 실무 PM (최대 월 4.8억)" },
-      { value: "-42.7%", label: "LX하우시스 SA 상담신청 CPA · 예산 44% 줄여도 상담신청 유지" },
-      { value: "-80.9%", label: "트래블월렛 게시글당 비용 · 소재 A/B 테스트" },
-      { value: "+4.3%p", label: "오뚜기 인도네시아 비보조 인지도 · 벤치마크의 약 3배" }
+      { tag: "인테리어", project: "lxhausys", value: "+177%", label: "LX하우시스 지인페스타 상담신청 · 전년 하반기 대비" },
+      { tag: "여행 결제 앱", project: "travelwallet", value: "-80.9%", label: "트래블월렛 게시글당 비용 · 소재 A/B 테스트" },
+      { tag: "식품 · 국내", project: "sobaba", value: "+6.3%p", label: "CJ제일제당 소바바 비보조 인지도 · APAC 벤치마크의 약 4배" },
+      { tag: "식품 · 글로벌", project: "jinramen", value: "224%", label: "오뚜기 진라면 인도네시아 TikTok 도달 KPI 달성" }
     ]
   },
   about: {

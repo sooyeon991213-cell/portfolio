@@ -44,11 +44,15 @@
     title.innerHTML = data.hero.title.map(rich).join("<br />");
     title.classList.add("results");
   }
-  byId("hero-stats").innerHTML = data.hero.stats.map((stat) => `
-    <article class="stat-card">
+  byId("hero-stats").innerHTML = data.hero.stats.map((stat) => {
+    const color = (data.projects.find((project) => project.id === stat.project) || {}).color;
+    return `
+    <article class="stat-card"${color ? ` style="--brand:${color[0]};--brand-dark:${color[1]}"` : ""}>
+      ${stat.tag ? `<span class="stat-tag"><i aria-hidden="true"></i>${escapeHTML(stat.tag)}</span>` : ""}
       <strong class="stat-value">${escapeHTML(stat.value)}</strong>
       <span class="stat-label">${escapeHTML(stat.label)}</span>
-    </article>`).join("");
+    </article>`;
+  }).join("");
   byId("hero-stats").querySelectorAll(".stat-value").forEach(countUp);
 
   if (data.about.badge) byId("about-badge").textContent = data.about.badge;
