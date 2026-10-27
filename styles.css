@@ -278,7 +278,7 @@ html.case-open { overflow: hidden; }
 .back-top { transition: opacity .2s ease; }
 :focus-visible { outline: 2px solid #739b31; outline-offset: 4px; }
 @media (min-width: 1450px) { .hero { min-height: 760px; } }
-@media (max-width: 760px) {
+@media screen and (max-width: 760px) {
   :root { --pad: 25px; }
   .site-header { height: 65px; }
   .main-nav { gap: 16px; }
@@ -312,7 +312,7 @@ html.case-open { overflow: hidden; }
   .orbit-one { right: 4px; }
   .orbit-two { right: -72px; }
 }
-@media (max-width: 540px) {
+@media screen and (max-width: 540px) {
   :root { --pad: 20px; }
   .site-header { padding-inline: 18px; }
   .main-nav { gap: 12px; }
@@ -373,4 +373,4 @@ html.case-open { overflow: hidden; }
 }
 .creative figcaption strong { display: block; margin-bottom: 2px; color: var(--ink); font-size: 11px; font-weight: 700; }
 .case-nav button:focus-visible { outline: 2px solid var(--b); outline-offset: 2px; }
-@media (max-width: 760px) { .case-left { order: 2; } }
+@media screen and (max-width: 760px) { .case-left { order: 2; } }
