@@ -206,7 +206,7 @@ html.case-open { overflow: hidden; }
 .detail-block.wide .metric-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
 .detail-block .detail-image { margin-top: 0; }
 .detail-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.7; }
-.detail-list li { position: relative; padding-left: 16px; }
+.detail-list li { position: relative; padding-left: 16px; white-space: pre-line; }
 .detail-list li::before { content: ""; position: absolute; left: 0; top: .85em; width: 7px; height: 1px; background: var(--ink); }
 .detail-list strong { color: var(--ink); font-weight: 700; }
 .detail-fact.wide { grid-column: 1 / -1; }
@@ -252,7 +252,7 @@ html.case-open { overflow: hidden; }
 .timeline-detail { padding-left: 11px; border-left: 1px solid var(--line); }
 .timeline-numbers { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
 .timeline-number { display: inline-flex; align-items: baseline; gap: 5px; font-size: 12px; }
-.timeline-number strong { font-size: 20px; font-weight: 700; letter-spacing: -.04em; }
+.timeline-number strong { font-size: 20px; font-weight: 700; letter-spacing: -.04em; white-space: nowrap; flex-shrink: 0; }
 .automation-section { background: var(--soft); }
 .automation-card { position: relative; min-height: 330px; padding: clamp(26px, 5vw, 56px); overflow: hidden; background: #20241b; color: #f3f3ea; }
 .automation-index { position: relative; z-index: 1; color: #bfc9ac; font-size: 9px; font-weight: 700; letter-spacing: .17em; }
