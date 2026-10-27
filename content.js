@@ -44,11 +44,11 @@ window.PORTFOLIO = {
     {
       id: "lxhausys",
       type: "퍼포먼스",
-      brand: "LX하우시스 Z:IN",
+      brand: "LX하우시스",
       color: ["#C8102E", "#FF6B7F"],
       company: "와이즈버즈",
       current: true,
-      name: "LX하우시스 Z:IN 지인페스타 · 취향의발견 캠페인",
+      name: "LX하우시스 지인페스타 · 취향의발견 캠페인",
       period: "2026.01 — 현재",
       highlight: { value: "+177%", label: "하반기 지인페스타 상담신청 · 전년 하반기 대비" },
       role: "실무 PM · 운영 · 자동화 개발",
@@ -57,6 +57,7 @@ window.PORTFOLIO = {
         { label: "업종", value: "인테리어 · 건자재" },
         { label: "기여도", value: "80%", bar: 80 },
         { label: "광고비", value: "상반기 지인페스타 3.86억 · 하반기 지인페스타 1.65억 · 취향의발견 1.81억 (9월) / 2026년 1~9월 전체 19.3억", wide: true },
+        { label: "최적화 기준", value: "GA 데이터 기준 · 유입 캠페인은 세션 수 최대화, 전환 캠페인은 전환 수 최대화", wide: true },
         { label: "매체", value: "검색: 네이버 파워링크 · 브랜드검색 · 플레이스, Google SA / 디스플레이: Meta · Google Demand Gen · PMax · 네이버 GFA · 카카오 비즈보드 · TikTok · DV360 · 당근", wide: true }
       ],
       work: [
@@ -356,7 +357,7 @@ window.PORTFOLIO = {
     {
       company: "와이즈버즈",
       period: "2025.07 — 현재",
-      detail: "디지털 광고대행사 · 대리 · 4개 광고주 캠페인 PM (LX하우시스 Z:IN, 트래블월렛, CJ제일제당 소바바, 오뚜기 진라면)",
+      detail: "디지털 광고대행사 · 대리 · 4개 광고주 캠페인 PM (LX하우시스, 트래블월렛, CJ제일제당 소바바, 오뚜기 진라면)",
       numbers: [
         { value: "32억", label: "운영 광고비 · LX하우시스 19.3억, 트래블월렛 8.35억, 소바바 3.73억, 오뚜기 1.0억" },
         { value: "-80%", label: "LX하우시스 지인페스타 전환 CPA · 전년 하반기 대비" },
