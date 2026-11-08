@@ -46,8 +46,32 @@
     // 글자 수가 많은 제목은 조금 작게
     if (data.hero.title.some((line) => line.replace(/\*\*/g, "").length > 14)) title.classList.add("long");
   }
-  // 제목 아래: story(경력 단계)가 있으면 단계 카드, 없으면 예전 stats 카드
-  if (data.hero.story) {
+  // 제목 아래: campaigns(회사별 업종 캠페인 표) → story(경력 단계 카드) → stats(숫자 카드) 순서로 있는 것을 그림
+  const projectColor = (id) => (data.projects.find((project) => project.id === id) || {}).color;
+  if (data.hero.campaigns) {
+    if (byId("hero-story-label")) optionalText(byId("hero-story-label"), data.hero.storyLabel);
+    const holder = byId("hero-stats");
+    holder.classList.add("campaign-mode");
+    holder.setAttribute("aria-label", "업종별 캠페인");
+    holder.innerHTML = `
+      <div class="campaign-table" role="table">
+        <div class="campaign-row campaign-head" role="row"><span>업종</span><span>광고주</span><span>KPI</span><span>운영</span><span>광고비</span></div>
+        ${data.hero.campaigns.map((group) => `
+        <div class="campaign-group" role="row"><b>${escapeHTML(group.company)}</b><span>${escapeHTML(group.period)} · ${escapeHTML(group.role)}</span></div>
+        ${group.rows.map((row) => {
+          const color = projectColor(row.project);
+          return `
+        <div class="campaign-row" role="row"${color ? ` style="--brand:${color[0]};--brand-dark:${color[1]}"` : ""}>
+          <span class="c-industry"><i aria-hidden="true"></i>${escapeHTML(row.industry)}</span>
+          <span class="c-brand">${escapeHTML(row.brand)}</span>
+          <span class="c-kpi">${escapeHTML(row.kpi)}</span>
+          <span class="c-how">${escapeHTML(row.how)}</span>
+          <span class="c-budget">${escapeHTML(row.budget || "–")}</span>
+        </div>`;
+        }).join("")}`).join("")}
+      </div>
+      ${data.hero.campaignNote ? `<p class="campaign-note">${escapeHTML(data.hero.campaignNote)}</p>` : ""}`;
+  } else if (data.hero.story) {
     if (byId("hero-story-label")) optionalText(byId("hero-story-label"), data.hero.storyLabel);
     byId("hero-stats").classList.add("story-grid");
     byId("hero-stats").innerHTML = data.hero.story.map((step) => `
@@ -116,7 +140,7 @@
           ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
           <span class="project-title">${escapeHTML(project.name)}</span>
           <span class="project-card-bottom">
-            <span class="project-period">${escapeHTML(project.period)}</span>
+            <span class="project-period">${escapeHTML(project.period)}${project.budget ? `<b class="project-budget">${escapeHTML(project.budget)}</b>` : ""}</span>
             <span class="project-open">자세히 보기 <b aria-hidden="true">→</b></span>
           </span>
         </button>`).join("")}</div>
@@ -190,7 +214,7 @@
     <article class="case-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
       <header class="case-head">
         <div>
-          <p class="case-eyebrow"><span class="case-type">${escapeHTML(project.type)} 캠페인</span>${escapeHTML(project.brand || "")} · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}</p>
+          <p class="case-eyebrow"><span class="case-type">${escapeHTML(project.type)} 캠페인</span>${escapeHTML(project.brand || "")} · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.budget ? `<span class="case-budget">${escapeHTML(project.budget)}</span>` : ""}</p>
           <h3 id="case-title">${escapeHTML(project.name)}</h3>
           ${project.goal ? `<p class="case-goal">${rich(project.goal)}</p>` : ""}
         </div>

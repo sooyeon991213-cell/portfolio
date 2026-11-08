@@ -320,6 +320,38 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 .tool-steps.tool-flow li::before { content: counter(step); counter-increment: step; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; background: rgba(199, 243, 106, .18); color: var(--accent); font-size: 10px; font-weight: 700; }
 .tool-steps.tool-flow li + li::after { content: ""; position: absolute; left: 20px; top: -9px; width: 1px; height: 9px; background: rgba(199, 243, 106, .45); }
 .tool-steps.tool-flow li:first-child { font-family: ui-monospace, Consolas, monospace; color: var(--accent); }
+/* 2026-11-08 히어로 아래: 회사별 업종 캠페인 표 */
+.stats-grid.campaign-mode { display: block; }
+.hero:has(.campaign-mode) .hero-rule { margin-top: 34px; }
+.hero:has(.campaign-mode) .hero-heading-row { padding-top: clamp(20px, 2.6vw, 36px); }
+.hero:has(.campaign-mode) .hero-intro { margin-top: 20px; }
+.campaign-table { margin-top: 10px; }
+.campaign-row { display: grid; grid-template-columns: 128px minmax(0, 1.25fr) minmax(0, .95fr) minmax(0, 2fr) 96px; gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; letter-spacing: -.02em; word-break: keep-all; }
+.campaign-head { padding: 0 0 7px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.campaign-head span:last-child, .c-budget { text-align: right; }
+.campaign-group { display: flex; align-items: baseline; gap: 10px; padding: 14px 0 3px; }
+.campaign-group b { font-size: 13px; font-weight: 800; letter-spacing: -.03em; }
+.campaign-group span { color: var(--muted); font-size: 11px; font-weight: 560; }
+.c-industry { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; }
+.c-industry i { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--brand, #9aa08f); }
+:root[data-theme="dark"] .c-industry i { background: var(--brand-dark, #9aa08f); }
+.c-brand { font-weight: 700; }
+.c-kpi { color: #4f7a12; font-weight: 700; }
+:root[data-theme="dark"] .c-kpi { color: var(--accent); }
+.c-how { color: var(--muted); font-size: 12.5px; }
+.c-budget { font-size: 15px; font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.campaign-note { margin: 8px 0 0; color: var(--muted); font-size: 10.5px; }
+.project-budget { margin-left: 8px; padding-left: 8px; border-left: 1px solid var(--line); font-weight: 750; }
+.case-budget { margin-left: 10px; padding: 3px 9px; border-radius: 999px; background: var(--accent); color: #25320f; font-weight: 750; }
+@media screen and (max-width: 760px) {
+  .campaign-head { display: none; }
+  .campaign-row { grid-template-columns: minmax(0, 1fr) auto; gap: 3px 12px; padding: 11px 0; }
+  .c-industry { grid-column: 1 / -1; }
+  .c-brand { grid-column: 1; }
+  .c-budget { grid-column: 2; grid-row: 2; }
+  .c-kpi, .c-how { grid-column: 1 / -1; }
+  .campaign-group { flex-wrap: wrap; row-gap: 2px; }
+}
 @media (min-width: 1450px) { .hero { min-height: 760px; } }
 @media screen and (max-width: 760px) {
   :root { --pad: 25px; }
