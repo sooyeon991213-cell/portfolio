@@ -293,17 +293,18 @@
     <article class="tool-card">
       <p class="tool-index">0${index + 1} / ${escapeHTML(tool.stack)}</p>
       <h3>${escapeHTML(tool.name)}</h3>
-      ${tool.image ? `<figure class="tool-figure"><img src="${escapeHTML(tool.image)}" alt="${escapeHTML(tool.name)} 화면" loading="lazy" />${tool.caption ? `<figcaption>${escapeHTML(tool.caption)}</figcaption>` : ""}</figure>` : ""}
+      ${tool.image ? `<figure class="tool-figure">${tool.demo ? `<a href="${escapeHTML(tool.demo.href)}" target="_blank" rel="noopener">` : ""}<img src="${escapeHTML(tool.image)}" alt="${escapeHTML(tool.name)} 화면" loading="lazy" />${tool.demo ? "</a>" : ""}${tool.caption ? `<figcaption>${escapeHTML(tool.caption)}</figcaption>` : ""}</figure>` : ""}
+      ${tool.demo ? `<a class="tool-demo" href="${escapeHTML(tool.demo.href)}" target="_blank" rel="noopener">${escapeHTML(tool.demo.label)} ↗</a>` : ""}
       ${tool.flowLabel ? `<p class="tool-flow-label">${escapeHTML(tool.flowLabel)}</p>` : ""}
       ${tool.steps ? `<ol class="tool-steps${tool.image ? "" : " tool-flow"}">${tool.steps.map((step) => typeof step === "string"
         ? `<li>${escapeHTML(step)}</li>`
         : `<li><span class="step-text"><b>${escapeHTML(step.t)}</b>${step.d ? `<small>${escapeHTML(step.d)}</small>` : ""}</span></li>`).join("")}</ol>` : ""}
       <dl class="tool-facts">
-        <div><dt>전에는</dt><dd>${rich(tool.problem)}</dd></div>
-        <div><dt>직접 만든 것</dt><dd>${Array.isArray(tool.built)
+        <div><dt>업무 과제</dt><dd>${rich(tool.problem)}</dd></div>
+        <div><dt>자동화 구현</dt><dd>${Array.isArray(tool.built)
           ? `<ul class="tool-built">${tool.built.map((item) => `<li>${rich(item)}</li>`).join("")}</ul>`
           : rich(tool.built)}</dd></div>
-        <div><dt>바뀐 점</dt><dd>${rich(tool.effect)}</dd></div>
+        <div><dt>운영 효과</dt><dd>${rich(tool.effect)}</dd></div>
       </dl>
     </article>`).join("");
   if (data.contact.email) {
