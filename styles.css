@@ -712,3 +712,5 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 .s-top.collage img { display: block; width: 100%; height: auto; box-shadow: 0 14px 34px rgba(0, 0, 0, .22); }
 /* 캔버스(1280×720)가 화면보다 클 때도 정확히 가운데: 절대 위치 + translate */
 .case-backdrop:not(.stacked) .case-panel.slide { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(var(--s, 1)); }
+/* 11/08 19차: 데이위즈 회사 설명은 이름 바로 옆에 작게 */
+.company-note { margin-left: 6px; color: var(--muted); font-size: 12px; font-weight: 500; letter-spacing: -.01em; vertical-align: middle; }

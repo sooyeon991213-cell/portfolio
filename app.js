@@ -366,7 +366,7 @@
   byId("career-list").innerHTML = data.career.map((entry) => `
     <article class="timeline-item">
       <span class="timeline-dot" aria-hidden="true"></span>
-      <h3>${escapeHTML(entry.company)}${entry.formerly ? ` <small class="formerly">(${escapeHTML(entry.formerly)})*</small>` : ""}</h3>
+      <h3>${escapeHTML(entry.company)}${entry.formerly ? ` <small class="formerly">(${escapeHTML(entry.formerly)})${entry.note ? "*" : ""}</small>` : ""}${entry.note ? ` <small class="company-note">${escapeHTML(entry.note)}</small>` : ""}</h3>
       <div class="timeline-meta"><span class="timeline-period">${escapeHTML(entry.period)}</span>${entry.detail ? `<span class="timeline-detail">${escapeHTML(entry.detail)}</span>` : ""}</div>
       ${entry.numbers.length ? `<div class="timeline-numbers">${entry.numbers.map((item) => `<span class="timeline-number"><span>${escapeHTML(item.label)}</span>${item.value ? `<strong>${escapeHTML(item.value)}</strong>` : ""}</span>`).join("")}</div>` : ""}
       ${entry.footnote ? `<p class="timeline-footnote">${escapeHTML(entry.footnote)}</p>` : ""}
