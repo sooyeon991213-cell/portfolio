@@ -11,10 +11,10 @@
  */
 window.PORTFOLIO = {
   hero: {
-    name: "5년차 퍼포먼스 마케터 석수연",
-    // 2026-11-08: 한 프로젝트 숫자 대신 강점(획득 운영 → 퍼널 → 자동화)을 제목으로. 아임웹 주요업무 순서와 같음
-    title: ["SA·DA 운영부터 **퍼널 개선**", "리포트 **완전 자동화**까지"],
-    intro: "광고대행사 5년 동안 이커머스, 앱, 리드, 브랜딩 캠페인을 직접 운영했습니다.",
+    // 2026-11-08 수연이가 준 첫 장 문구 그대로
+    name: "석수연 · 5년 차 퍼포먼스 마케터",
+    title: ["매체 운영·크리에이티브·데이터를", "하나의 **성과 흐름**으로 연결합니다"],
+    intro: "광고대행사에서 5년간 이커머스·앱·리드젠·브랜딩 캠페인을 운영하며 누적 약 62억 원의 광고비를 집행했습니다.",
     // 제목 아래: 회사별로 묶은 업종별 캠페인 표 (5년 흐름 + 캠페인 KPI + 광고비). 2026-11-08 수연이가 정리해 준 KPI 기준
     storyLabel: "업종별 캠페인",
     campaignNote: "",
@@ -22,7 +22,7 @@ window.PORTFOLIO = {
       {
         company: "와이즈버즈", period: "2025.07 – 현재", role: "대리, 캠페인 PM",
         rows: [
-          { industry: "인테리어", project: "lxhausys", brand: "LX하우시스", kpi: "세션·상담신청 DB", how: "SA·DA 12개 매체, 지인페스타·취향의발견", budget: "19.3억" },
+          { industry: "인테리어", project: "lxhausys", brand: "LX하우시스", kpi: "상담신청 DB·세션", how: "SA·DA 12개 매체, 지인페스타·취향의발견", budget: "19.3억" },
           { industry: "여행 결제 앱", project: "travelwallet", brand: "트래블월렛", kpi: "여행 게시글 조회·작성", how: "브랜드필름 촬영, 8월 집중 운영, 신규 매체 테스트", budget: "8.35억" },
           { industry: "식품", project: "sobaba", brand: "CJ제일제당 소바바", kpi: "조회수", how: "실사·애니 두 세계관 숏폼, Instagram·TVING", budget: "3.73억" },
           { industry: "식품·글로벌", project: "jinramen", brand: "오뚜기 진라면", kpi: "도달·조회", how: "인도네시아·멕시코, 현지 인플루언서·진 모델 소재", budget: "약 1억" },
@@ -90,40 +90,41 @@ window.PORTFOLIO = {
       "글로벌: 멕시코·인도네시아 캠페인"
     ]
   },
-  projectGroups: [
-    { type: "퍼포먼스", title: "퍼포먼스 캠페인", note: "상담신청, 게시글, 매출 같은 전환 KPI" },
-    { type: "브랜딩", title: "브랜딩 캠페인", note: "도달, 조회, 브랜드 리프트 KPI" }
-  ],
+  // 2026-11-08 프로젝트 구조: 제목 = 광고주, 소제목 = 캠페인. 케이스는 KPI → Approach → Results.
+  //   results[].ref = 그 결과를 만든 approach 번호(1부터). media = 매체 이름만, kpis = KPI만.
+  //   순서: LX → 트래블월렛 → 오뚜기 → 소바바 → 블랙업 (수연이 지정). images는 설명 없이.
+  projectGroups: null,
   projects: [
     {
       id: "lxhausys",
-      type: "퍼포먼스",
       brand: "LX하우시스",
+      campaign: "상담신청 DB 확보 캠페인",
+      industry: "인테리어·건자재",
       color: ["#C8102E", "#FF6B7F"],
       company: "와이즈버즈",
       current: true,
-      name: "LX하우시스 세션·상담신청 DB 확보 캠페인",
       period: "2026.01 — 현재",
-      budget: "광고비 19.3억",
+      budget: "19.3억",
+      contribution: 80,
       highlight: { value: "-80%", label: "지인페스타 전환 CPA, 전년 하반기 대비" },
-      role: "실무 PM, 운영, 자동화 개발",
-      goal: "인테리어 상담신청(DB) 확보, 상·하반기 지인페스타와 취향의발견(큰손 노희영) 중심",
-      facts: [
-        { label: "업종", value: "인테리어·건자재" },
-        { label: "기여도", value: "80%", bar: 80 },
-        { label: "광고비", value: "19.3억 (2026.01~09 집행), 지인페스타·취향의발견 7.32억 포함", wide: true },
-        { label: "매체", value: "네이버 파워링크, 브랜드검색, 플레이스, Google SA / Meta, Demand Gen, PMax, GFA, 카카오, TikTok, DV360, 당근", wide: true }
+      goal: "인테리어 업체를 고르는 긴 탐색 과정(정보 탐색 → 업체 비교 → 상담신청)에서 LX하우시스를 상담 고려 업체로 올리고, 상담신청 DB로 연결",
+      kpis: ["상담신청 DB", "GA 세션", "상담신청 CPA"],
+      media: ["네이버 파워링크", "네이버 브랜드검색", "네이버 플레이스", "Google SA", "Meta", "Google Demand Gen", "Google PMax", "네이버 GFA", "카카오", "TikTok", "DV360", "당근"],
+      approach: [
+        { t: "BAU 상시 운영", d: "트래픽은 시공사례 소재로 세션을 확보하고, 전환은 상담신청 이벤트 소재로 상시 운영 (GA 기준 세션 수·전환 수 최대화)" },
+        { t: "D2C 직계약 캠페인", d: "본사 직계약(창호·주방) 캠페인을 따로 편성하고, 매체별 참여시간을 보고 예산 조정" },
+        { t: "성수기 지인페스타", d: "3~4월·9~10월 티징 → 본 캠페인 → 리드젠으로 운영, 상반기 결과를 분석해 하반기 트래픽 : 전환을 31 : 69 → 55 : 45로 재편" },
+        { t: "취향의발견", d: "하반기 인플루언서 큰손 노희영 소재로 사전 인지 → 전환 캠페인 순서로 운영" },
+        { t: "SA 구조·입찰", d: "파워링크는 PC·MO와 검색 의도별(제품·브랜드·시공·지역·쇼룸·이벤트) 캠페인, 구글 SA는 Brand·Non-Brand로 분리. 전환 키워드 기준 데일리 입찰 조정, 확장검색으로 신규 키워드 발굴, 비효율 키워드 하향·OFF" },
+        { t: "고단가 Only 캠페인 정리", d: "네이버 SA 예산 12%를 쓰고 상담 기여는 4.2%였던 샷시·창호·벽지 등 고단가 키워드 캠페인 OFF" }
       ],
-      work: [
-        "**지인페스타** 상반기 결과로 하반기 트래픽 : 전환을 31 : 69 → 55 : 45로 조정, GA 기준 세션·전환 수 최대화\n→ 전환 CPA 상반기 대비 57%, 전년 하반기 대비 80% 절감",
-        "**소재 테스트** 벽지 소재 이미지 → 영상 전환, USP vs 헤리티지 영상 비교\n→ 벽지 상담신청 3건 → 61건, USP 51건 : 헤리티지 2건",
-        "**검색광고** 네이버 확장검색, 구글 Non-Brand 입찰전략을 전환수 최대화로 변경\n→ 비용 19%로 전환 59% 확보, 상담신청 +108.6%"
-      ],
-      metrics: [
-        { value: "-71%", label: "상반기 지인페스타 유입 세션 단가, 전년 지인페스타 대비" },
-        { value: "-57%", label: "하반기 지인페스타 전환 CPA, 상반기 대비, 광고비 56% 줄이고 세션 +39%" },
-        { value: "+177%", label: "하반기 지인페스타 상담신청, 전년 하반기 대비, 전환 CPA -80%" },
-        { value: "+108.6%", label: "구글 SA Non-Brand 상담신청, 입찰전략 변경 후, CPA 약 59% 개선" }
+      results: [
+        { value: "-80%", label: "하반기 지인페스타 전환 CPA, 전년 하반기 대비 (상담신청 163 → 452건)", ref: 3 },
+        { value: "258%", label: "BAU 상담신청 목표 달성률 (8월), 6~9월 4개월 연속 초과", ref: 1 },
+        { value: "-38%", label: "하반기 리드젠 리드 CPA, 역대 지인페스타 최저", ref: 3 },
+        { value: "-21%", label: "취향의발견 트래픽 세션 단가, 노희영 소재 투입 후", ref: 4 },
+        { value: "-37%", label: "네이버 SA CPC, Only 캠페인 OFF 후 (CPA 18만 → 10만 원대)", ref: 6 },
+        { value: "-42.7%", label: "SA 상담신청 CPA, 1월 → 9월 (비용 -44%에도 상담신청 유지)", ref: 5 }
       ],
       charts: [
         {
@@ -151,46 +152,41 @@ window.PORTFOLIO = {
         }
       ],
       images: [
-        { src: "./assets/lx-spring-kv.jpg", result: "Meta 상담신청 최다 소재군", caption: "상반기 지인페스타 키비주얼" },
-        { src: "./assets/lx-top-keyvisual.jpg", result: "9월 상담신청 1위", caption: "하반기 지인페스타 키비주얼" },
-        { src: "./assets/lx-top-diamant.jpg", result: "9월 상담신청 2위", caption: "디아망 포티스 후기형 (벽지 영상)" },
-        { src: "./assets/lx-top-kvmotion.jpg", result: "4위, 단가 2번째로 낮음", caption: "하반기 키비주얼 모션그래픽" },
-        { src: "./assets/lx-top-noh.jpg", result: "9월 상담신청 3위", caption: "취향의발견 큰손 노희영 주방 편" }
+        { src: "./assets/lx-spring-kv.jpg", alt: "상반기 지인페스타 키비주얼" },
+        { src: "./assets/lx-top-keyvisual.jpg", alt: "하반기 지인페스타 키비주얼" },
+        { src: "./assets/lx-top-diamant.jpg", alt: "디아망 포티스 후기형 영상" },
+        { src: "./assets/lx-top-kvmotion.jpg", alt: "하반기 키비주얼 모션그래픽" },
+        { src: "./assets/lx-top-noh.jpg", alt: "취향의발견 큰손 노희영 주방 편" }
       ],
-      imagesNote: "상반기는 3월 월간리뷰 Meta 전환 기준, 나머지는 2026년 9월 DA 소재 270개 기준",
       insight: [
         "세션 단가만 보면 TikTok 애드네트워크가 가장 쌌지만 평균 참여시간이 0.9초였습니다. 단가가 아니라 **참여시간 기준**으로 매체를 다시 골랐습니다."
       ]
     },
     {
       id: "travelwallet",
-      type: "퍼포먼스",
       brand: "트래블월렛",
+      campaign: "여행 게시글 조회·작성 캠페인",
+      industry: "여행 결제 앱",
       color: ["#1D6FE8", "#7AB0FF"],
       company: "와이즈버즈",
-      name: "트래블월렛 여행 게시글 조회·작성 캠페인",
       period: "2025.07 — 2025.10",
-      budget: "광고비 8.35억",
-      highlight: { value: "-80.9%", label: "게시글당 비용(CPA), 스틸컷 vs AI 인물" },
-      role: "미디어믹스, 운영, 소재 기획, 월간 보고",
-      goal: "앱 소셜(여행 동행) 기능 활성화, 여행 게시글 하루 100건",
-      facts: [
-        { label: "업종", value: "여행 결제 앱" },
-        { label: "기여도", value: "70%", bar: 70 },
-        { label: "광고비", value: "8.35억 (담당 기간 집행, 8월 메인)", wide: true },
-        { label: "매체", value: "Meta, Google, TikTok, Apple Search Ads, 네이버 GFA, 브랜드검색, Threads, 마이리얼트립, 트리플 등 14개", wide: true }
+      budget: "8.35억",
+      contribution: 70,
+      highlight: { value: "-80.9%", label: "게시글당 비용, AI 인물 → 브랜드필름 스틸컷" },
+      goal: "앱의 신규 소셜(여행 동행) 기능을 알리고, 여행 게시글 작성을 하루 100건까지 끌어올리기",
+      kpis: ["여행 게시글 작성", "소셜 조회", "게시글당 비용"],
+      media: ["Meta", "Google", "TikTok", "Apple Search Ads", "네이버 GFA", "네이버 브랜드검색", "Threads", "데이블", "X", "마이리얼트립", "트리플", "키로뷰"],
+      approach: [
+        { t: "초기 론칭", d: "쓸 수 있는 이미지가 없어 생성형 AI로 여행지·동행 유형별 인물 소재를 만들고, 게시글 작성 최적화 중심으로 운영" },
+        { t: "측정 설계", d: "에어브릿지 소셜 이벤트 3개·iOS SKAN 4.0 전환값 기준을 기획해 개발 요청, Meta 캠페인을 트래픽·앱 설치·소셜 조회 단계로 세분화" },
+        { t: "브랜드필름", d: "뉴욕·상하이·오사카·싱가포르 숏폼 4편 촬영·8월 집중 운영, 스틸컷은 퍼포먼스 소재로 재활용" },
+        { t: "신규 매체 발굴", d: "데이블, X, 사람인, 에브리타임 테스트 → 마이리얼트립, 트리플, 키로뷰(인천공항), Threads까지 14개 매체 운영" }
       ],
-      work: [
-        "**브랜드필름** 도시별 숏폼 4편 촬영·8월 집중 운영, 스틸컷은 퍼포먼스 소재로 재활용\n→ 광고 기여 게시글 +69%, 일 100건 목표 달성",
-        "**A/B 테스트** 브랜드필름 스틸컷 vs AI 인물 소재\n→ 게시글당 비용 80.9% 절감",
-        "**측정 설계** 에어브릿지 소셜 이벤트 3개·iOS SKAN 4.0 전환값 기준 기획 및 개발 요청\n→ 재참여 캠페인 소셜 조회당 비용 90.3% 절감",
-        "**신규 매체 발굴** 데이블, X, 사람인, 에브리타임 테스트, 마이리얼트립, 트리플, 키로뷰(인천공항), Threads까지 14개 매체 운영"
-      ],
-      metrics: [
-        { value: "-80.9%", label: "게시글당 비용, 스틸컷 vs AI 인물 소재 A/B 테스트" },
-        { value: "-90.3%", label: "소셜 조회당 비용, 이벤트 재설계 후 재참여 캠페인" },
-        { value: "+69%", label: "광고 기여 게시글, 브랜드필름 투입 후 일 100건 목표 달성" },
-        { value: "+113%", label: "게시글 수, Meta 소재 운영 변경, CPA 상승은 7%에서 막음" }
+      results: [
+        { value: "+69%", label: "광고 기여 게시글, 브랜드필름 투입 후 (일 100건 목표 달성)", ref: 3 },
+        { value: "-80.9%", label: "게시글당 비용, AI 인물 → 브랜드필름 스틸컷 소재", ref: 3 },
+        { value: "-90.3%", label: "소셜 조회당 비용, 이벤트 재설계 후 재참여 캠페인", ref: 2 },
+        { value: "7배", label: "소셜 조회, 같은 타겟·소진에서 게시글 최적화 대비 (게시글 3배)", ref: 2 }
       ],
       charts: [
         {
@@ -217,97 +213,112 @@ window.PORTFOLIO = {
         }
       ],
       images: [
-        { src: "./assets/travelwallet-still.jpg", result: "Events 캠페인 최다 소진", caption: "브랜드필름 항공샷" },
-        { src: "./assets/tw-ad-osaka.jpg", result: "인스타그램 1위 에피소드", caption: "오사카 편 스틸컷" },
-        { src: "./assets/tw-ad-shanghai.jpg", result: "틱톡 1위 에피소드", caption: "상하이 편 영상" }
+        { src: "./assets/travelwallet-still.jpg", alt: "브랜드필름 항공샷" },
+        { src: "./assets/tw-ad-osaka.jpg", alt: "오사카 편 스틸컷" },
+        { src: "./assets/tw-ad-shanghai.jpg", alt: "상하이 편 영상" }
       ],
       insight: [
         "같은 브랜드필름인데 인스타그램은 오사카, 틱톡은 상하이 편 반응이 가장 좋았습니다. 둘 다 맛집과 가벼운 술자리 장면이었습니다."
       ]
     },
     {
-      id: "blackfriday",
-      type: "퍼포먼스",
-      brand: "블랙업",
-      color: ["#222222", "#E5E5E5"],
-      company: "데이위즈 (구 엔포니)",
-      name: "블랙업(BLACKUP) 블랙프라이데이 매출·신규 고객 캠페인",
-      period: "2024.10 — 2024.11",
-      budget: "예산 8,800만 원",
-      highlight: { value: "601%", label: "Google ROAS, 자사 최고 매출" },
-      role: "미디어믹스 설계, 전 매체 운영",
-      goal: "SMB 여성 패션 쇼핑몰의 1년 중 가장 큰 행사, 매출과 ROAS 최대화, 신규 고객 확보",
-      facts: [
-        { label: "업종", value: "여성 패션 쇼핑몰 SMB (에이블리 1위 브랜드)" },
-        { label: "기여도", value: "60–70%", bar: 65 },
-        { label: "매체", value: "Meta, Google, 카카오, 네이버 GFA, 타겟팅게이츠, 앱 푸시", wide: true }
-      ],
-      work: [
-        "**예산 설계** 전년 블프 매출 10.6억 기준 예상 매출 11억 × 광고비 비중 8%(평소 6%) = 8,800만 원, 6개 매체에 배분\n→ 메타 50, 구글 25, 네이버 검색 9, GFA 8, 카카오 5, 타게팅게이츠 3 (%)",
-        "**Meta** 유입 : 전환 9 : 1까지 전환 비중 확대, 미도달 타겟은 예약 캠페인으로 분리\n→ 8일 광고비 약 3,600만 원, Meta ROAS 528%",
-        "**Google** PMax, 영상, 검색, Demand Gen 구성, Demand Gen은 신규 고객 전용\n→ 8일 광고비 약 1,270만 원, Google ROAS 601%, 새 사용자 비중 98%",
-        "**CRM** '장바구니 이탈'·'구매 1회 고객' 세그먼트 앱 푸시, 앱 전용 혜택 구성\n→ 앱 푸시 참여율 92%"
-      ],
-      metrics: [
-        { value: "자사 최고", label: "블랙프라이데이 브랜드 매출" },
-        { value: "601%", label: "Google ROAS, Demand Gen 새 사용자 비중 98%" },
-        { value: "528%", label: "Meta ROAS, 8일 광고비 약 3,600만 원" },
-        { value: "92%", label: "CRM 앱 푸시 참여율, 새 사용자율 64%" }
-      ],
-      charts: [
-        {
-          type: "bars",
-          title: "블랙프라이데이 매체별 ROAS",
-          unit: "%",
-          items: [
-            { label: "Google", value: 601 },
-            { label: "Meta", value: 528 }
-          ]
-        }
-      ],
-      insight: []
-    },
-    {
-      id: "sobaba",
-      type: "브랜딩",
-      brand: "CJ제일제당 소바바치킨",
-      color: ["#7B3FE4", "#B49BFF"],
+      id: "jinramen",
+      brand: "오뚜기 진라면",
+      campaign: "글로벌 도달·조회 캠페인",
+      industry: "식품·글로벌",
+      color: ["#D9480F", "#FF9A5C"],
       company: "와이즈버즈",
-      name: "CJ제일제당 소바바 숏폼 조회수 확보 캠페인",
-      period: "2026.07 — 2026.08",
-      budget: "광고비 3.73억",
-      highlight: { value: "+6.3%p", label: "비보조 인지도, APAC 벤치마크의 약 4배" },
-      role: "7~8월 운영 전담, Instagram·TVING",
-      goal: "실사(황민현)·애니 두 세계관 숏폼으로 조회수 확보, 소바바치킨 인지도 올리기",
-      facts: [
-        { label: "업종", value: "식품·CJ제일제당 소바바치킨" },
-        { label: "기여도", value: "50%", bar: 50 },
-        { label: "광고비", value: "3.73억 (7~8월 담당분), 캠페인 전체 7.1억", wide: true },
-        { label: "매체", value: "Instagram 숏폼(스토리·릴스), 피드, 트래픽, TVING 노출 보장 패키지·CTV", wide: true }
+      period: "2025.12 — 2026.01",
+      budget: "약 1억",
+      contribution: 60,
+      highlight: { value: "224%", label: "인도네시아 TikTok 도달 KPI" },
+      goal: "[Jinjja Love] 5개국 캠페인 중 인도네시아 전담·멕시코 서포트. 18–34세 도달과 영상 조회로 진라면 인지도 확보",
+      kpis: ["도달", "영상 조회", "브랜드 리프트"],
+      media: ["Meta", "TikTok"],
+      approach: [
+        { t: "국가별 캠페인 구조", d: "인도네시아는 Reach : View : Conversion = 56 : 24 : 20, 멕시코는 Reach : View = 65 : 35로 편성" },
+        { t: "도달 최적화", d: "빈도 하루 1회 제한, 캠페인 조회자 제외, 운영 중 지역 타겟 해제로 신규 도달 확대" },
+        { t: "소재 운영", d: "현지 인플루언서 영상과 진 모델 소재를 함께 운영, Meta는 소재별 예산, TikTok은 8개 이하로 묶어 테스트" },
+        { t: "성과 보고", d: "중간·최종 리포트 작성, 국가별 Brand Lift Study 결과 취합" }
       ],
-      work: [
-        "**숏폼 로테이션** 실사·애니 숏폼을 일자별 성과로 교체, 동시 8~18종 유지\n→ IG Shorts CPV 44.2% 절감, VTR 48.5% → 56.2%",
-        "**TVING** 7월 노출 보장 패키지로 바꿔 단가를 낮추고 물량 유지\n→ 실집행 계약 대비 153%",
-        "**운영·리포트 전담** 7~8월 Instagram·TVING 운영과 데일리 리포트\n→ 비보조 인지도 +6.3%p, 광고 회상도 +8.2%p"
-      ],
-      metrics: [
-        { value: "+6.3%p", label: "Instagram 비보조 인지도, APAC 벤치마크 1.5%p의 약 4배" },
-        { value: "+8.2%p", label: "광고 회상도, APAC 벤치마크 3.9%p의 2배 이상" },
-        { value: "-44.2%", label: "IG Shorts CPV, 첫 주 → 마지막 주, VTR 48.5% → 56.2%" },
-        { value: "151%", label: "노출 KPI 달성률, 조회 129% (캠페인 전체)" }
+      results: [
+        { value: "224%", label: "인도네시아 TikTok 도달 KPI (2초 조회 KPI 219%)", ref: 2 },
+        { value: "90%", label: "인도네시아 타겟 도달, 목표 40%를 2주차에 넘김", ref: 2 },
+        { value: "44%", label: "인플루언서 Reach 도달 중 영상 1개가 만든 비중", ref: 3 },
+        { value: "+4.3%p", label: "인도네시아 비보조 인지도, APAC 벤치마크 1.4%p의 약 3배", ref: 4 }
       ],
       charts: [
         {
-          type: "bars",
-          title: "캠페인 KPI 달성률",
-          note: "세로선 = KPI 100%, 클릭은 미달",
+          type: "country",
+          title: "인도네시아 (전담)",
           unit: "%",
           target: 100,
           items: [
-            { label: "노출", value: 151 },
-            { label: "조회", value: 129 },
-            { label: "소진", value: 100 },
-            { label: "클릭", value: 78, group: 0 }
+            { label: "TikTok 도달 KPI", value: 224 },
+            { label: "TikTok 2초 조회 KPI", value: 219 }
+          ],
+          lift: { label: "Meta BLS 비보조 인지도", before: 1.4, after: 4.3, legend: ["APAC 벤치마크", "캠페인"] }
+        },
+        {
+          type: "country",
+          title: "멕시코 (서포트)",
+          unit: "%",
+          target: 100,
+          items: [
+            { label: "Meta 3초 조회 KPI", value: 204 },
+            { label: "TikTok 2초 조회 KPI", value: 130 },
+            { label: "TikTok 도달 KPI", value: 129 },
+            { label: "Meta 도달 KPI", value: 123 }
+          ],
+          lift: { label: "Meta BLS 비보조 인지도", before: 2.3, after: 3.3, legend: ["벤치마크", "캠페인"] }
+        }
+      ],
+      images: [
+        { src: "./assets/jinramen-indonesia.jpg", alt: "Jin Hero 6초" },
+        { src: "./assets/jin-midnight.jpg", alt: "Jin Midnight" },
+        { src: "./assets/jin-conv-a.jpg", alt: "가격 강조 템플릿" }
+      ],
+      insight: [
+        "인도네시아는 테스트 없이 소재를 한 번에 넣었다가 첫 주 성과가 흔들려서, 1주차에는 소재를 더 짧은 주기로 나눠 넣자고 제안했습니다."
+      ]
+    },
+    {
+      id: "sobaba",
+      brand: "CJ제일제당 소바바",
+      campaign: "숏폼 조회수 확보 캠페인",
+      industry: "식품",
+      color: ["#7B3FE4", "#B49BFF"],
+      company: "와이즈버즈",
+      period: "2026.07 — 2026.08",
+      budget: "3.73억",
+      contribution: 50,
+      highlight: { value: "-44.2%", label: "Instagram 숏폼 CPV, 첫 주 → 마지막 주" },
+      goal: "실사·애니 두 세계관의 9:16 숏폼으로 조회수를 확보하고, 소바바치킨 인지도 높이기",
+      kpis: ["조회수", "CPV", "브랜드 리프트"],
+      media: ["Instagram", "TVING"],
+      approach: [
+        { t: "9:16 숏폼 중심 편성", d: "세로형 Shorts(스토리·릴스)에 Instagram 예산의 92%를 두고, 실사·애니 광고 세트를 나눠 운영" },
+        { t: "숏폼 상시 로테이션", d: "일자별 CPV·VTR로 소재를 교체, 총 36종 투입·18종 중단, 동시 8~18종 유지" },
+        { t: "승자 소재 집중", d: "'얘들아 이거 나만 보여?'(애니) 소재가 한동안 Shorts를 이끌며 소진의 25%를 차지, 트래픽은 상위 소재 1종에 90% 집중" },
+        { t: "TVING 패키지 전환", d: "1주 집중 패키지로 런칭 물량을 확보한 뒤 7월 노출 보장 패키지로 바꿔 단가를 낮추고 물량 유지" }
+      ],
+      results: [
+        { value: "-44.2%", label: "Instagram 숏폼 CPV, 첫 주 13원 → 마지막 주 7원 (VTR 48.5% → 56.2%)", ref: 2 },
+        { value: "12원", label: "Instagram 평균 CPV, 제안 14원 대비 -17%", ref: 1 },
+        { value: "-52%", label: "트래픽 CPC, 승자 소재 집중 후 248원 → 119원", ref: 3 },
+        { value: "-47%", label: "TVING CPV 24원 (제안 대비), VTR 93.8%", ref: 4 },
+        { value: "+6.3%p", label: "Instagram 비보조 인지도, APAC 벤치마크 1.5%p의 약 4배", ref: 1 }
+      ],
+      charts: [
+        {
+          type: "columns",
+          title: "구간별 CPV",
+          note: "캠페인 전체, 원 · 낮을수록 좋음",
+          unit: "원",
+          items: [
+            { label: "런칭", value: 14.5 },
+            { label: "확산", value: 12.6 },
+            { label: "효율 최적화", value: 8.2 }
           ]
         },
         {
@@ -324,77 +335,55 @@ window.PORTFOLIO = {
         }
       ],
       images: [
-        { src: "./assets/sobaba-kv.jpg", caption: "세계관 키비주얼 (애니)" }
+        { src: "./assets/sobaba-c3.jpg", alt: "애니 숏폼 '얘들아 이거 나만 보여?'", ratio: "9 / 16" },
+        { src: "./assets/sobaba-kv.jpg", alt: "세계관 키비주얼 (애니)" }
       ],
       insight: [
         "피드는 완주율이 릴스의 1.8배였고, 공유는 91%가 릴스에서 나왔습니다. 완주는 피드, 확산은 릴스가 맡은 셈입니다."
       ]
     },
     {
-      id: "jinramen",
-      type: "브랜딩",
-      brand: "오뚜기 진라면",
-      color: ["#D9480F", "#FF9A5C"],
-      company: "와이즈버즈",
-      name: "오뚜기 진라면 글로벌 도달·조회 캠페인",
-      period: "2025.12 — 2026.01",
-      budget: "광고비 약 1억",
-      highlight: { value: "224%", label: "인도네시아 TikTok 도달 KPI" },
-      role: "인도네시아 전담, 멕시코 서포트",
-      goal: "[Jinjja Love] 5개국 캠페인 중 인도네시아 전담, 18–34세 도달과 영상 조회",
-      facts: [
-        { label: "업종", value: "식품·글로벌" },
-        { label: "기여도", value: "60%", bar: 60 },
-        { label: "광고비", value: "인도네시아 약 1억 (미디어믹스 기준)", wide: true },
-        { label: "매체", value: "Meta·TikTok (도달, 영상 조회, 장바구니, 구매)", wide: true }
+      id: "blackfriday",
+      brand: "블랙업",
+      campaign: "블랙프라이데이 매출·신규 고객 캠페인",
+      industry: "여성 패션 쇼핑몰",
+      color: ["#222222", "#E5E5E5"],
+      company: "데이위즈 (구 엔포니)",
+      period: "2024.10 — 2024.11",
+      budget: "예산 8,800만 원",
+      contribution: 65,
+      contributionLabel: "60–70%",
+      highlight: { value: "601%", label: "Google ROAS, 자사 최고 매출" },
+      goal: "1년 중 가장 큰 행사인 블랙프라이데이에 매출과 ROAS를 최대로 끌어올리고 신규 고객 확보",
+      kpis: ["매출", "ROAS", "신규 고객"],
+      media: ["Meta", "Google PMax", "Google Demand Gen", "Google SA", "네이버 GFA"],
+      approach: [
+        { t: "예산 설계", d: "전년 블프 매출 10.6억 기준 예상 매출 11억 × 광고비 비중 8%(평소 6%) = 8,800만 원, 매체별로 배분 (메타 50%, 구글 25% 등)" },
+        { t: "사전 유입 → 리타겟", d: "블프 1주 전부터 유입을 모은 뒤 기간 중에는 리타겟, 이후엔 구매자 재구매·방문자 첫 구매 캠페인으로 분리" },
+        { t: "Meta", d: "유입 : 전환을 9 : 1까지 전환 쪽으로 옮기고, 아직 도달하지 못한 타겟은 예약(도달·빈도) 캠페인으로 분리" },
+        { t: "Google", d: "PMax·Demand Gen·검색으로 구성하고, Demand Gen은 신규 고객 전용으로 운영" }
       ],
-      work: [
-        "**소재** 현지 인플루언서 영상과 진 모델 소재를 함께 운영, Meta는 소재별 예산, TikTok은 8개 이하로 묶어 테스트\n→ 인플루언서 영상 하나가 인플루언서 Reach 도달의 44%",
-        "**도달 최적화** 빈도 하루 1회 제한, 조회자 제외, 운영 중 지역 타겟 해제\n→ 타겟 도달 90% (목표 40%), 2주차 조기 달성",
-        "**캠페인 구조** Reach : View : Conversion = 56 : 24 : 20, 국가별 Brand Lift Study 취합\n→ TikTok 도달 KPI 224%, 비보조 인지도 +4.3%p"
-      ],
-      metrics: [
-        { value: "224%", label: "인도네시아 TikTok 도달 KPI, 2초 조회 KPI 219%" },
-        { value: "90%", label: "인도네시아 타겟 도달, 목표 40%를 2주차에 넘김" },
-        { value: "+4.3%p", label: "인도네시아 비보조 인지도, APAC 벤치마크 1.4%p의 약 3배" },
-        { value: "13.55%", label: "멕시코(서포트) 진 소재 참여율, 5개국 중 최고" }
+      results: [
+        { value: "자사 최고", label: "블랙프라이데이 브랜드 매출", ref: 1 },
+        { value: "601%", label: "Google ROAS, 8일 광고비 약 1,270만 원 (Demand Gen 새 사용자 98%)", ref: 4 },
+        { value: "528%", label: "Meta ROAS, 8일 광고비 약 3,600만 원", ref: 3 }
       ],
       charts: [
         {
           type: "bars",
-          title: "KPI 달성률",
-          note: "세로선 = KPI 100%",
+          title: "블랙프라이데이 매체별 ROAS",
           unit: "%",
-          target: 100,
-          legend: ["멕시코 (서포트)", "인도네시아 (전담)"],
           items: [
-            { label: "인도네시아 TikTok 도달", value: 224, group: 1 },
-            { label: "인도네시아 TikTok 2초 조회", value: 219, group: 1 },
-            { label: "멕시코 Meta 3초 조회", value: 204, group: 0 },
-            { label: "멕시코 TikTok 2초 조회", value: 130, group: 0 },
-            { label: "멕시코 Meta 도달", value: 123, group: 0 }
-          ]
-        },
-        {
-          type: "pairs",
-          title: "Meta 브랜드 리프트, 비보조 인지도",
-          note: "캠페인으로 오른 폭",
-          unit: "%p",
-          legend: ["벤치마크", "캠페인"],
-          items: [
-            { label: "인도네시아", before: 1.4, after: 4.3 },
-            { label: "멕시코", before: 2.3, after: 3.3 }
+            { label: "Google", value: 601 },
+            { label: "Meta", value: 528 }
           ]
         }
       ],
       images: [
-        { src: "./assets/jinramen-indonesia.jpg", result: "TikTok 2초 VTR 1위", caption: "Jin Hero 6초" },
-        { src: "./assets/jin-midnight.jpg", result: "Meta 3초 VTR 1위", caption: "Jin Midnight" },
-        { src: "./assets/jin-conv-a.jpg", result: "구매전환 베스트", caption: "가격 강조 템플릿" }
+        { src: "./assets/blackup-meta.jpg", alt: "블랙프라이데이 Meta 소재", ratio: "1200 / 815", span: 2 },
+        { src: "./assets/blackup-google.jpg", alt: "블랙프라이데이 Google 소재", ratio: "1200 / 765", span: 2 }
       ],
-      insight: [
-        "인도네시아는 테스트 없이 소재를 한 번에 넣었다가 첫 주 성과가 흔들려서, 1주차에는 소재를 더 짧은 주기로 나눠 넣자고 제안했습니다."
-      ]
+      insight: []
     }
   ],
   career: [
@@ -404,7 +393,9 @@ window.PORTFOLIO = {
       detail: "디지털 광고대행사, 대리, 4개 광고주 캠페인 PM (LX하우시스, 트래블월렛, CJ제일제당 소바바, 오뚜기 진라면)",
       numbers: [
         { label: "4개 광고주 미디어믹스 설계, 매체 운영, 소재 기획, 리포트", value: "광고비 32억" },
-        { label: "LX하우시스 지인페스타 트래픽 : 전환 예산 비중 재설계", value: "전환 CPA -80%" },
+        { label: "LX하우시스 BAU(시공사례 트래픽·상담신청 이벤트 전환)·D2C 직계약 상시 운영", value: "BAU 상담신청 6~9월 연속 목표 초과" },
+        { label: "LX하우시스 성수기 지인페스타(티징·본 캠페인·리드젠)·하반기 취향의발견(노희영 소재) 운영", value: "전환 CPA -80%" },
+        { label: "LX하우시스 SA 구조 정리, 전환 키워드 기준 데일리 입찰, 고단가 Only 캠페인 OFF", value: "SA 상담신청 CPA -42.7%" },
         { label: "트래블월렛 소재 A/B 테스트·신규 매체 테스트", value: "게시글당 비용 -80.9%" },
         { label: "SA·DA 데일리 리포트, 리포트 대시보드, 네이버 경쟁사 모니터링 직접 개발 (LX하우시스)", value: "" }
       ]

@@ -127,7 +127,9 @@
   // 프로젝트: 유형(퍼포먼스/브랜딩)별 카드 → 누르면 그 자리에서 한 화면짜리 케이스 카드(팝업)로 열림
   const projects = data.projects;
   const brandStyle = (project) => project.color ? `--brand:${project.color[0]};--brand-dark:${project.color[1]}` : "";
+  const budgetText = (budget) => budget ? (/^(예산|광고비)/.test(budget) ? budget : `광고비 ${budget}`) : "";
   const groups = data.projectGroups || [{ type: "", title: "" }];
+  // 카드: 업종 · 소속 → 광고주(제목) → 캠페인(소제목) → 대표 숫자 → 기간 · 광고비. 높이는 그리드에서 같은 줄끼리 맞춤
   byId("project-list").innerHTML = groups.map((group) => {
     const items = projects.filter((project) => !group.type || project.type === group.type);
     return `
@@ -136,28 +138,26 @@
       <div class="project-grid">${items.map((project) => `
         <button class="project-card" type="button" data-index="${projects.indexOf(project)}" style="${brandStyle(project)}" aria-haspopup="dialog">
           <span class="project-card-top">
-            <span class="project-brand"><i aria-hidden="true"></i>${escapeHTML(project.brand || "")}</span>
+            <span class="project-brand"><i aria-hidden="true"></i>${escapeHTML(project.industry || "")}</span>
             <span class="project-tag">${escapeHTML(project.company || "")}${project.current ? " · 진행 중" : ""}</span>
           </span>
-          <span class="project-title">${escapeHTML(project.name)}</span>
-          ${project.role ? `<span class="project-role">${escapeHTML(project.role)}</span>` : ""}
+          <span class="project-title">${escapeHTML(project.brand)}</span>
+          <span class="project-sub">${escapeHTML(project.campaign || "")}</span>
           ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
           <span class="project-card-bottom">
-            <span class="project-period">${escapeHTML(project.period)}${project.budget ? `<b class="project-budget">${escapeHTML(project.budget)}</b>` : ""}</span>
+            <span class="project-period">${escapeHTML(project.period)}${project.budget ? `<b class="project-budget">${escapeHTML(budgetText(project.budget))}</b>` : ""}</span>
             <span class="project-open">자세히 보기 <b aria-hidden="true">→</b></span>
           </span>
         </button>`).join("")}</div>
     </div>`;
   }).join("");
 
-  const projectImages = (project) => project.images || (project.image ? [{ src: project.image, caption: project.imageCaption }] : []);
-  // 소재는 눌러서 원본 크기로 볼 수 있게
+  // 대표 소재: 설명 없이 이미지만. ratio가 있으면 그 비율(9 / 16 등)로
   const imageMarkup = (project) => {
-    const images = projectImages(project);
+    const images = project.images || [];
     return images.length ? `<div class="creative-grid">${images.map((image) => `
-      <figure class="creative">
-        <a href="${escapeHTML(image.src)}" target="_blank" rel="noopener"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.caption || project.name)}" loading="lazy" /></a>
-        ${image.result || image.caption ? `<figcaption class="detail-caption">${image.result ? `<strong>${escapeHTML(image.result)}</strong>` : ""}${escapeHTML(image.caption || "")}</figcaption>` : ""}
+      <figure class="creative${image.ratio && !image.span ? " tall" : ""}"${image.span ? ` style="grid-column:span ${Number(image.span)}"` : ""}>
+        <a href="${escapeHTML(image.src)}" target="_blank" rel="noopener"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.alt || project.brand)}" loading="lazy"${image.ratio ? ` style="aspect-ratio:${escapeHTML(image.ratio)}"` : ""} /></a>
       </figure>`).join("")}</div>` : "";
   };
 
@@ -192,17 +192,20 @@
         </div>
       </div>`).join("")}</div>`;
   };
+  // 국가별 카드: KPI 달성률 막대 + 브랜드 리프트(벤치마크 vs 캠페인) 한 줄
+  const countryChart = (chart) => `
+    <p class="chart-sub">KPI 달성률 <span>세로선 = 100%</span></p>
+    ${barChart({ ...chart, type: "bars" }, chart.unit || "%")}
+    ${chart.lift ? `<p class="chart-sub">${escapeHTML(chart.lift.label)}</p>${legendMarkup(chart.lift.legend)}${barChart({ type: "pairs", legend: chart.lift.legend, items: [{ label: "", before: chart.lift.before, after: chart.lift.after }] }, "%p")}` : ""}`;
   const chartMarkup = (chart) => `
     <figure class="chart">
-      ${chartHead(chart)}${legendMarkup(chart.legend)}
-      ${chart.type === "columns" ? columnChart(chart, chart.unit || "") : barChart(chart, chart.unit || "")}
+      ${chartHead(chart)}${chart.type === "country" ? "" : legendMarkup(chart.legend)}
+      ${chart.type === "columns" ? columnChart(chart, chart.unit || "") : chart.type === "country" ? countryChart(chart) : barChart(chart, chart.unit || "")}
     </figure>`;
-  const listMarkup = (items) => `<ul class="detail-list">${items.map((item) => `<li>${rich(item)}</li>`).join("")}</ul>`;
-  // 업종·광고비·기여도·매체. bar가 있으면 기여도 막대를 그림
-  const factMarkup = (facts) => facts.length ? `<dl class="detail-facts">${facts.map((fact) => `
-    <div class="detail-fact${fact.wide ? " wide" : ""}"><dt>${escapeHTML(fact.label)}</dt><dd>${escapeHTML(fact.value)}${fact.bar ? `<span class="fact-bar" aria-hidden="true"><i style="width:${Number(fact.bar)}%"></i></span>` : ""}</dd></div>`).join("")}</dl>` : "";
+  const tags = (items, kind) => items && items.length ? `<span class="tag-list ${kind}">${items.map((item) => `<span class="tag">${escapeHTML(item)}</span>`).join("")}</span>` : "";
+  const circled = (n) => "①②③④⑤⑥⑦⑧⑨"[n - 1] || String(n);
 
-  // 케이스 카드: 왼쪽은 정보 · # 핵심 전략 · # 돌아보면, 오른쪽은 결과 숫자 · 그래프 · 대표 소재
+  // 케이스 카드: 왼쪽은 정보 · KPI · Approach · Insight, 오른쪽은 Results(어떤 Approach에서 나왔는지 표시) · 그래프 · 대표 소재
   const caseModal = document.createElement("div");
   caseModal.className = "case-backdrop";
   caseModal.hidden = true;
@@ -213,13 +216,14 @@
     const charts = (project.charts || []).slice(0, 2);
     const insight = project.insight || [];
     const images = imageMarkup(project);
+    const approach = project.approach || [];
     return `
     <article class="case-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
       <header class="case-head">
         <div>
-          <p class="case-eyebrow"><span class="case-type">${escapeHTML(project.type)} 캠페인</span>${escapeHTML(project.brand || "")} · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.budget ? `<span class="case-budget">${escapeHTML(project.budget)}</span>` : ""}</p>
-          <h3 id="case-title">${escapeHTML(project.name)}</h3>
-          ${project.goal ? `<p class="case-goal">${rich(project.goal)}</p>` : ""}
+          <p class="case-eyebrow">${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.current ? " · 진행 중" : ""}</p>
+          <h3 id="case-title">${escapeHTML(project.brand)}</h3>
+          <p class="case-sub">${escapeHTML(project.campaign || "")}</p>
         </div>
         <div class="case-nav">
           <button type="button" class="case-step" data-step="-1" aria-label="이전 프로젝트">←</button>
@@ -230,15 +234,36 @@
       </header>
       <div class="case-body">
         <div class="case-left">
-          ${factMarkup(project.facts || [])}
-          <section class="case-block"><h4># 핵심 전략</h4>${listMarkup(project.work)}</section>
-          ${insight.length ? `<section class="case-block"><h4># 돌아보면</h4>${listMarkup(insight)}</section>` : ""}
+          <dl class="case-facts">
+            <div><dt>업종</dt><dd>${escapeHTML(project.industry || "")}</dd></div>
+            ${project.budget ? `<div><dt>${/^예산/.test(project.budget) ? "예산" : "광고비"}</dt><dd>${escapeHTML(project.budget.replace(/^예산\s*/, ""))}</dd></div>` : ""}
+            ${project.contribution ? `<div><dt>기여도</dt><dd>${escapeHTML(project.contributionLabel || `${project.contribution}%`)}<span class="fact-bar" aria-hidden="true"><i style="width:${Number(project.contribution)}%"></i></span></dd></div>` : ""}
+            <div class="wide"><dt>매체</dt><dd>${tags(project.media, "media")}</dd></div>
+          </dl>
+          <section class="case-block">
+            <h4>KPI</h4>
+            ${project.goal ? `<p class="case-goal">${rich(project.goal)}</p>` : ""}
+            ${tags(project.kpis, "kpi")}
+          </section>
+          <section class="case-block">
+            <h4>Approach</h4>
+            <ol class="approach-list">${approach.map((step, i) => `
+              <li><span class="approach-no">${circled(i + 1)}</span><div><b>${escapeHTML(step.t)}</b><span>${rich(step.d)}</span></div></li>`).join("")}</ol>
+          </section>
+          ${insight.length ? `<section class="case-block insight"><h4>Insight</h4>${insight.map((line) => `<p>${rich(line)}</p>`).join("")}</section>` : ""}
         </div>
         <div class="case-right">
-          <div class="case-kpis">${project.metrics.slice(0, 4).map((metric) => `
-            <div class="case-kpi"><strong>${escapeHTML(metric.value)}</strong><span>${escapeHTML(metric.label)}</span></div>`).join("")}</div>
+          <section class="case-results">
+            <h4>Results</h4>
+            <div class="result-grid count-${Math.min((project.results || []).length, 6)}">${(project.results || []).map((item) => `
+              <div class="result-card">
+                ${item.ref && approach[item.ref - 1] ? `<span class="result-ref">${circled(item.ref)} ${escapeHTML(approach[item.ref - 1].t)}</span>` : ""}
+                <strong>${escapeHTML(item.value)}</strong>
+                <span>${escapeHTML(item.label)}</span>
+              </div>`).join("")}</div>
+          </section>
           ${charts.length ? `<div class="case-charts count-${charts.length}">${charts.map(chartMarkup).join("")}</div>` : ""}
-          ${images ? `<div class="case-creatives"><h4># 대표 소재</h4>${images}${project.imagesNote ? `<p class="detail-caption">${escapeHTML(project.imagesNote)}</p>` : ""}</div>` : ""}
+          ${images ? `<div class="case-creatives"><h4>대표 소재</h4>${images}</div>` : ""}
         </div>
       </div>
     </article>`;
