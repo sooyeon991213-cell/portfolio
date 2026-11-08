@@ -23,15 +23,16 @@ window.PORTFOLIO = {
         company: "와이즈버즈", period: "2025.07 – 현재", role: "대리 · 캠페인 PM",
         rows: [
           { industry: "인테리어", project: "lxhausys", brand: "LX하우시스", kpi: "세션 · 상담신청 DB", how: "SA · DA 12개 매체, 지인페스타 · 취향의발견", budget: "19.3억" },
-          { industry: "여행 결제 앱", project: "travelwallet", brand: "트래블월렛", kpi: "여행 게시글 조회 · 작성", how: "브랜드필름 촬영 · 8월 집중 운영, 14개 매체", budget: "8.35억" },
+          { industry: "여행 결제 앱", project: "travelwallet", brand: "트래블월렛", kpi: "여행 게시글 조회 · 작성", how: "브랜드필름 촬영 · 8월 집중 운영, 신규 매체 테스트", budget: "8.35억" },
           { industry: "식품", project: "sobaba", brand: "CJ제일제당 소바바", kpi: "조회수", how: "실사 · 애니 두 세계관 숏폼, Instagram · TVING", budget: "3.73억" },
-          { industry: "식품 · 글로벌", project: "jinramen", brand: "오뚜기 진라면", kpi: "도달 · 조회", how: "인도네시아 · 멕시코, 현지 인플루언서 · 진 모델 소재", budget: "약 1억" }
+          { industry: "식품 · 글로벌", project: "jinramen", brand: "오뚜기 진라면", kpi: "도달 · 조회", how: "인도네시아 · 멕시코, 현지 인플루언서 · 진 모델 소재", budget: "약 1억" },
+          { industry: "업무 자동화", brand: "LX하우시스 담당", kpi: "리포트 · 모니터링", how: "SA · DA 데일리 리포트, 리포트 대시보드, 네이버 경쟁사 모니터링 직접 개발", budget: "" }
         ]
       },
       {
-        company: "데이위즈 (구 엔포니)", period: "2022.07 – 2024.12", role: "창립 멤버 · 매니저",
+        company: "데이위즈 (구 엔포니)", period: "2022.07 – 2024.12", role: "마케팅팀 매니저",
         rows: [
-          { industry: "이커머스 SMB", project: "blackfriday", brand: "블랙업 · 슬로우앤드 · 더무드 · 비바루비 등 자사몰", kpi: "매출 · 신규 고객", how: "호스팅사(Cafe24 · 메이크샵) 데이터 분석, 8개 광고주 · 10개 매체", budget: "월 4억 규모" }
+          { industry: "여성 패션 쇼핑몰", project: "blackfriday", brand: "블랙업 · 슬로우앤드 · 더무드 · 비바루비 등 SMB 8곳", kpi: "ROAS · 매출", how: "구글 · 메타 · 네이버 운영, 호스팅사(Cafe24 · 메이크샵) 데이터 분석", budget: "월 4억 규모" }
         ]
       },
       {
@@ -49,34 +50,34 @@ window.PORTFOLIO = {
     competencies: [
       {
         title: "검색 · 디스플레이 광고 운영",
-        desc: "검색 · 디스플레이 10개 이상 매체 동시 운영\n트래픽 : 전환 예산 비중과 입찰 전략 조정",
-        proofs: [
-          { value: "-80%", label: "LX하우시스 지인페스타 전환 CPA · 전년 하반기 대비" },
-          { value: "+108.6%", label: "LX하우시스 구글 SA Non-Brand 상담신청 · 입찰전략 변경" }
+        items: [
+          { did: "LX하우시스 지인페스타 트래픽 : 전환 예산 비중 재설계", result: "전환 CPA -80%" },
+          { did: "네이버 확장검색 · 구글 Non-Brand 입찰전략 테스트", result: "상담신청 +108.6%" },
+          { did: "여성 패션 쇼핑몰 5곳 구글 광고 운영", result: "평균 ROAS 500%+" }
         ]
       },
       {
         title: "소재 기획 · A/B 테스트",
-        desc: "실사 vs AI, 이미지 vs 영상 소재 비교 테스트\n결과에 따라 소재 · 예산 재배분",
-        proofs: [
-          { value: "-80.9%", label: "트래블월렛 게시글당 비용 · 스틸컷 vs AI 인물" },
-          { value: "3 → 61건", label: "LX하우시스 벽지 소재 상담신청 · 이미지 → 영상" }
+        items: [
+          { did: "트래블월렛 브랜드필름 스틸컷 vs AI 인물 소재 테스트", result: "게시글당 비용 -80.9%" },
+          { did: "LX하우시스 벽지 소재 이미지 → 영상 전환", result: "상담신청 3 → 61건" },
+          { did: "소바바 실사 · 애니 숏폼 일자별 로테이션", result: "CPV -44.2%" }
         ]
       },
       {
         title: "퍼널 · 측정 설계",
-        desc: "GA4 · MMP 데이터로 이탈 구간 분석\n앱 이벤트 · iOS SKAN 전환값 재설계",
-        proofs: [
-          { value: "36 → 20%", label: "데이위즈 장바구니 → 결제 이탈률 · iOS 오류 발견" },
-          { value: "-90.3%", label: "트래블월렛 소셜 조회당 비용 · 에어브릿지 이벤트 재설계" }
+        items: [
+          { did: "트래블월렛 에어브릿지 소셜 이벤트 신설 · iOS SKAN 전환값 재설계", result: "조회당 비용 -90.3%" },
+          { did: "LX하우시스 GA 기준 유입은 세션 수 · 전환은 전환 수 최대화로 운영", result: "" },
+          { did: "GA4 장바구니 → 결제 이탈 분석 중 iOS 결제 오류 발견", result: "이탈률 36 → 20%" }
         ]
       },
       {
         title: "운영 자동화 · AI",
-        desc: "Python · Claude Code로 리포트 · 모니터링 직접 개발\n점검 → 생성 → 검증을 서브에이전트로 분리",
-        proofs: [
-          { value: "3분", label: "LX하우시스 월간 리포트 작업 · 원본 5개로 11개 시트 생성" },
-          { value: "명령 1개", label: "데일리 리포트 3종 생성 · 검증 완전 자동화" }
+        items: [
+          { did: "매체 RAW 다운로드부터 SA · DA 데일리 리포트까지 자동화", result: "평일 08:30 자동 생성" },
+          { did: "리포트 대시보드화 · 월간 리포트 자동 생성", result: "월간 리포트 3분" },
+          { did: "네이버 경쟁사 광고 주차별 자동 수집", result: "5개 브랜드 · 키워드 9개" }
         ]
       }
     ],
@@ -86,7 +87,7 @@ window.PORTFOLIO = {
       "측정: GA4 · 에어브릿지 · SKAN 4.0 · Brand Lift Study",
       "커머스: Cafe24 · 메이크샵 · 스마트스토어",
       "자동화: Python · Claude Code · Playwright · Google Sheets API",
-      "글로벌: 멕시코 · 인도네시아 캠페인 · TOEIC Speaking AL"
+      "글로벌: 멕시코 · 인도네시아 캠페인"
     ]
   },
   projectGroups: [
@@ -182,7 +183,8 @@ window.PORTFOLIO = {
       work: [
         "**브랜드필름** 도시별 숏폼 4편 촬영 · 8월 집중 운영, 스틸컷은 퍼포먼스 소재로 재활용\n→ 광고 기여 게시글 +69%, 일 100건 목표 달성",
         "**A/B 테스트** 브랜드필름 스틸컷 vs AI 인물 소재\n→ 게시글당 비용 80.9% 절감",
-        "**측정 재설계** iOS SKAN 4.0 전환값 재매핑, 에어브릿지 소셜 이벤트 3개 신설\n→ 재참여 캠페인 소셜 조회당 비용 90.3% 절감"
+        "**측정 재설계** iOS SKAN 4.0 전환값 재매핑, 에어브릿지 소셜 이벤트 3개 신설\n→ 재참여 캠페인 소셜 조회당 비용 90.3% 절감",
+        "**신규 매체 발굴** 데이블 · X · 사람인 · 에브리타임 테스트, 마이리얼트립 · 트리플 · 키로뷰(인천공항) · Threads까지 14개 매체 운영"
       ],
       metrics: [
         { value: "-80.9%", label: "게시글당 비용 · 스틸컷 vs AI 인물 소재 A/B 테스트" },
@@ -233,9 +235,9 @@ window.PORTFOLIO = {
       period: "2024.10 — 2024.11",
       highlight: { value: "767%", label: "Google ROAS · 자사 최고 매출" },
       role: "미디어믹스 설계 · 전 매체 운영",
-      goal: "SMB 자사몰의 1년 중 가장 큰 행사 · 매출 최대화와 신규 고객 확보",
+      goal: "SMB 여성 패션 쇼핑몰의 1년 중 가장 큰 행사 · 매출과 ROAS 최대화, 신규 고객 확보",
       facts: [
-        { label: "업종", value: "패션 이커머스 SMB (에이블리 1위 브랜드)" },
+        { label: "업종", value: "여성 패션 쇼핑몰 SMB (에이블리 1위 브랜드)" },
         { label: "기여도", value: "60–70%", bar: 65 },
         { label: "매체", value: "Meta · Google · 카카오 · 네이버 GFA · 타겟팅게이츠 · 앱 푸시", wide: true }
       ],
@@ -399,21 +401,23 @@ window.PORTFOLIO = {
       period: "2025.07 — 현재",
       detail: "디지털 광고대행사 · 대리 · 4개 광고주 캠페인 PM (LX하우시스, 트래블월렛, CJ제일제당 소바바, 오뚜기 진라면)",
       numbers: [
-        { value: "32억", label: "운영 광고비 · LX하우시스 19.3억, 트래블월렛 8.35억, 소바바 3.73억, 오뚜기 1.0억" },
-        { value: "-80%", label: "LX하우시스 지인페스타 전환 CPA · 전년 하반기 대비" },
-        { value: "-80.9%", label: "트래블월렛 게시글당 비용 · 소재 A/B 테스트" }
+        { label: "4개 광고주 미디어믹스 설계 · 매체 운영 · 소재 기획 · 리포트", value: "광고비 32억" },
+        { label: "LX하우시스 지인페스타 트래픽 : 전환 예산 비중 재설계", value: "전환 CPA -80%" },
+        { label: "트래블월렛 소재 A/B 테스트 · 신규 매체 테스트", value: "게시글당 비용 -80.9%" },
+        { label: "SA · DA 데일리 리포트, 리포트 대시보드, 네이버 경쟁사 모니터링 직접 개발 (LX하우시스)", value: "" }
       ]
     },
     {
-      company: "엔포니 → 데이위즈",
+      company: "데이위즈 (구 엔포니)",
       period: "2022.07 — 2024.12",
-      detail: "SMB 위주 광고대행사 · 창립 멤버 · 마케팅팀 매니저 · 2024년 크리마 자회사로 편입되며 이름이 바뀐 같은 회사 · 월 4억 원 규모, 8개 업체, 10개 매체 동시 운영",
+      detail: "광고대행사 마케팅팀 매니저 · SMB 인터넷 여성 패션 쇼핑몰 담당 · 월 4억 원 규모, 8개 업체, 10개 매체 동시 운영 · 2024년 크리마 자회사로 편입되며 엔포니에서 이름이 바뀐 같은 회사",
       numbers: [
-        { value: "500%+", label: "평균 ROAS · GA4 기반 5개 업체 구글 광고" },
-        { value: "36% → 20%", label: "장바구니 → 결제 이탈률 · iOS 혜택 누락 오류를 찾아 개선" },
-        { value: "+30%", label: "T사 쇼핑몰 2030 회원가입률 (6개월 평균, ROAS 1.2배)" },
-        { value: "+50%↑", label: "V사 쇼핑몰 객단가 · 시간대별 예산 운영, '셋업' 카테고리 신설" },
-        { value: "770%", label: "네이버 파워링크 ROAS (평균 노출순위 2.71위)" }
+        { label: "블랙업 블랙프라이데이 구글 · 메타 운영, 자사 최고 매출", value: "ROAS 767% · 525%" },
+        { label: "여성 패션 쇼핑몰 5곳 구글 광고 운영", value: "평균 ROAS 500%+" },
+        { label: "네이버 파워링크 운영 (평균 노출순위 2.71위)", value: "ROAS 770%" },
+        { label: "T사 연령대별 가입 · 매출 분석 후 2030 캠페인 분리", value: "가입률 +30%, ROAS 1.2배" },
+        { label: "V사 시간대별 예산 운영 · '셋업' 카테고리 제안", value: "객단가 +50%" },
+        { label: "GA4 결제 이탈 분석 중 iOS 결제 오류 발견", value: "이탈률 36 → 20%" }
       ]
     },
     {
@@ -421,33 +425,33 @@ window.PORTFOLIO = {
       period: "2021.08 — 2022.07",
       detail: "광고 솔루션사 BIZ팀 매니저",
       numbers: [
-        { value: "90%+", label: "스마트스토어 판매 중 광고로 들어온 비중 · 배송·컴플레인 프로세스 정립" },
-        { value: "ADVisor", label: "광고 분석 솔루션 대시보드 기획 · 1차 와이어프레임에 반영, 매뉴얼은 전사 가이드로 쓰임" }
+        { label: "수산물 스마트스토어 운영 · 검색광고, 배송 · 컴플레인 프로세스 정립", value: "판매 90%+ 광고 유입" },
+        { label: "광고 분석 솔루션 ADVisor 대시보드 기획, 1차 와이어프레임 반영 · 매뉴얼 전사 가이드화", value: "" }
       ]
     }
   ],
   automation: {
-    summary: "LX하우시스를 담당하며 데일리 · 월간 리포트를 Python과 Claude Code로 완전 자동화했습니다.\n경쟁사 광고 모니터링도 직접 자동화했습니다.",
+    summary: "LX하우시스를 담당하며 SA · DA 데일리 리포트를 매체 RAW 다운로드부터 완전 자동화했습니다.\n리포트 대시보드와 네이버 경쟁사 모니터링도 직접 만들었습니다.",
     tools: [
       {
-        name: "데일리 리포트 완전 자동화",
-        stack: "Claude Code · 서브에이전트 · Python",
-        steps: ["/daily-all", "사전 점검", "생성", "검증", "리포트 3종"],
-        problem: "SA, AdCode SA, DA 리포트 3종을 매일 따로 만들고 숫자를 하나씩 검수했습니다.",
-        built: "Claude Code 명령 하나로 데이터 점검부터 리포트 3종 생성, 숫자 검증까지 끝납니다. 점검, 생성, 검증은 서브에이전트가 나눠 맡습니다.",
-        effect: "데일리 리포트 작성 · 검수를 **완전 자동화**했습니다. 팀과 광고주는 대시보드에서 바로 성과를 확인합니다."
+        name: "SA · DA 데일리 리포트 자동화",
+        stack: "Python · Playwright · Excel · Claude Code",
+        steps: ["평일 08:30 자동 실행", "매체 RAW 다운로드 (DA 8 · SA 6)", "RAW 가공 · 매체 통합", "SA · DA 리포트 생성", "대시보드 업로드 · 점검"],
+        problem: "매일 아침 매체마다 RAW를 받아 엑셀로 가공하고 SA · DA 리포트를 따로 만들었습니다.",
+        built: "매체 RAW 다운로드부터 가공, 리포트 생성, 대시보드 업로드까지 직접 만들었습니다. DA와 SA를 동시에 돌리고, 한쪽이 멈춰도 다른 쪽은 끝까지 갑니다.",
+        effect: "평일 08:30에 리포트가 **자동으로** 만들어집니다. 내 PC가 꺼진 날은 팀원 PC가 대신 실행합니다."
       },
       {
-        name: "월간 리포트 · 통합 대시보드 자동화",
+        name: "리포트 대시보드화",
         stack: "Python · Chart.js · Google Sheets API",
         image: "./assets/lx-dashboard.jpg",
         caption: "광고주 데이터 보호를 위해 수치 블러 처리",
-        problem: "월말마다 리포트와 차트를 손으로 만들었습니다.",
-        built: "DA, SA, 키워드, 소재, 미디어믹스를 한 화면에서 보는 대시보드. 원본 파일 5개를 넣으면 엑셀 리포트(11개 시트)와 HTML 대시보드가 같이 나옵니다.",
-        effect: "월간 리포트 **3분**. CPC 50%↑ · CTR 30%↓ · 비용 80%↑ 같은 이상치와 예산 소진 속도는 자동으로 경고가 뜹니다."
+        problem: "성과를 보려면 엑셀 리포트를 열어야 했고, 월말에는 리포트와 차트를 손으로 만들었습니다.",
+        built: "DA, SA, 키워드, 소재, 미디어믹스를 한 화면에서 보는 대시보드. 원본 파일 5개를 넣으면 월간 엑셀 리포트(11개 시트)도 같이 나옵니다.",
+        effect: "팀과 광고주는 대시보드에서 바로 성과를 확인합니다. 월간 리포트 **3분**, 이상치와 예산 소진 속도는 자동 경고."
       },
       {
-        name: "네이버 광고 모니터링 자동화",
+        name: "네이버 경쟁사 모니터링",
         stack: "Playwright · Google Sheets API",
         image: "./assets/naver-monitoring.jpg",
         caption: "경쟁사 광고를 주차별로 쌓고, 같은 소재는 자동으로 표시",

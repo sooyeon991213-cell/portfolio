@@ -319,7 +319,7 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 .tool-steps.tool-flow li { position: relative; display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 4px; background: rgba(199, 243, 106, .07); font-size: 12px; }
 .tool-steps.tool-flow li::before { content: counter(step); counter-increment: step; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; background: rgba(199, 243, 106, .18); color: var(--accent); font-size: 10px; font-weight: 700; }
 .tool-steps.tool-flow li + li::after { content: ""; position: absolute; left: 20px; top: -9px; width: 1px; height: 9px; background: rgba(199, 243, 106, .45); }
-.tool-steps.tool-flow li:first-child { font-family: ui-monospace, Consolas, monospace; color: var(--accent); }
+.tool-steps.tool-flow li:first-child { color: var(--accent); font-weight: 700; }
 /* 2026-11-08 히어로 아래: 회사별 업종 캠페인 표 */
 .stats-grid.campaign-mode { display: block; }
 .hero:has(.campaign-mode) .hero-rule { margin-top: 34px; }
@@ -351,6 +351,25 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
   .c-budget { grid-column: 2; grid-row: 2; }
   .c-kpi, .c-how { grid-column: 1 / -1; }
   .campaign-group { flex-wrap: wrap; row-gap: 2px; }
+}
+/* 2026-11-08 숫자보다 '한 일'이 먼저 보이게 */
+.competency-items { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 0; }
+.competency-items li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; letter-spacing: -.025em; word-break: keep-all; }
+.competency-items li b { flex: none; color: #4f7a12; font-size: 12px; font-weight: 700; white-space: nowrap; }
+:root[data-theme="dark"] .competency-items li b { color: var(--accent); }
+.project-card .project-title { order: 0; margin: 18px 0 6px; font-size: clamp(19px, 1.8vw, 23px); }
+.project-role { display: block; color: var(--muted); font-size: 12px; font-weight: 560; line-height: 1.5; word-break: keep-all; }
+.project-card .project-highlight { margin: auto 0 16px; padding-top: 16px; }
+.project-card .project-highlight strong { font-size: clamp(20px, 1.8vw, 24px); }
+.timeline-numbers { display: grid; gap: 7px; }
+.timeline-number { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 13.5px; line-height: 1.5; }
+.timeline-number strong { order: 2; color: #4f7a12; font-size: 13px; font-weight: 700; letter-spacing: -.02em; }
+:root[data-theme="dark"] .timeline-number strong { color: var(--accent); }
+.timeline-number > span::before { content: "– "; color: var(--muted); }
+.case-kpi strong { font-size: clamp(18px, 1.6vw, 22px); }
+.case-panel .detail-list { font-size: 13px; }
+@media screen and (max-width: 540px) {
+  .competency-items li { flex-direction: column; gap: 2px; }
 }
 @media (min-width: 1450px) { .hero { min-height: 760px; } }
 @media screen and (max-width: 760px) {

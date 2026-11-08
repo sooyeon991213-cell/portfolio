@@ -106,9 +106,11 @@
       <article class="competency-card">
         <p class="competency-index">0${index + 1}</p>
         <h3>${escapeHTML(item.title)}</h3>
+        ${item.items ? `<ul class="competency-items">${item.items.map((row) => `
+          <li><span>${escapeHTML(row.did)}</span>${row.result ? `<b>${escapeHTML(row.result)}</b>` : ""}</li>`).join("")}</ul>` : `
         <p class="competency-desc">${escapeHTML(item.desc)}</p>
         <div class="competency-proofs">${(item.proofs || []).map((proof) => `
-          <div class="competency-proof"><strong>${escapeHTML(proof.value)}</strong><span>${escapeHTML(proof.label)}</span></div>`).join("")}</div>
+          <div class="competency-proof"><strong>${escapeHTML(proof.value)}</strong><span>${escapeHTML(proof.label)}</span></div>`).join("")}</div>`}
       </article>`).join("");
     grid.hidden = false;
   }
@@ -137,8 +139,9 @@
             <span class="project-brand"><i aria-hidden="true"></i>${escapeHTML(project.brand || "")}</span>
             <span class="project-tag">${escapeHTML(project.company || "")}${project.current ? " · 진행 중" : ""}</span>
           </span>
-          ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
           <span class="project-title">${escapeHTML(project.name)}</span>
+          ${project.role ? `<span class="project-role">${escapeHTML(project.role)}</span>` : ""}
+          ${project.highlight ? `<span class="project-highlight"><strong>${escapeHTML(project.highlight.value)}</strong><span>${escapeHTML(project.highlight.label)}</span></span>` : ""}
           <span class="project-card-bottom">
             <span class="project-period">${escapeHTML(project.period)}${project.budget ? `<b class="project-budget">${escapeHTML(project.budget)}</b>` : ""}</span>
             <span class="project-open">자세히 보기 <b aria-hidden="true">→</b></span>
@@ -282,7 +285,7 @@
       <span class="timeline-dot" aria-hidden="true"></span>
       <h3>${escapeHTML(entry.company)}</h3>
       <div class="timeline-meta"><span class="timeline-period">${escapeHTML(entry.period)}</span>${entry.detail ? `<span class="timeline-detail">${escapeHTML(entry.detail)}</span>` : ""}</div>
-      ${entry.numbers.length ? `<div class="timeline-numbers">${entry.numbers.map((item) => `<span class="timeline-number"><strong>${escapeHTML(item.value)}</strong>${escapeHTML(item.label)}</span>`).join("")}</div>` : ""}
+      ${entry.numbers.length ? `<div class="timeline-numbers">${entry.numbers.map((item) => `<span class="timeline-number"><span>${escapeHTML(item.label)}</span>${item.value ? `<strong>${escapeHTML(item.value)}</strong>` : ""}</span>`).join("")}</div>` : ""}
     </article>`).join("");
 
   optionalRich(byId("automation-summary"), data.automation.summary);
