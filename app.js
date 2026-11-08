@@ -43,24 +43,58 @@
     const title = byId("hero-title");
     title.innerHTML = data.hero.title.map(rich).join("<br />");
     title.classList.add("results");
+    // 글자 수가 많은 제목은 조금 작게
+    if (data.hero.title.some((line) => line.replace(/\*\*/g, "").length > 14)) title.classList.add("long");
   }
-  byId("hero-stats").innerHTML = data.hero.stats.map((stat) => {
-    const color = (data.projects.find((project) => project.id === stat.project) || {}).color;
-    return `
-    <article class="stat-card"${color ? ` style="--brand:${color[0]};--brand-dark:${color[1]}"` : ""}>
-      ${stat.tag ? `<span class="stat-tag"><i aria-hidden="true"></i>${escapeHTML(stat.tag)}</span>` : ""}
-      <strong class="stat-value">${escapeHTML(stat.value)}</strong>
-      <span class="stat-label">${escapeHTML(stat.label)}</span>
-    </article>`;
-  }).join("");
+  // 제목 아래: story(경력 단계)가 있으면 단계 카드, 없으면 예전 stats 카드
+  if (data.hero.story) {
+    if (byId("hero-story-label")) optionalText(byId("hero-story-label"), data.hero.storyLabel);
+    byId("hero-stats").classList.add("story-grid");
+    byId("hero-stats").innerHTML = data.hero.story.map((step) => `
+    <article class="stat-card story-card">
+      <span class="story-period"><i aria-hidden="true"></i>${escapeHTML(step.period)}</span>
+      <span class="story-company">${escapeHTML(step.company)}</span>
+      <span class="story-title">${escapeHTML(step.title)}</span>
+      <strong class="stat-value">${escapeHTML(step.value)}</strong>
+      <span class="stat-label">${escapeHTML(step.label)}</span>
+    </article>`).join("");
+  } else {
+    byId("hero-stats").innerHTML = data.hero.stats.map((stat) => {
+      const color = (data.projects.find((project) => project.id === stat.project) || {}).color;
+      return `
+      <article class="stat-card"${color ? ` style="--brand:${color[0]};--brand-dark:${color[1]}"` : ""}>
+        ${stat.tag ? `<span class="stat-tag"><i aria-hidden="true"></i>${escapeHTML(stat.tag)}</span>` : ""}
+        <strong class="stat-value">${escapeHTML(stat.value)}</strong>
+        <span class="stat-label">${escapeHTML(stat.label)}</span>
+      </article>`;
+    }).join("");
+  }
   byId("hero-stats").querySelectorAll(".stat-value").forEach(countUp);
 
   if (data.about.badge) byId("about-badge").textContent = data.about.badge;
   else byId("about-badge").closest(".proof-badge").hidden = true;
   optionalRich(byId("about-copy"), data.about.copy);
+  // 핵심 역량 카드: 제목 · 설명(줄바꿈 유지) · 근거 숫자
+  const competencies = data.about.competencies || [];
+  if (competencies.length && byId("competencies")) {
+    const grid = byId("competencies");
+    grid.innerHTML = competencies.map((item, index) => `
+      <article class="competency-card">
+        <p class="competency-index">0${index + 1}</p>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p class="competency-desc">${escapeHTML(item.desc)}</p>
+        <div class="competency-proofs">${(item.proofs || []).map((proof) => `
+          <div class="competency-proof"><strong>${escapeHTML(proof.value)}</strong><span>${escapeHTML(proof.label)}</span></div>`).join("")}</div>
+      </article>`).join("");
+    grid.hidden = false;
+  }
   if (data.about.capabilities.length) {
     const list = byId("capabilities");
-    list.innerHTML = data.about.capabilities.map((item) => `<li>${escapeHTML(item)}</li>`).join("");
+    // "매체: Meta · ..." 처럼 앞에 이름이 있으면 그 이름만 굵게
+    list.innerHTML = data.about.capabilities.map((item) => {
+      const cut = item.indexOf(": ");
+      return cut > 0 ? `<li><b>${escapeHTML(item.slice(0, cut))}</b>${escapeHTML(item.slice(cut + 1))}</li>` : `<li>${escapeHTML(item)}</li>`;
+    }).join("");
     list.hidden = false;
   }
 
@@ -233,7 +267,7 @@
       <p class="tool-index">0${index + 1} / ${escapeHTML(tool.stack)}</p>
       <h3>${escapeHTML(tool.name)}</h3>
       ${tool.image ? `<figure class="tool-figure"><img src="${escapeHTML(tool.image)}" alt="${escapeHTML(tool.name)} 화면" loading="lazy" />${tool.caption ? `<figcaption>${escapeHTML(tool.caption)}</figcaption>` : ""}</figure>` : ""}
-      ${tool.steps ? `<ol class="tool-steps">${tool.steps.map((step) => `<li>${escapeHTML(step)}</li>`).join("")}</ol>` : ""}
+      ${tool.steps ? `<ol class="tool-steps${tool.image ? "" : " tool-flow"}">${tool.steps.map((step) => `<li>${escapeHTML(step)}</li>`).join("")}</ol>` : ""}
       <dl class="tool-facts">
         <div><dt>문제</dt><dd>${rich(tool.problem)}</dd></div>
         <div><dt>만든 것</dt><dd>${rich(tool.built)}</dd></div>

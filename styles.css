@@ -277,6 +277,49 @@ html.case-open { overflow: hidden; }
 .site-footer > span, .back-top { font-size: 8px; font-weight: 700; letter-spacing: .13em; }
 .back-top { transition: opacity .2s ease; }
 :focus-visible { outline: 2px solid #739b31; outline-offset: 4px; }
+/* 2026-11-08 히어로: 강점 제목 + 대행사 5년 흐름 카드 */
+h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
+.about-copy { word-break: keep-all; }
+.story-label { margin: 22px 0 0; }
+.story-grid .stat-card { position: relative; min-height: 0; padding-top: 16px; }
+.story-grid .stat-card + .stat-card::before { content: "→"; position: absolute; top: 14px; left: -9px; width: 18px; height: 18px; display: grid; place-items: center; background: var(--paper); color: #6f9a25; font-size: 12px; font-weight: 700; }
+.story-period { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: -.01em; }
+.story-period i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 1px #9cc54a; }
+.story-company { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; font-weight: 560; letter-spacing: -.02em; word-break: keep-all; }
+.story-title { display: block; margin-top: 3px; font-size: 15px; font-weight: 700; line-height: 1.4; letter-spacing: -.035em; word-break: keep-all; }
+.story-grid .stat-value { margin-top: 14px; font-size: clamp(28px, 3.3vw, 42px); }
+.story-grid .stat-label { margin-top: 8px; line-height: 1.5; }
+/* 핵심 역량 카드 */
+.competency-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.competency-card { display: flex; flex-direction: column; padding: 24px 24px 20px; background: var(--surface); border: 1px solid var(--line); }
+.competency-index { margin: 0; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .14em; }
+.competency-card h3 { margin: 8px 0 0; font-size: 21px; font-weight: 700; letter-spacing: -.045em; word-break: keep-all; }
+.competency-desc { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; letter-spacing: -.02em; white-space: pre-line; word-break: keep-all; }
+.competency-proofs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: auto; padding-top: 16px; }
+.competency-desc + .competency-proofs { margin-top: 18px; border-top: 1px solid var(--line); }
+.competency-proof strong { display: block; color: #4f7a12; font-size: 24px; font-weight: 700; letter-spacing: -.05em; white-space: nowrap; }
+:root[data-theme="dark"] .competency-proof strong { color: var(--accent); }
+.competency-proof span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.45; word-break: keep-all; }
+.competency-grid + .capability-list, .about-copy + .competency-grid { margin-top: 22px; }
+.capability-list li { word-break: keep-all; }
+.capability-list li b { font-weight: 700; margin-right: 3px; }
+@media screen and (max-width: 760px) {
+  .competency-grid { grid-template-columns: minmax(0, 1fr); }
+  .story-grid .stat-card:nth-child(3)::before { display: none; }
+}
+@media screen and (max-width: 540px) {
+  .story-grid .stat-card, .story-grid .stat-card + .stat-card { display: block; padding: 14px 0 14px; }
+  .story-grid .stat-card + .stat-card::before { display: none; }
+  .story-grid .stat-label { text-align: left; max-width: none; }
+  .story-grid .stat-value { margin-top: 8px; }
+  .competency-card { padding: 20px 18px 16px; }
+}
+/* 이미지 없는 도구 카드: 단계를 세로 흐름도로 (옆 카드 이미지 높이와 맞춤) */
+.tool-steps.tool-flow { flex-direction: column; flex-wrap: nowrap; gap: 0; height: 215px; justify-content: space-between; margin: 0 0 18px; counter-reset: step; }
+.tool-steps.tool-flow li { position: relative; display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 4px; background: rgba(199, 243, 106, .07); font-size: 12px; }
+.tool-steps.tool-flow li::before { content: counter(step); counter-increment: step; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; background: rgba(199, 243, 106, .18); color: var(--accent); font-size: 10px; font-weight: 700; }
+.tool-steps.tool-flow li + li::after { content: ""; position: absolute; left: 20px; top: -9px; width: 1px; height: 9px; background: rgba(199, 243, 106, .45); }
+.tool-steps.tool-flow li:first-child { font-family: ui-monospace, Consolas, monospace; color: var(--accent); }
 @media (min-width: 1450px) { .hero { min-height: 760px; } }
 @media screen and (max-width: 760px) {
   :root { --pad: 25px; }
