@@ -17,7 +17,7 @@ window.PORTFOLIO = {
     intro: "광고대행사 5년 동안 이커머스 · 앱 · 리드 · 브랜딩 캠페인을 직접 운영했습니다.",
     // 제목 아래: 회사별로 묶은 업종별 캠페인 표 (5년 흐름 + 캠페인 KPI + 광고비). 2026-11-08 수연이가 정리해 준 KPI 기준
     storyLabel: "업종별 캠페인",
-    campaignNote: "광고비는 담당 기간 집행액 기준 (오뚜기는 미디어믹스 기준)",
+    campaignNote: "광고비는 담당 기간 집행액 기준 (오뚜기는 미디어믹스, 데이위즈는 구글 · 메타 합계)",
     campaigns: [
       {
         company: "와이즈버즈", period: "2025.07 – 현재", role: "대리 · 캠페인 PM",
@@ -32,7 +32,7 @@ window.PORTFOLIO = {
       {
         company: "데이위즈 (구 엔포니)", period: "2022.07 – 2024.12", role: "마케팅팀 매니저",
         rows: [
-          { industry: "여성 패션 쇼핑몰", project: "blackfriday", brand: "블랙업 · 슬로우앤드 · 더무드 · 비바루비 등 SMB 8곳", kpi: "ROAS · 매출", how: "구글 · 메타 · 네이버 운영, 호스팅사(Cafe24 · 메이크샵) 데이터 분석", budget: "월 4억 규모" }
+          { industry: "여성 패션 쇼핑몰", project: "blackfriday", brand: "블랙업 · 슬로우앤드 · 더무드 등 SMB 8곳", kpi: "ROAS · 매출", how: "구글 · 메타 · 네이버, 매출 대비 예산 설계, 호스팅사(Cafe24 · 메이크샵) 데이터 분석", budget: "약 30억" }
         ]
       },
       {
@@ -53,7 +53,7 @@ window.PORTFOLIO = {
         items: [
           { did: "LX하우시스 지인페스타 트래픽 : 전환 예산 비중 재설계", result: "전환 CPA -80%" },
           { did: "네이버 확장검색 · 구글 Non-Brand 입찰전략 테스트", result: "상담신청 +108.6%" },
-          { did: "여성 패션 쇼핑몰 5곳 구글 광고 운영", result: "평균 ROAS 500%+" }
+          { did: "SMB 쇼핑몰 8곳 구글 · 메타 운영, 매출 대비 광고비로 예산 설계", result: "ROAS 약 600%" }
         ]
       },
       {
@@ -233,6 +233,7 @@ window.PORTFOLIO = {
       company: "데이위즈 (구 엔포니)",
       name: "블랙업(BLACKUP) 블랙프라이데이 매출 · 신규 고객 캠페인",
       period: "2024.10 — 2024.11",
+      budget: "예산 8,800만 원",
       highlight: { value: "767%", label: "Google ROAS · 자사 최고 매출" },
       role: "미디어믹스 설계 · 전 매체 운영",
       goal: "SMB 여성 패션 쇼핑몰의 1년 중 가장 큰 행사 · 매출과 ROAS 최대화, 신규 고객 확보",
@@ -242,14 +243,15 @@ window.PORTFOLIO = {
         { label: "매체", value: "Meta · Google · 카카오 · 네이버 GFA · 타겟팅게이츠 · 앱 푸시", wide: true }
       ],
       work: [
-        "**Meta** 유입 : 전환 9 : 1까지 전환 비중 확대, 미도달 타겟은 예약 캠페인으로 분리\n→ Meta ROAS 525%",
+        "**예산 설계** 전년 블프 매출 10.6억 기준 예상 매출 11억 × 광고비 비중 8%(평소 6%) = 8,800만 원, 6개 매체에 배분\n→ 메타 50 · 구글 25 · 네이버 검색 9 · GFA 8 · 카카오 5 · 타게팅게이츠 3 (%)",
+        "**Meta** 유입 : 전환 9 : 1까지 전환 비중 확대, 미도달 타겟은 예약 캠페인으로 분리\n→ 8일 광고비 약 3,600만 원, Meta ROAS 528%",
         "**Google** PMax · 영상 · 검색 · Demand Gen 구성, Demand Gen은 신규 고객 전용\n→ Google ROAS 767%, 새 사용자 비중 98%",
         "**CRM** '장바구니 이탈' · '구매 1회 고객' 세그먼트 앱 푸시, 앱 전용 혜택 구성\n→ 앱 푸시 참여율 92%"
       ],
       metrics: [
         { value: "자사 최고", label: "블랙프라이데이 브랜드 매출" },
         { value: "767%", label: "Google ROAS · Demand Gen 새 사용자 비중 98%" },
-        { value: "525%", label: "Meta ROAS" },
+        { value: "528%", label: "Meta ROAS · 8일 광고비 약 3,600만 원" },
         { value: "92%", label: "CRM 앱 푸시 참여율 · 새 사용자율 64%" }
       ],
       charts: [
@@ -259,7 +261,7 @@ window.PORTFOLIO = {
           unit: "%",
           items: [
             { label: "Google", value: 767 },
-            { label: "Meta", value: 525 }
+            { label: "Meta", value: 528 }
           ]
         }
       ],
@@ -410,13 +412,14 @@ window.PORTFOLIO = {
     {
       company: "데이위즈 (구 엔포니)",
       period: "2022.07 — 2024.12",
-      detail: "광고대행사 마케팅팀 매니저 · SMB 인터넷 여성 패션 쇼핑몰 담당 · 월 4억 원 규모, 8개 업체, 10개 매체 동시 운영 · 2024년 크리마 자회사로 편입되며 엔포니에서 이름이 바뀐 같은 회사",
+      detail: "광고대행사 마케팅팀 매니저 · SMB 인터넷 여성 패션 쇼핑몰 8곳 담당 · 구글 · 메타 누적 광고비 약 30억 원, 10개 매체 운영 · 2024년 크리마 자회사로 편입되며 엔포니에서 이름이 바뀐 같은 회사",
       numbers: [
-        { label: "블랙업 블랙프라이데이 구글 · 메타 운영, 자사 최고 매출", value: "ROAS 767% · 525%" },
-        { label: "여성 패션 쇼핑몰 5곳 구글 광고 운영", value: "평균 ROAS 500%+" },
-        { label: "네이버 파워링크 운영 (평균 노출순위 2.71위)", value: "ROAS 770%" },
+        { label: "블랙업 블랙프라이데이 예산 설계(8,800만 원) · 6개 매체 운영, 자사 최고 매출", value: "ROAS 767% · 528%" },
+        { label: "SMB 쇼핑몰 8곳 구글 · 메타 운영 (2022.09 – 2024.11, 누적 약 30억)", value: "합산 ROAS 약 600%" },
+        { label: "비바루비 네이버 파워링크 운영 (평균 노출순위 2.71위)", value: "ROAS 770%" },
         { label: "T사 연령대별 가입 · 매출 분석 후 2030 캠페인 분리", value: "가입률 +30%, ROAS 1.2배" },
-        { label: "V사 시간대별 예산 운영 · '셋업' 카테고리 제안", value: "객단가 +50%" },
+        { label: "7개 쇼핑몰 신상 등록 수 × 매출 관계 분석, 광고 · 컨설팅 제안에 활용", value: "" },
+        { label: "호스팅사 매출 · 방문 데이터 수집 자동화 (개발자와 빅쿼리 → 구글 시트)", value: "" },
         { label: "GA4 결제 이탈 분석 중 iOS 결제 오류 발견", value: "이탈률 36 → 20%" }
       ]
     },
