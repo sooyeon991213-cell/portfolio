@@ -4,335 +4,39 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>성과 대시보드 데모</title>
-<meta name="description" content="석수연 포트폴리오 · 실제 운영 대시보드 구조를 가상 데이터로 재현한 데모" />
+<meta name="description" content="석수연 포트폴리오 · 실제 운영 대시보드의 화면 구성을 가상 데이터로 재현한 데모" />
 <meta name="robots" content="noindex" />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<style>
-  :root {
-    --bg: #f3f4f7; --card: #ffffff; --line: #e6e8ee; --ink: #1d2230; --muted: #7b8294; --soft: #f7f8fb;
-    --blue: #5b7cfa; --green: #34c58c; --purple: #9b6bfa; --red: #ef5a5a; --amber-bg: #fff7e8; --amber-line: #f4dcae; --amber-ink: #8a5a00;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Pretendard, "Malgun Gothic", system-ui, sans-serif; font-size: 13px; }
-  a { color: inherit; }
-  .demo-bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 9px 24px; background: #1d2230; color: #e9ecf5; font-size: 12px; }
-  .demo-bar b { color: #c7f36a; }
-  .demo-bar a { color: #c7f36a; text-decoration: none; font-weight: 600; }
-  header.top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--card); border-bottom: 1px solid var(--line); }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; line-height: 1.15; }
-  .logo i { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, var(--blue), var(--purple)); }
-  .logo small { display: block; color: var(--muted); font-weight: 500; font-size: 11px; }
-  .filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
-  .seg button, .sel { border: 0; background: var(--card); padding: 7px 11px; font: inherit; font-size: 12px; color: var(--ink); cursor: pointer; }
-  .seg button + button { border-left: 1px solid var(--line); }
-  .seg button.on { background: #eef1ff; color: var(--blue); font-weight: 700; }
-  .sel { border: 1px solid var(--line); border-radius: 7px; }
-  .range { color: var(--muted); font-size: 12px; padding: 0 4px; }
-  main { max-width: 1240px; margin: 0 auto; padding: 18px 24px 48px; }
-  .tabs-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: 4px; background: #e9ebf1; border-radius: 9px; }
-  .tabs button { border: 0; background: transparent; padding: 7px 12px; border-radius: 7px; font: inherit; font-size: 12.5px; color: #4b5266; cursor: pointer; }
-  .tabs button.on { background: var(--card); color: var(--ink); font-weight: 700; box-shadow: 0 1px 2px rgba(20, 30, 60, .08); }
-  .stamp { color: var(--muted); font-size: 11px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; min-width: 0; }
-  .card h3 { margin: 0 0 12px; font-size: 13.5px; }
-  .card h3 small { color: var(--muted); font-weight: 500; margin-left: 6px; }
-  .kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
-  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 0; }
-  .kpi span { display: block; color: var(--muted); font-size: 11px; }
-  .kpi b { display: block; margin-top: 5px; font-size: 18px; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .kpi em { display: block; margin-top: 3px; font-style: normal; font-size: 11px; }
-  .up { color: var(--green); } .down { color: var(--red); } .flat { color: var(--muted); }
-  .insight { background: var(--amber-bg); border: 1px solid var(--amber-line); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
-  .insight h3 { margin: 0 0 8px; color: var(--amber-ink); font-size: 13px; }
-  .insight ul { margin: 0; padding-left: 18px; line-height: 1.75; }
-  .insight li b { color: var(--amber-ink); }
-  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .chart-box { position: relative; height: 210px; }
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 12px; white-space: nowrap; }
-  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; }
-  th { background: var(--soft); color: #555d70; font-weight: 600; }
-  th:first-child, td:first-child, th.l, td.l { text-align: left; }
-  tfoot td { background: #eef0f5; font-weight: 700; }
-  .bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--blue); vertical-align: middle; margin-right: 6px; }
-  .tag { display: inline-block; padding: 2px 7px; border-radius: 99px; font-size: 10.5px; font-weight: 700; }
-  .tag.da { background: #eef1ff; color: var(--blue); } .tag.sa { background: #e8f8f1; color: #1f9a68; }
-  .tag.best { background: #e8f8f1; color: #1f9a68; } .tag.worst { background: #fdecec; color: var(--red); } .tag.warn { background: var(--amber-bg); color: var(--amber-ink); }
-  .thumb { display: inline-block; width: 34px; height: 34px; border-radius: 6px; vertical-align: middle; margin-right: 8px; }
-  .pace { height: 8px; background: #edf0f6; border-radius: 4px; overflow: hidden; min-width: 120px; }
-  .pace i { display: block; height: 100%; background: var(--blue); }
-  .pace i.over { background: var(--red); }
-  .note { color: var(--muted); font-size: 11.5px; margin: 8px 0 0; }
-  .upload { display: grid; place-items: center; gap: 6px; padding: 34px 16px; border: 1.5px dashed #c9cfdd; border-radius: 10px; color: var(--muted); text-align: center; }
-  [hidden] { display: none !important; }
-  @media (max-width: 1000px) { .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .grid3 { grid-template-columns: minmax(0, 1fr); } }
-  @media (max-width: 640px) {
-    main, header.top, .demo-bar { padding-left: 16px; padding-right: 16px; }
-    .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid2 { grid-template-columns: minmax(0, 1fr); }
-  }
-</style>
+<link rel="stylesheet" href="./demo.css?v=3" />
 </head>
 <body>
 <div class="demo-bar">
-  <span><b>DEMO · 가상 데이터</b> 실제 운영 중인 광고주 대시보드의 구조를 가상의 숫자로 재현했습니다.</span>
+  <span><b>DEMO · 가상 데이터</b> 실제 운영 중인 광고주 대시보드의 화면 구성을 그대로 두고, 숫자 · 브랜드 · 소재만 가상으로 바꿨습니다.</span>
   <a href="../#automation">← 포트폴리오로 돌아가기</a>
 </div>
 <header class="top">
-  <div class="logo"><i></i><div>Sample Brand<small>Performance Dashboard</small></div></div>
+  <div class="logo"><i>SAMPLE</i><span>Sample Brand<br />Dashboard</span></div>
   <div class="filters">
-    <span class="range" id="range-label"></span>
-    <div class="seg" id="preset">
-      <button data-p="7">7일</button><button data-p="14">14일</button><button data-p="last">지난달</button><button data-p="mtd" class="on">이번달</button><button data-p="all">전체</button>
-    </div>
-    <select class="sel" id="media-filter" aria-label="매체 필터"><option value="all">전체 매체</option><option value="DA">DA만</option><option value="SA">SA만</option></select>
+    <span class="dates"><input type="date" id="from" aria-label="시작일" /> ~ <input type="date" id="to" aria-label="종료일" /></span>
+    <span class="seg" id="preset"><button data-p="7">7일</button><button data-p="14">14일</button><button data-p="last">지난달</button><button data-p="mtd">이번달</button><button data-p="all">전체</button></span>
+    <span id="flt-da" class="filters"><select class="dd" id="f-camp" aria-label="Campaign"></select><select class="dd" id="f-obj" aria-label="Objective"></select><select class="dd" id="f-media" aria-label="Media"></select><select class="dd" id="f-ct" aria-label="Content Type"></select></span>
+    <span id="flt-sa" class="filters" hidden><select class="dd" id="f-sam" aria-label="Media"></select></span>
+    <button class="icon-btn" id="refresh" title="새로고침">⟳</button><button class="icon-btn" id="theme" title="다크 모드">☾</button>
   </div>
 </header>
 <main>
   <div class="tabs-row">
     <nav class="tabs" id="tabs">
-      <button data-t="summary" class="on">Summary</button><button data-t="da">DA Performance</button><button data-t="sa">SA Performance</button><button data-t="keyword">Keyword Insights</button><button data-t="creative">Creative Asset</button><button data-t="mix">Media Mix</button><button data-t="trend">Campaign Trend</button><button data-t="upload">Data Upload</button>
+      <button data-t="summary">Summary</button><button data-t="da">DA Performance</button><button data-t="sa">SA Performance</button><button data-t="keyword">Keyword Insights</button><button data-t="creative">Creative Asset</button><button data-t="mix">Media Mix</button><button data-t="trend">Campaign Trend</button><button data-t="admin">Admin</button><button data-t="upload">Data Upload</button>
     </nav>
-    <span class="stamp">Raw 2026-10-18 08:41 자동 업데이트 · Mix 2026-10-01</span>
+    <span class="stamp" id="stamp"></span>
   </div>
-
-  <section data-panel="summary">
-    <div class="kpis" id="kpis"></div>
-    <div class="insight" id="insight"></div>
-    <div class="grid3">
-      <div class="card"><h3>일별 광고비 <small>막대 · 광고비 / 선 · CPA</small></h3><div class="chart-box"><canvas id="c-cost"></canvas></div></div>
-      <div class="card"><h3>일별 세션 <small>GA 기준 · 선 · 세션 단가</small></h3><div class="chart-box"><canvas id="c-sess"></canvas></div></div>
-      <div class="card"><h3>일별 상담신청 <small>GA 기준 · 선 · 전환율</small></h3><div class="chart-box"><canvas id="c-lead"></canvas></div></div>
-    </div>
-    <div class="card"><h3>매체별 성과 <small>매체 RAW + GA 세션 · 상담신청 결합</small></h3><div class="table-wrap" id="t-media"></div></div>
-  </section>
-
-  <section data-panel="da" hidden>
-    <div class="grid2">
-      <div class="card"><h3>목적별 광고비 · CPA</h3><div class="chart-box"><canvas id="c-da-obj"></canvas></div></div>
-      <div class="card"><h3>소재 유형별 세션 단가</h3><div class="chart-box"><canvas id="c-da-ct"></canvas></div></div>
-    </div>
-    <div class="card"><h3>DA 캠페인 × 목적 × 소재 유형</h3><div class="table-wrap" id="t-da"></div></div>
-  </section>
-
-  <section data-panel="sa" hidden>
-    <div class="card"><h3>SA 매체 · 캠페인</h3><div class="table-wrap" id="t-sa"></div></div>
-    <div class="card"><h3>브랜드 vs 일반 키워드 CPA</h3><div class="chart-box"><canvas id="c-sa"></canvas></div></div>
-  </section>
-
-  <section data-panel="keyword" hidden>
-    <div class="card"><h3>키워드별 성과 · 네이버 실시간 노출 순위 <small>순위는 리포트 생성 시점 조회</small></h3><div class="table-wrap" id="t-kw"></div>
-      <p class="note">상담신청 0건이 3주 이상 이어지면 '점검' 표시 → 입찰가 하향 · OFF 후보</p></div>
-  </section>
-
-  <section data-panel="creative" hidden>
-    <div class="card"><h3>소재 성과 상위 · 하위 <small>기간 내 광고비 10만 원 이상 소재</small></h3><div class="table-wrap" id="t-cr"></div></div>
-  </section>
-
-  <section data-panel="mix" hidden>
-    <div class="card"><h3>미디어믹스 계획 대비 소진 <small>10월 · 월말 예상은 최근 7일 일평균 기준</small></h3><div class="table-wrap" id="t-mix"></div></div>
-  </section>
-
-  <section data-panel="trend" hidden>
-    <div class="card"><h3>DA · SA 일별 CPA 추이</h3><div class="chart-box" style="height:260px"><canvas id="c-trend"></canvas></div></div>
-    <div class="card"><h3>주차별 요약</h3><div class="table-wrap" id="t-week"></div></div>
-  </section>
-
-  <section data-panel="upload" hidden>
-    <div class="card"><h3>월간 리포트 만들기</h3>
-      <div class="upload"><b>원본 파일 5개를 끌어다 놓으면 월간 엑셀 리포트와 대시보드가 함께 갱신됩니다</b><span>SA RAW · DA RAW · GA 세션 · 상담신청 · 미디어믹스 (데모에서는 업로드되지 않습니다)</span></div>
-      <p class="note">평일 오전에는 데일리 리포트가 끝나면 이 화면을 거치지 않고 자동으로 업로드됩니다.</p>
-    </div>
-  </section>
+  <div id="view"></div>
 </main>
-
+<footer>Demo · 가상 데이터 · 석수연 포트폴리오</footer>
+<div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>
-(() => {
-  // ---------- 가상 데이터 (시드 고정) ----------
-  let seed = 20261018;
-  const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
-  const jitter = (v, p) => v * (1 + (rnd() * 2 - 1) * p);
-  const MEDIA = [
-    { id: "Google DA", type: "DA", cost: 520000, cpc: 210, ctr: .9, sess: .72, lead: .010 },
-    { id: "PMax", type: "DA", cost: 610000, cpc: 180, ctr: 1.1, sess: .78, lead: .014 },
-    { id: "Meta", type: "DA", cost: 880000, cpc: 340, ctr: 1.4, sess: .64, lead: .016 },
-    { id: "Kakao", type: "DA", cost: 300000, cpc: 260, ctr: .8, sess: .60, lead: .009 },
-    { id: "Naver GFA", type: "DA", cost: 410000, cpc: 230, ctr: .7, sess: .70, lead: .011 },
-    { id: "TikTok", type: "DA", cost: 260000, cpc: 120, ctr: 1.6, sess: .45, lead: .004 },
-    { id: "Naver SA", type: "SA", cost: 690000, cpc: 820, ctr: 3.2, sess: .88, lead: .052 },
-    { id: "Google SA", type: "SA", cost: 330000, cpc: 760, ctr: 4.1, sess: .85, lead: .044 }
-  ];
-  const OBJ = ["유입", "전환"], CT = ["이미지", "영상"];
-  const days = [];
-  for (let d = new Date(2026, 8, 1); d <= new Date(2026, 9, 18); d.setDate(d.getDate() + 1)) days.push(new Date(d));
-  const key = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  const parse = (k) => { const [y, m, dd] = k.split("-").map(Number); return new Date(y, m - 1, dd); };
-  const rows = [];
-  days.forEach((d, i) => {
-    const dow = d.getDay(), weekend = dow === 0 || dow === 6;
-    const promo = d >= new Date(2026, 9, 6) && d <= new Date(2026, 9, 12);
-    MEDIA.forEach((m) => {
-      OBJ.forEach((o) => CT.forEach((c) => {
-        if (m.type === "SA" && c === "영상") return;
-        let cost = m.cost * (o === "전환" ? .58 : .42) * (m.type === "SA" ? 1 : c === "영상" ? .45 : .55);
-        cost = jitter(cost * (weekend ? .82 : 1) * (promo ? 1.45 : 1) * (1 + i * .002), .12);
-        let cpc = jitter(m.cpc * (o === "유입" ? .8 : 1.2), .1), ctr = jitter(m.ctr, .12);
-        if (key(d) === "2026-10-18" && m.id === "TikTok") cpc *= 1.65;
-        if (key(d) === "2026-10-18" && m.id === "Kakao") ctr *= .62;
-        const clicks = cost / cpc, imp = clicks / (ctr / 100);
-        const sessions = clicks * jitter(m.sess, .08);
-        const leads = sessions * jitter(m.lead * (o === "전환" ? 1.35 : .6) * (promo ? 1.25 : 1) * (c === "영상" ? 1.1 : 1), .25);
-        rows.push({ date: key(d), media: m.id, type: m.type, obj: o, ct: c, cost, imp, clicks, sessions, leads });
-      }));
-    });
-  });
-  const BUDGET = { "Google DA": 1.9e7, PMax: 2.5e7, Meta: 3.1e7, Kakao: 0.98e7, "Naver GFA": 1.55e7, TikTok: 0.84e7, "Naver SA": 2.4e7, "Google SA": 1.26e7 };
-  const KEYWORDS = [
-    ["브랜드명", "SA", .22, 1.4, 1, .55, 1.6], ["브랜드명 + 제품군", "SA", .12, 1.2, 1, .7, 1.35], ["제품군 추천", "SA", .1, .9, 3, 1.15, .95], ["제품군 가격", "SA", .09, .8, 4, 1.05, .85],
-    ["지역명 + 시공", "SA", .07, 1.6, 2, .9, 1.2], ["경쟁사명", "SA", .06, .35, 5, 1.4, .6], ["제품군 후기", "SA", .08, .7, 3, .95, 1.0], ["인테리어 견적", "SA", .1, .5, 6, 1.3, .75],
-    ["셀프 인테리어", "SA", .06, .05, 8, .8, .7], ["리모델링 비용", "SA", .1, .6, 4, 1.2, .9]
-  ];
-  const CREATIVES = [
-    ["봄 시즌 키비주얼", "Meta", "이미지", "#9fb4ff,#d9e1ff"], ["시공 전후 비교 영상", "Meta", "영상", "#ffcf9f,#ffe9d6"], ["제품 클로즈업 15초", "TikTok", "영상", "#a8f0d0,#e2fbf0"],
-    ["후기 카드뉴스", "Naver GFA", "이미지", "#d5b8ff,#efe5ff"], ["프로모션 배너", "Kakao", "이미지", "#ffb3b3,#ffe3e3"], ["브랜드 필름 30초", "Google DA", "영상", "#b3e1ff,#e3f4ff"],
-    ["가격 혜택 배너", "PMax", "이미지", "#ffe08a,#fff3cc"], ["상담 신청 유도 카드", "Meta", "이미지", "#c2f0a0,#ecfbe1"]
-  ];
-
-  // ---------- 상태 · 유틸 ----------
-  const state = { preset: "mtd", media: "all", tab: "summary" };
-  const TODAY = "2026-10-18";
-  const fmt = (n, d = 0) => (isFinite(n) ? n : 0).toLocaleString("ko-KR", { maximumFractionDigits: d, minimumFractionDigits: d });
-  const won = (n) => fmt(n) + "원";
-  const pct = (n, d = 1) => fmt(n, d) + "%";
-  const sum = (arr, f) => arr.reduce((a, r) => a + r[f], 0);
-  const agg = (arr) => { const o = { cost: sum(arr, "cost"), imp: sum(arr, "imp"), clicks: sum(arr, "clicks"), sessions: sum(arr, "sessions"), leads: sum(arr, "leads") };
-    o.ctr = o.clicks / o.imp * 100; o.cpc = o.cost / o.clicks; o.cps = o.cost / o.sessions; o.cvr = o.leads / o.sessions * 100; o.cpa = o.cost / o.leads; return o; };
-  const shift = (k, n) => { const d = parse(k); d.setDate(d.getDate() + n); return key(d); };
-  const range = () => ({ "7": [shift(TODAY, -6), TODAY], "14": [shift(TODAY, -13), TODAY], last: ["2026-09-01", "2026-09-30"], mtd: ["2026-10-01", TODAY], all: ["2026-09-01", TODAY] })[state.preset];
-  const pick = (from, to) => rows.filter((r) => r.date >= from && r.date <= to && (state.media === "all" || r.type === state.media));
-  const groupBy = (arr, f) => arr.reduce((m, r) => ((m[r[f]] = m[r[f]] || []).push(r), m), {});
-  const delta = (now, prev, inverse) => { if (!prev) return `<em class="flat">–</em>`; const v = (now / prev - 1) * 100; const good = inverse ? v < 0 : v > 0;
-    return `<em class="${Math.abs(v) < .5 ? "flat" : good ? "up" : "down"}">${v > 0 ? "▲" : "▼"} ${fmt(Math.abs(v), 1)}% 직전 기간 대비</em>`; };
-  const table = (head, body, foot) => `<table><thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${body.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody>${foot ? `<tfoot><tr>${foot.map((c) => `<td>${c}</td>`).join("")}</tr></tfoot>` : ""}</table>`;
-  const charts = {};
-  const draw = (id, cfg) => { if (!window.Chart) return; charts[id] && charts[id].destroy(); charts[id] = new Chart(document.getElementById(id), cfg); };
-  const combo = (labels, bar, line, barLabel, lineLabel, color) => ({
-    data: { labels, datasets: [
-      { type: "bar", label: barLabel, data: bar, backgroundColor: color + "cc", borderRadius: 3, yAxisID: "y" },
-      { type: "line", label: lineLabel, data: line, borderColor: "#f2a541", backgroundColor: "#f2a541", pointRadius: 0, borderWidth: 2, tension: .35, yAxisID: "y1" }] },
-    options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false }, plugins: { legend: { display: false } },
-      scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: { size: 10 } } }, y: { ticks: { font: { size: 10 } } }, y1: { position: "right", grid: { display: false }, ticks: { font: { size: 10 } } } } }
-  });
-
-  // ---------- 렌더 ----------
-  function render() {
-    const [from, to] = range();
-    const len = Math.round((parse(to) - parse(from)) / 864e5) + 1;
-    document.getElementById("range-label").textContent = `${from} ~ ${to}`;
-    const cur = pick(from, to), prev = pick(shift(from, -len), shift(from, -1));
-    const A = agg(cur), P = prev.length ? agg(prev) : null;
-
-    // KPI
-    const k = [["광고비", won(A.cost), "cost"], ["노출", fmt(A.imp), "imp"], ["클릭", fmt(A.clicks), "clicks"], ["CTR", pct(A.ctr, 2), "ctr"], ["CPC", won(A.cpc), "cpc", 1], ["세션 (GA)", fmt(A.sessions), "sessions"],
-      ["세션 단가", won(A.cps), "cps", 1], ["상담신청 (GA)", fmt(A.leads) + "건", "leads"], ["전환율", pct(A.cvr, 2), "cvr"], ["CPA", won(A.cpa), "cpa", 1]];
-    const mtd = agg(rows.filter((r) => r.date >= "2026-10-01" && (state.media === "all" || r.type === state.media)));
-    const budget = Object.entries(BUDGET).filter(([m]) => state.media === "all" || MEDIA.find((x) => x.id === m).type === state.media).reduce((a, [, v]) => a + v, 0);
-    const last7 = agg(pick(shift(TODAY, -6), TODAY)).cost / 7, proj = mtd.cost + last7 * 13;
-    document.getElementById("kpis").innerHTML = k.map(([l, v, f, inv]) => `<div class="kpi"><span>${l}</span><b>${v}</b>${P ? delta(A[f], P[f], inv) : ""}</div>`).join("")
-      + `<div class="kpi"><span>10월 소진율</span><b>${pct(mtd.cost / budget * 100)}</b><em class="flat">예산 ${fmt(budget / 1e4)}만 원</em></div>`
-      + `<div class="kpi"><span>월말 예상 소진</span><b>${pct(proj / budget * 100)}</b><em class="${proj > budget * 1.02 ? "down" : "up"}">${proj > budget * 1.02 ? "초과 예상 · 일 예산 조정" : "계획 범위"}</em></div>`;
-
-    // 자동 인사이트
-    const w1 = agg(pick(shift(TODAY, -6), TODAY)), w0 = agg(pick(shift(TODAY, -13), shift(TODAY, -7)));
-    const ch = (a, b) => `${a > b ? "+" : ""}${fmt((a / b - 1) * 100, 1)}%`;
-    const alerts = [];
-    MEDIA.filter((m) => state.media === "all" || m.type === state.media).forEach((m) => {
-      const t = agg(rows.filter((r) => r.media === m.id && r.date === TODAY)), base = agg(rows.filter((r) => r.media === m.id && r.date >= shift(TODAY, -7) && r.date <= shift(TODAY, -1)));
-      base.cost /= 7;
-      if (t.cpc >= base.cpc * 1.5) alerts.push(`<b>${m.id}</b> CPC ${won(t.cpc)} · 7일 평균 대비 ${ch(t.cpc, base.cpc)} → 입찰 · 타겟 확인`);
-      if (t.ctr <= base.ctr * .7) alerts.push(`<b>${m.id}</b> CTR ${pct(t.ctr, 2)} · 7일 평균 대비 ${ch(t.ctr, base.ctr)} → 소재 피로도 확인`);
-      if (t.cost >= base.cost * 1.8) alerts.push(`<b>${m.id}</b> 비용 7일 평균 대비 ${ch(t.cost, base.cost)}`);
-    });
-    document.getElementById("insight").innerHTML = `<h3>자동 인사이트 · ${TODAY} 기준</h3><ul>
-      <li>최근 7일 광고비 ${won(w1.cost)} (전주 대비 ${ch(w1.cost, w0.cost)}), 상담신청 ${fmt(w1.leads)}건 (${ch(w1.leads, w0.leads)}), CPA ${won(w1.cpa)} (${ch(w1.cpa, w0.cpa)})</li>
-      <li>10월 예산 소진 ${pct(mtd.cost / budget * 100)} · 경과일 58% · 최근 7일 속도면 월말 <b>${pct(proj / budget * 100)}</b> 소진 예상${proj > budget * 1.02 ? " → 남은 기간 일 예산 " + fmt((1 - (budget - mtd.cost) / (last7 * 13)) * 100, 0) + "% 낮추기" : ""}</li>
-      ${alerts.length ? alerts.map((a) => `<li>${a}</li>`).join("") : "<li>이상치 알림 없음 (CPC +50% · CTR -30% · 비용 +80% 기준)</li>"}</ul>`;
-
-    // 일별 차트
-    const byDay = groupBy(cur, "date"), labels = Object.keys(byDay).sort(), D = labels.map((d) => agg(byDay[d])), short = labels.map((d) => d.slice(5));
-    draw("c-cost", combo(short, D.map((x) => Math.round(x.cost)), D.map((x) => Math.round(x.cpa)), "광고비", "CPA", "#5b7cfa"));
-    draw("c-sess", combo(short, D.map((x) => Math.round(x.sessions)), D.map((x) => Math.round(x.cps)), "세션", "세션 단가", "#34c58c"));
-    draw("c-lead", combo(short, D.map((x) => Math.round(x.leads)), D.map((x) => +x.cvr.toFixed(2)), "상담신청", "전환율", "#9b6bfa"));
-
-    // 매체 표
-    const byM = groupBy(cur, "media"), maxCost = Math.max(...Object.values(byM).map((v) => sum(v, "cost")));
-    const mrow = (name, a, type) => [`${type ? `<span class="tag ${type.toLowerCase()}">${type}</span> ` : ""}${name}`, `<span class="bar" style="width:${Math.max(4, a.cost / maxCost * 70)}px"></span>${won(a.cost)}`, pct(a.cost / A.cost * 100), fmt(a.imp), fmt(a.clicks), pct(a.ctr, 2), won(a.cpc), fmt(a.sessions), won(a.cps), fmt(a.leads), pct(a.cvr, 2), won(a.cpa)];
-    const head = ["매체", "광고비", "비중", "노출", "클릭", "CTR", "CPC", "세션", "세션 단가", "상담신청", "전환율", "CPA"];
-    document.getElementById("t-media").innerHTML = table(head, Object.entries(byM).sort((a, b) => sum(b[1], "cost") - sum(a[1], "cost")).map(([m, v]) => mrow(m, agg(v), v[0].type)), mrow("합계", A).map((c, i) => i === 1 ? won(A.cost) : c));
-
-    // DA
-    const da = cur.filter((r) => r.type === "DA");
-    if (da.length) {
-      const byO = groupBy(da, "obj"), byC = groupBy(da, "ct");
-      draw("c-da-obj", { type: "bar", data: { labels: OBJ, datasets: [{ label: "광고비", data: OBJ.map((o) => Math.round(sum(byO[o] || [], "cost"))), backgroundColor: "#5b7cfacc", borderRadius: 4, yAxisID: "y" }, { label: "CPA", data: OBJ.map((o) => Math.round(agg(byO[o] || []).cpa)), backgroundColor: "#f2a541cc", borderRadius: 4, yAxisID: "y1" }] }, options: { maintainAspectRatio: false, scales: { y1: { position: "right", grid: { display: false } } } } });
-      draw("c-da-ct", { type: "bar", data: { labels: CT, datasets: [{ label: "세션 단가", data: CT.map((c) => Math.round(agg(byC[c] || []).cps)), backgroundColor: ["#34c58ccc", "#9b6bfacc"], borderRadius: 4 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
-      const g = {}; da.forEach((r) => { const k2 = `${r.media}|${r.obj}|${r.ct}`; (g[k2] = g[k2] || []).push(r); });
-      document.getElementById("t-da").innerHTML = table(["매체", "목적", "소재 유형", "광고비", "CTR", "CPC", "세션", "세션 단가", "상담신청", "CPA"],
-        Object.entries(g).sort((a, b) => sum(b[1], "cost") - sum(a[1], "cost")).map(([k2, v]) => { const a = agg(v), [m, o, c] = k2.split("|"); return [m, o, c, won(a.cost), pct(a.ctr, 2), won(a.cpc), fmt(a.sessions), won(a.cps), fmt(a.leads), won(a.cpa)]; }));
-    } else document.getElementById("t-da").innerHTML = `<p class="note">매체 필터가 SA만으로 되어 있습니다.</p>`;
-
-    // SA
-    const sa = rows.filter((r) => r.date >= from && r.date <= to && r.type === "SA"), SA = agg(sa);
-    const saRows = []; ["Naver SA", "Google SA"].forEach((m) => [["브랜드", .38], ["일반", .62]].forEach(([c, w]) => { const a = agg(sa.filter((r) => r.media === m)); const lf = c === "브랜드" ? 1.9 : .55;
-      saRows.push([m, c, won(a.cost * w), fmt(a.clicks * w), pct(a.ctr * (c === "브랜드" ? 1.6 : .8), 2), won(a.cpc * (c === "브랜드" ? .7 : 1.2)), fmt(a.leads * w * lf), won(a.cost * w / (a.leads * w * lf))]); }));
-    document.getElementById("t-sa").innerHTML = table(["매체", "캠페인", "광고비", "클릭", "CTR", "CPC", "상담신청", "CPA"], saRows, ["합계", "", won(SA.cost), fmt(SA.clicks), pct(SA.ctr, 2), won(SA.cpc), fmt(SA.leads), won(SA.cpa)]);
-    draw("c-sa", { type: "bar", data: { labels: ["Naver SA", "Google SA"], datasets: [{ label: "브랜드 CPA", data: [0, 2].map((i) => Math.round(parseFloat(saRows[i][7].replace(/[^\d.]/g, "")))), backgroundColor: "#34c58ccc", borderRadius: 4 }, { label: "일반 CPA", data: [1, 3].map((i) => Math.round(parseFloat(saRows[i][7].replace(/[^\d.]/g, "")))), backgroundColor: "#5b7cfacc", borderRadius: 4 }] }, options: { maintainAspectRatio: false } });
-
-    // 키워드
-    document.getElementById("t-kw").innerHTML = table(["키워드", "PC 순위", "MO 순위", "광고비", "클릭", "CTR", "CPC", "상담신청", "CPA", "상태"],
-      KEYWORDS.map(([kw, , share, lf, rank, cpcF, ctrF]) => { const cost = SA.cost * share * .6, clicks = cost / (SA.cpc * cpcF), leads = Math.round(SA.leads * share * .6 * lf);
-        const zero = lf < .1, state2 = zero ? `<span class="tag worst">점검</span>` : lf > 1.3 ? `<span class="tag best">효율</span>` : "";
-        return [kw, `${rank}위`, `${Math.min(rank + (rank > 2 ? 1 : 0), 10)}위`, won(cost), fmt(clicks), pct(SA.ctr * ctrF, 2), won(cost / clicks), zero ? "0" : fmt(leads), zero ? "–" : won(cost / leads), state2]; }));
-
-    // 소재
-    const daA = agg(da.length ? da : cur);
-    const cr = CREATIVES.map(([n, m, c, g], i) => { const f = [1.6, 1.25, .45, 1.1, .7, .9, 1.35, 1.5][i], cost = daA.cost * [.16, .14, .07, .1, .06, .09, .12, .11][i];
-      return { n, m, c, g, cost, ctr: daA.ctr * (.7 + f * .4), leads: daA.leads * [.16, .14, .07, .1, .06, .09, .12, .11][i] * f }; }).sort((a, b) => a.cost / a.leads - b.cost / b.leads);
-    document.getElementById("t-cr").innerHTML = table(["소재", "매체", "유형", "광고비", "CTR", "상담신청", "CPA", ""],
-      cr.map((x, i) => [`<span class="thumb" style="background:linear-gradient(135deg,${x.g})"></span>${x.n}`, x.m, x.c, won(x.cost), pct(x.ctr, 2), fmt(x.leads), won(x.cost / x.leads), i < 2 ? `<span class="tag best">상위</span>` : i > cr.length - 3 ? `<span class="tag worst">하위 · 교체 검토</span>` : ""]));
-
-    // 미디어믹스
-    const mtdRows = rows.filter((r) => r.date >= "2026-10-01"), mtdBy = groupBy(mtdRows, "media"), l7 = groupBy(rows.filter((r) => r.date >= shift(TODAY, -6)), "media");
-    document.getElementById("t-mix").innerHTML = table(["매체", "계획 예산", "소진", "소진율", "진행", "월말 예상", "판단"],
-      MEDIA.filter((m) => state.media === "all" || m.type === state.media).map((m) => { const used = sum(mtdBy[m.id], "cost"), b = BUDGET[m.id], pr = used + sum(l7[m.id], "cost") / 7 * 13, r = pr / b;
-        return [`<span class="tag ${m.type.toLowerCase()}">${m.type}</span> ${m.id}`, won(b), won(used), pct(used / b * 100), `<div class="pace"><i class="${r > 1.05 ? "over" : ""}" style="width:${Math.min(100, used / b * 100)}%"></i></div>`, pct(r * 100), r > 1.05 ? `<span class="tag worst">감액</span>` : r < .9 ? `<span class="tag warn">증액 여유</span>` : `<span class="tag best">유지</span>`]; }));
-
-    // 추이
-    const tr = groupBy(rows.filter((r) => r.date >= from && r.date <= to), "date"), tl = Object.keys(tr).sort();
-    draw("c-trend", { type: "line", data: { labels: tl.map((d) => d.slice(5)), datasets: [
-      { label: "DA CPA", data: tl.map((d) => Math.round(agg(tr[d].filter((r) => r.type === "DA")).cpa)), borderColor: "#5b7cfa", pointRadius: 0, tension: .35, borderWidth: 2 },
-      { label: "SA CPA", data: tl.map((d) => Math.round(agg(tr[d].filter((r) => r.type === "SA")).cpa)), borderColor: "#34c58c", pointRadius: 0, tension: .35, borderWidth: 2 }] },
-      options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false }, scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 10 } } } } });
-    const weeks = {}; cur.forEach((r) => { const d = parse(r.date); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); (weeks[key(d)] = weeks[key(d)] || []).push(r); });
-    document.getElementById("t-week").innerHTML = table(["주 시작", "광고비", "세션", "세션 단가", "상담신청", "CPA"], Object.keys(weeks).sort().map((w) => { const a = agg(weeks[w]); return [w, won(a.cost), fmt(a.sessions), won(a.cps), fmt(a.leads), won(a.cpa)]; }));
-  }
-
-  // ---------- 이벤트 ----------
-  document.getElementById("preset").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; state.preset = b.dataset.p;
-    document.querySelectorAll("#preset button").forEach((x) => x.classList.toggle("on", x === b)); render(); });
-  document.getElementById("media-filter").addEventListener("change", (e) => { state.media = e.target.value; render(); });
-  const openTab = (t) => { const b = document.querySelector(`#tabs button[data-t="${t}"]`); if (!b) return; state.tab = t;
-    document.querySelectorAll("#tabs button").forEach((x) => x.classList.toggle("on", x === b));
-    document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== state.tab; });
-    Object.values(charts).forEach((c) => c.resize()); };
-  document.getElementById("tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { openTab(b.dataset.t); history.replaceState(null, "", "#" + b.dataset.t); } });
-  render();
-  if (location.hash) openTab(location.hash.slice(1));
-})();
-</script>
+<script src="./data.js?v=3"></script>
+<script src="./demo.js?v=3"></script>
 </body>
 </html>
