@@ -315,11 +315,19 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
   .competency-card { padding: 20px 18px 16px; }
 }
 /* 이미지 없는 도구 카드: 단계를 세로 흐름도로 (옆 카드 이미지 높이와 맞춤) */
-.tool-steps.tool-flow { flex-direction: column; flex-wrap: nowrap; gap: 0; height: 215px; justify-content: space-between; margin: 0 0 18px; counter-reset: step; }
-.tool-steps.tool-flow li { position: relative; display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 4px; background: rgba(199, 243, 106, .07); font-size: 12px; }
-.tool-steps.tool-flow li::before { content: counter(step); counter-increment: step; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; background: rgba(199, 243, 106, .18); color: var(--accent); font-size: 10px; font-weight: 700; }
-.tool-steps.tool-flow li + li::after { content: ""; position: absolute; left: 20px; top: -9px; width: 1px; height: 9px; background: rgba(199, 243, 106, .45); }
-.tool-steps.tool-flow li:first-child { color: var(--accent); font-weight: 700; }
+.tool-flow-label { margin: 0 0 8px; color: #bac3a9; font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+.tool-steps.tool-flow { flex-direction: column; flex-wrap: nowrap; gap: 8px; margin: 0 0 20px; counter-reset: step; }
+.tool-steps.tool-flow li { position: relative; display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; border-radius: 4px; background: rgba(199, 243, 106, .07); font-size: 12px; }
+.tool-steps.tool-flow li::before { content: counter(step); counter-increment: step; flex: 0 0 18px; width: 18px; height: 18px; margin-top: 1px; display: grid; place-items: center; border-radius: 50%; background: rgba(199, 243, 106, .18); color: var(--accent); font-size: 10px; font-weight: 700; }
+.tool-steps.tool-flow li + li::after { content: ""; position: absolute; left: 20px; top: -8px; width: 1px; height: 8px; background: rgba(199, 243, 106, .45); }
+.tool-steps .step-text { display: grid; gap: 3px; min-width: 0; }
+.tool-steps .step-text b { font-weight: 600; }
+.tool-steps .step-text small { color: #bac3a9; font-size: 11px; line-height: 1.5; word-break: keep-all; }
+.tool-card .tool-facts { margin-top: 0; }
+.tool-built { display: grid; gap: 7px; margin: 2px 0 0; padding: 0; list-style: none; }
+.tool-built li { position: relative; padding-left: 12px; word-break: keep-all; }
+.tool-built li::before { content: ""; position: absolute; left: 0; top: .7em; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+.tool-built strong { display: block; color: var(--accent); }
 /* 2026-11-08 히어로 아래: 회사별 업종 캠페인 표 */
 .stats-grid.campaign-mode { display: block; }
 .hero:has(.campaign-mode) .hero-rule { margin-top: 34px; }
