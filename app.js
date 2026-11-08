@@ -82,6 +82,9 @@
       <strong class="stat-value">${escapeHTML(step.value)}</strong>
       <span class="stat-label">${escapeHTML(step.label)}</span>
     </article>`).join("");
+  } else if (!data.hero.stats) {
+    // 11/08 18차: 첫 장은 제목 · 소개만 (업종별 캠페인 표 삭제)
+    byId("hero-stats").hidden = true;
   } else {
     byId("hero-stats").innerHTML = data.hero.stats.map((stat) => {
       const color = (data.projects.find((project) => project.id === stat.project) || {}).color;
@@ -224,6 +227,18 @@
         return `<div class="split-row"><span class="split-label">${escapeHTML(row.label)}</span><div class="split-bar">${row.parts.map(seg).join("")}</div>${legend}</div>`;
       }).join("")}</figure>`;
     }
+    // journey: 고객 여정 단계(화살표 머리) 아래에 그 단계를 맡은 캠페인
+    if (d.type === "journey") {
+      return `<figure class="chart diagram journey">${head}
+        <div class="j-grid" style="--n:${d.stages.length}">${d.stages.map((stage, i) => `
+          <div class="j-stage">
+            <span class="j-head${i ? "" : " first"}">${escapeHTML(stage.name)}</span>
+            <div class="j-items">${stage.items.map((item) => `<span class="j-item"><b>${escapeHTML(item.t)}</b>${item.d ? `<small>${escapeHTML(item.d)}</small>` : ""}</span>`).join("")}</div>
+          </div>`).join("")}
+        </div>
+        ${d.goal ? `<p class="j-goal">→ ${escapeHTML(d.goal)}</p>` : ""}
+      </figure>`;
+    }
     if (d.type === "funnel") {
       const box = (item, isNew) => `<span class="ev${isNew ? " new" : ""}">${escapeHTML(item)}</span>`;
       return `<figure class="chart diagram funnel">${head}
@@ -241,75 +256,80 @@
     return "";
   };
 
-  // 케이스 카드 (제안서 Success Case 형식): 왼쪽 KPI → Approach → Results, 오른쪽 해시태그 · 핵심 숫자 원형 · 도식 · 그래프 · 대표 소재
+  // 케이스 = 한 장짜리 슬라이드 (1280×720 캔버스를 화면에 맞게 줄여서 스크롤 없이). 수연이 레퍼런스 PPT 형식:
+  // 왼쪽 KPI · Approach · Results 글머리, 오른쪽은 프로젝트마다 다른 구성(slide.top + slide.visuals)
   const caseModal = document.createElement("div");
   caseModal.className = "case-backdrop";
   caseModal.hidden = true;
   document.body.appendChild(caseModal);
   let openIndex = -1;
   let lastFocus = null;
+  const SLIDE_W = 1280, SLIDE_H = 720;
+  const fitSlide = () => {
+    const small = window.innerWidth < 860;
+    const scale = Math.min((window.innerWidth - 132) / SLIDE_W, (window.innerHeight - 64) / SLIDE_H, 1.25);
+    caseModal.classList.toggle("stacked", small);
+    caseModal.style.setProperty("--s", small ? 1 : Math.max(scale, 0.45).toFixed(4));
+  };
+  window.addEventListener("resize", () => { if (!caseModal.hidden) fitSlide(); });
+  const statMarkup = (stat) => `<div class="s-stat"><strong>${escapeHTML(stat.value)}</strong><span>${escapeHTML(stat.label)}</span></div>`;
+  // 원본 비율 그대로: flex-grow = 가로/세로 비율이면 같은 줄 이미지 높이가 저절로 맞춰짐
+  const galleryMarkup = (images) => `<div class="s-gallery">${images.map((image) => {
+    const ratio = image.w && image.h ? image.w / image.h : 1;
+    return `<a href="${escapeHTML(image.src)}" target="_blank" rel="noopener" style="flex:${ratio.toFixed(4)} 1 0"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.alt || "")}" loading="lazy" style="aspect-ratio:${image.w || 1} / ${image.h || 1}" /></a>`;
+  }).join("")}</div>`;
+  const slideTop = (top) => {
+    if (!top) return "";
+    const stats = (top.stats || []).length ? `<div class="s-stats">${top.stats.map(statMarkup).join("")}</div>` : "";
+    const images = top.images || [];
+    if (top.kind === "photo") return `<div class="s-top photo"><img src="${escapeHTML(images[0].src)}" alt="${escapeHTML(images[0].alt || "")}" />${stats}</div>`;
+    if (top.kind === "collage") return `<div class="s-top collage">${images.map((image, i) => `<a class="c${i}" href="${escapeHTML(image.src)}" target="_blank" rel="noopener"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.alt || "")}" style="aspect-ratio:${image.w || 1} / ${image.h || 1}" /></a>`).join("")}${stats}</div>`;
+    if (top.kind === "side") return `<div class="s-top side">${top.statsAfter ? galleryMarkup(images) + stats : stats + galleryMarkup(images)}</div>`;
+    return `<div class="s-top gallery">${galleryMarkup(images)}${stats}</div>`;
+  };
+  const slideVisual = (project, kind) => {
+    if (kind === "diagram") return diagramMarkup(project.diagram);
+    if (kind === "charts") return `<div class="case-charts count-${(project.charts || []).length}">${(project.charts || []).map(chartMarkup).join("")}</div>`;
+    if (kind === "numbers") return `<div class="s-numbers">${(project.slide.numbers || []).map((item) => `<div><strong>${escapeHTML(item.value)}</strong><span>${escapeHTML(item.label)}</span></div>`).join("")}</div>`;
+    return "";
+  };
   const caseMarkup = (project, index) => {
-    const charts = (project.charts || []).slice(0, 2);
-    const insight = project.insight || [];
-    const images = imageMarkup(project);
-    const approach = project.approach || [];
-    const results = project.results || [];
-    const keys = results.filter((item) => item.key).slice(0, 3);
+    const slide = project.slide || {};
+    const budgetLabel = project.budget ? (/^예산/.test(project.budget) ? project.budget : `광고비 ${project.budget}`) : "";
+    const meta = [project.industry, budgetLabel, project.contribution ? `기여도 ${project.contributionLabel || `${project.contribution}%`}` : ""].filter(Boolean);
     return `
-    <article class="case-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
-      <header class="case-head">
-        <div>
-          <p class="case-eyebrow">Success Case · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.current ? " · 진행 중" : ""}</p>
-          <h3 id="case-title">${escapeHTML(project.brand)} <span class="case-campaign">${escapeHTML(project.campaign || "")}</span></h3>
-          ${project.headline ? `<p class="case-headline">${escapeHTML(project.headline)}</p>` : ""}
+    <article class="case-panel slide" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
+      <div class="s-left">
+        <p class="s-eyebrow">Success Case · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.current ? " · 진행 중" : ""}</p>
+        <h3 id="case-title" class="s-title">${escapeHTML(project.brand)}</h3>
+        <p class="s-sub">${escapeHTML(project.campaign || "")}</p>
+        <p class="s-meta">${meta.map(escapeHTML).join(" · ")}</p>
+        ${tags(project.media, "media")}
+        <div class="s-body">
+          <section class="s-sec"><h4>KPI</h4><p>${rich(project.goal || "")}</p></section>
+          <section class="s-sec"><h4>Approach</h4><ul class="s-list">${(project.approach || []).map((step) => `<li><b>${escapeHTML(step.t)}</b> ${rich(step.d)}</li>`).join("")}</ul></section>
+          <section class="s-sec"><h4>Results</h4><ul class="s-list results">${(project.results || []).map((line) => `<li>${rich(line)}</li>`).join("")}</ul></section>
         </div>
-        <div class="case-nav">
-          <button type="button" class="case-step" data-step="-1" aria-label="이전 프로젝트">←</button>
-          <span>${index + 1} / ${projects.length}</span>
-          <button type="button" class="case-step" data-step="1" aria-label="다음 프로젝트">→</button>
-          <button type="button" class="case-close" aria-label="닫기">×</button>
-        </div>
-      </header>
-      <div class="case-body">
-        <div class="case-left">
-          <dl class="case-facts">
-            <div><dt>업종</dt><dd>${escapeHTML(project.industry || "")}</dd></div>
-            ${project.budget ? `<div><dt>${/^예산/.test(project.budget) ? "예산" : "광고비"}</dt><dd>${escapeHTML(project.budget.replace(/^예산\s*/, ""))}</dd></div>` : ""}
-            ${project.contribution ? `<div><dt>기여도</dt><dd>${escapeHTML(project.contributionLabel || `${project.contribution}%`)}<span class="fact-bar" aria-hidden="true"><i style="width:${Number(project.contribution)}%"></i></span></dd></div>` : ""}
-            <div class="wide"><dt>매체</dt><dd>${tags(project.media, "media")}</dd></div>
-          </dl>
-          <section class="case-block">
-            <h4>KPI</h4>
-            ${project.goal ? `<p class="case-goal">${rich(project.goal)}</p>` : ""}
-            ${tags(project.kpis, "kpi")}
-          </section>
-          <section class="case-block">
-            <h4>Approach</h4>
-            <ol class="approach-list">${approach.map((step, i) => `
-              <li><span class="approach-no">${circled(i + 1)}</span><div><b>${escapeHTML(step.t)}</b><span>${rich(step.d)}</span></div></li>`).join("")}</ol>
-          </section>
-          <section class="case-block">
-            <h4>Results</h4>
-            <ul class="result-list">${results.map((item) => `
-              <li><b>${escapeHTML(item.value)}</b><span>${escapeHTML(item.label)}${item.ref && approach[item.ref - 1] ? ` <em class="result-ref">${circled(item.ref)}</em>` : ""}</span></li>`).join("")}</ul>
-          </section>
-          ${insight.length ? `<section class="case-block insight"><h4>Insight</h4>${insight.map((line) => `<p>${rich(line)}</p>`).join("")}</section>` : ""}
-        </div>
-        <div class="case-right">
-          ${(project.hashtags || []).length ? `<div class="case-hashtags">${project.hashtags.map((tag) => `<span>#${escapeHTML(tag)}</span>`).join("")}</div>` : ""}
-          ${keys.length ? `<div class="key-stats count-${keys.length}">${keys.map((item) => `
-            <div class="key-stat"><strong>${escapeHTML(item.value)}</strong><span>${escapeHTML(item.key)}</span></div>`).join("")}</div>` : ""}
-          ${diagramMarkup(project.diagram)}
-          ${charts.length ? `<div class="case-charts count-${charts.length}">${charts.map(chartMarkup).join("")}</div>` : ""}
-          ${images ? `<div class="case-creatives"><h4>대표 소재</h4>${images}</div>` : ""}
-        </div>
+        <p class="s-page">${String(index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</p>
+      </div>
+      <div class="s-right tone-${slide.tone || "light"}">
+        ${(slide.signals || []).length ? `<div class="s-signals">${slide.signals.map((item) => `<div class="s-signal"><b>${escapeHTML(item.label)}</b><span>${escapeHTML(item.text)}</span></div>`).join("")}</div>` : ""}
+        ${slideTop(slide.top)}
+        <div class="s-visual">${(slide.visuals || []).map((kind) => slideVisual(project, kind)).join("")}</div>
       </div>
     </article>`;
   };
   const openCase = (index) => {
     openIndex = (index + projects.length) % projects.length;
-    caseModal.innerHTML = caseMarkup(projects[openIndex], openIndex);
+    caseModal.innerHTML = `
+      ${caseMarkup(projects[openIndex], openIndex)}
+      <div class="case-nav">
+        <button type="button" class="case-step prev" data-step="-1" aria-label="이전 프로젝트">←</button>
+        <button type="button" class="case-step next" data-step="1" aria-label="다음 프로젝트">→</button>
+        <button type="button" class="case-close" aria-label="닫기">×</button>
+      </div>`;
     caseModal.hidden = false;
+    fitSlide();
     document.documentElement.classList.add("case-open");
     history.replaceState(null, "", `#case-${projects[openIndex].id}`);
     caseModal.querySelector(".case-close").focus({ preventScroll: true });
