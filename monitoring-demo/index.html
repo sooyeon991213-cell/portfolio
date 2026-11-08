@@ -8,155 +8,149 @@
 <meta name="robots" content="noindex" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
-  :root { --bg: #f5f6f8; --card: #fff; --line: #e3e6ea; --ink: #1f2430; --muted: #6b7280; --head: #1f2430; --naver: #03c75a; --blue: #1a4dc5; --amber: #fff4dc; --amber-ink: #9a6400; --new: #e8f8ef; --new-ink: #15803d; }
+  :root { --bg: #f5f6f8; --card: #fff; --line: #e1e4e8; --ink: #1f2430; --muted: #6b7280; --head: #1f3a5f; --naver: #03c75a; --blue: #1a4dc5; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: Pretendard, "Malgun Gothic", system-ui, sans-serif; font-size: 12.5px; }
-  .demo-bar { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; padding: 7px 24px; background: #1f2430; color: #dfe3ec; font-size: 11.5px; }
+  .demo-bar { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; padding: 7px 20px; background: #1f2430; color: #dfe3ec; font-size: 11.5px; }
   .demo-bar b { color: #c7f36a; } .demo-bar a { color: #c7f36a; font-weight: 700; text-decoration: none; }
-  header { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--card); border-bottom: 1px solid var(--line); }
-  header h1 { margin: 0; font-size: 16px; } header h1 small { margin-left: 8px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
-  .tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  header { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 10px 20px; background: var(--card); border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0; font-size: 15px; } header h1 small { margin-left: 8px; color: var(--muted); font-size: 11.5px; font-weight: 500; }
+  .tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; color: var(--muted); font-size: 11.5px; }
   .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
-  .seg button { border: 0; background: var(--card); padding: 5px 10px; font: inherit; font-size: 11.5px; cursor: pointer; }
+  .seg button { border: 0; background: var(--card); padding: 5px 10px; font: inherit; font-size: 11.5px; cursor: pointer; color: var(--ink); }
   .seg button + button { border-left: 1px solid var(--line); } .seg button.on { background: #e9efff; color: var(--blue); font-weight: 700; }
-  .link { color: var(--blue); text-decoration: none; font-size: 11.5px; cursor: pointer; background: none; border: 0; font: inherit; }
-  main { padding: 16px 24px 40px; }
-  .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
-  .flow div { position: relative; padding: 10px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; font-size: 11.5px; color: var(--muted); }
-  .flow b { display: block; margin-bottom: 2px; color: var(--ink); font-size: 12.5px; }
-  .flow div + div::before { content: "→"; position: absolute; left: -11px; top: 50%; transform: translateY(-50%); color: #9aa3b2; }
-  .flow .cmd { font-family: Consolas, monospace; font-size: 11px; color: #334155; background: #eef1f6; padding: 1px 5px; border-radius: 4px; }
-  .grid2 { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 12px; margin-bottom: 14px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
-  .card h3 { margin: 0 0 10px; font-size: 13px; } .card h3 small { color: var(--muted); font-weight: 500; margin-left: 6px; font-size: 11px; }
-  table.sum { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-  table.sum th, table.sum td { padding: 6px 8px; border-bottom: 1px solid #eef0f3; text-align: left; }
-  table.sum th { background: #f3f4f6; color: var(--muted); font-weight: 600; }
-  table.sum td.n { text-align: right; font-variant-numeric: tabular-nums; }
-  .changes { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 12px; }
-  .changes li { display: grid; grid-template-columns: 70px 1fr; gap: 8px; padding: 7px 10px; border-radius: 7px; background: #f7f8fa; }
-  .tag { display: inline-block; padding: 1px 6px; border-radius: 99px; font-size: 10px; font-weight: 700; }
-  .tag.new { background: var(--new); color: var(--new-ink); } .tag.re { background: var(--amber); color: var(--amber-ink); } .tag.off { background: #eef0f3; color: var(--muted); }
-  .brands { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-  .brands button { padding: 6px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--card); font: inherit; font-size: 12px; cursor: pointer; }
-  .brands button.on { background: var(--head); color: #fff; border-color: var(--head); }
-  .sheet-box { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--card); }
-  .labels { flex: 0 0 120px; background: #e5e7eb; border-right: 1px solid var(--line); }
-  .labels div { display: grid; place-items: center; height: 290px; border-bottom: 1px solid var(--line); font-weight: 700; text-align: center; padding: 0 8px; }
-  .labels .lh { height: 40px; background: var(--head); color: #fff; border-bottom: 0; }
-  .sheet-wrap { flex: 1; overflow-x: auto; }
-  table.sheet { border-collapse: collapse; }
-  table.sheet th { height: 40px; background: var(--head); color: #fff; padding: 0 12px; font-size: 12.5px; min-width: 330px; border-right: 1px solid #39404f; box-sizing: border-box; }
-  table.sheet td { vertical-align: middle; padding: 10px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); height: 290px; box-sizing: border-box; }
-  table.sheet td > * { max-height: 268px; overflow: hidden; }
-  .same { color: var(--muted); text-align: center; font-size: 12.5px; }
-  .none { color: #b0b6c1; text-align: center; font-size: 12px; }
-  .badge-line { margin-bottom: 6px; }
-  /* 가상 광고 목업 */
-  .ad { border: 1px solid #e5e8ec; border-radius: 10px; padding: 10px 12px; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .04); font-size: 11.5px; }
+  .link { color: var(--blue); background: none; border: 0; font: inherit; font-size: 11.5px; cursor: pointer; }
+  main { padding: 12px 20px 0; }
+  .tab-note { margin: 0 0 8px; color: var(--muted); font-size: 11.5px; }
+  .tab-note b { color: var(--ink); }
+  .sheet-box { display: flex; align-items: flex-start; border: 1px solid var(--line); background: var(--card); }
+  .sheet-box.z50 { zoom: .5; } .sheet-box.z75 { zoom: .75; }
+  .labels-wrap { flex: 0 0 auto; border-right: 2px solid #c9ccd2; }
+  .sheet-wrap { flex: 1; min-width: 0; overflow-x: auto; }
+  table { border-collapse: collapse; table-layout: fixed; }
+  th { height: 38px; padding: 0 12px; background: var(--head); color: #fff; font-size: 12.5px; font-weight: 700; border-right: 1px solid #39404f; white-space: nowrap; }
+  td { padding: 8px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); vertical-align: middle; }
+  td .clip { overflow: hidden; }
+  table.labels td { text-align: center; font-weight: 700; font-size: 12px; background: #e9eaed; padding: 0 8px; }
+  table.labels td.dev { background: #f3f4f6; color: var(--muted); font-size: 11px; }
+  table.labels td.ent { color: var(--ink); }
+  table.sheet { width: calc(330px * 11); }
+  table.sheet th { width: 330px; }
+  .same { color: var(--muted); text-align: center; font-size: 12px; }
+  .sheet-tabs { position: sticky; bottom: 0; display: flex; gap: 2px; overflow-x: auto; margin: 10px -20px 0; padding: 6px 20px; background: #eceef1; border-top: 1px solid var(--line); }
+  .sheet-tabs button { flex: 0 0 auto; border: 0; border-radius: 4px 4px 0 0; padding: 7px 12px; background: transparent; font: inherit; font-size: 12px; color: #444; cursor: pointer; }
+  .sheet-tabs button.on { background: var(--card); color: var(--blue); font-weight: 700; box-shadow: 0 -2px 0 var(--blue) inset; }
+  .sheet-tabs .sep { flex: 0 0 1px; margin: 4px 6px; background: #c9ccd2; }
+  /* 가상 광고 캡처 */
+  .ad { border: 1px solid #e5e8ec; border-radius: 10px; padding: 9px 11px; background: #fff; font-size: 11px; }
   .ad .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-  .ad .logo { font-weight: 900; letter-spacing: .06em; font-size: 12px; } .ad .logo span { color: var(--naver); font-weight: 600; margin-left: 4px; letter-spacing: 0; font-size: 11px; }
-  .ad .adm { color: #9aa3b2; font-size: 9.5px; border: 1px solid #e3e6ea; border-radius: 3px; padding: 0 3px; }
-  .ad .ev { display: flex; gap: 5px; align-items: center; padding: 5px 7px; margin-bottom: 7px; border-radius: 6px; background: #f3f6fb; font-size: 10.5px; } .ad .ev b { color: var(--blue); }
-  .ad .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .ad .img { border-radius: 6px; min-height: 92px; position: relative; overflow: hidden; }
-  .ad .img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, .18)); }
-  .ad .hl { color: var(--blue); font-weight: 800; font-size: 13px; line-height: 1.3; }
-  .ad .ds { color: #4b5563; font-size: 10.5px; line-height: 1.45; margin: 3px 0 6px; }
-  .ad .chips { display: flex; gap: 4px; flex-wrap: wrap; } .ad .chips span { padding: 2px 7px; border: 1px solid #dbe3f3; border-radius: 99px; color: var(--blue); font-size: 10px; }
-  .ad .thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 8px; } .ad .thumbs i { display: block; height: 38px; border-radius: 4px; } .ad .thumbs em { display: block; font-style: normal; font-size: 9.5px; color: #6b7280; text-align: center; margin-top: 2px; }
-  .pl { display: grid; gap: 8px; }
-  .pl .ad .url { color: #6b7280; font-size: 10px; margin-bottom: 2px; } .pl .ad .url b { color: var(--naver); }
-  .pl .ad .row { display: grid; grid-template-columns: 1fr 120px; gap: 8px; }
-  .pl .ad .mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; } .pl .ad .mini i { height: 40px; border-radius: 4px; display: block; }
-  .sheet-box.zoom-50 { zoom: .5; } .sheet-box.zoom-75 { zoom: .75; }
-  .toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); padding: 9px 14px; border-radius: 8px; background: #1f2430; color: #fff; font-size: 12px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .ad .logo { font-weight: 900; letter-spacing: .05em; font-size: 11.5px; } .ad .logo span { color: var(--naver); font-weight: 600; margin-left: 4px; letter-spacing: 0; font-size: 10.5px; }
+  .adm { color: #9aa3b2; font-size: 9px; border: 1px solid #e3e6ea; border-radius: 3px; padding: 0 3px; }
+  .ad .ev { padding: 4px 7px; margin-bottom: 6px; border-radius: 6px; background: #f3f6fb; font-size: 10px; } .ad .ev b { color: var(--blue); margin-right: 4px; }
+  .ad .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .ad .img { border-radius: 6px; min-height: 84px; }
+  .ad .hl { color: var(--blue); font-weight: 800; font-size: 12.5px; line-height: 1.3; }
+  .ad .ds { color: #4b5563; font-size: 10px; line-height: 1.45; margin: 3px 0 5px; }
+  .ad .chips { display: flex; gap: 3px; flex-wrap: wrap; } .ad .chips span { padding: 1px 6px; border: 1px solid #dbe3f3; border-radius: 99px; color: var(--blue); font-size: 9.5px; }
+  .ad .thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 7px; } .ad .thumbs i { display: block; height: 34px; border-radius: 4px; }
+  .ad .url { color: #6b7280; font-size: 9.5px; margin-bottom: 3px; } .ad .url b { color: var(--naver); }
+  .ad .row { display: grid; grid-template-columns: 1fr 100px; gap: 7px; }
+  .ad .mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; } .ad .mini i { height: 36px; border-radius: 4px; display: block; }
+  .ad.mo { max-width: 240px; margin: 0 auto; }
+  .ad.mo .row { grid-template-columns: 1fr; } .ad.mo .mini { margin-top: 4px; }
+  .ad.mo .hero { grid-template-columns: 1fr; } .ad.mo .img { min-height: 64px; }
+  .pl { display: grid; gap: 6px; }
+  .toast { position: fixed; left: 50%; bottom: 60px; transform: translateX(-50%); padding: 9px 14px; border-radius: 8px; background: #1f2430; color: #fff; font-size: 12px; opacity: 0; pointer-events: none; transition: opacity .2s; }
   .toast.show { opacity: 1; }
-  .note { color: var(--muted); font-size: 11px; margin: 8px 0 0; }
-  @media (max-width: 900px) { .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } .flow div + div::before { display: none; } .grid2 { grid-template-columns: minmax(0, 1fr); } }
-  @media (max-width: 640px) { main, header, .demo-bar { padding-left: 16px; padding-right: 16px; } table.sheet th { min-width: 280px; } }
+  @media (max-width: 640px) { main, header, .demo-bar { padding-left: 12px; padding-right: 12px; } .sheet-tabs { margin: 10px -12px 0; padding: 6px 12px; } }
 </style>
 </head>
 <body>
-<div class="demo-bar"><span><b>DEMO · 가상 데이터</b> 실제 모니터링 결과 시트의 구성을 그대로 두고, 경쟁사 · 광고 문구 · 이미지만 가상으로 바꿨습니다.</span><a href="../#automation">← 포트폴리오로 돌아가기</a></div>
+<div class="demo-bar"><span><b>DEMO · 가상 데이터</b> 실제 모니터링 시트 구성 그대로, 경쟁사 · 광고 문구 · 이미지만 가상으로 바꿨습니다.</span><a href="../#automation">← 포트폴리오로 돌아가기</a></div>
 <header>
   <h1>네이버 광고 모니터링<small id="meta"></small></h1>
-  <div class="tools"><span class="muted" style="color:var(--muted);font-size:11.5px">보기</span><span class="seg" id="zoom"><button data-z="50">50%</button><button data-z="75" class="on">75%</button><button data-z="100">100%</button></span><button class="link" data-toast="실제로는 팀 구글 시트로 연결돼요 (데모)">원본 구글 시트 열기 ↗</button></div>
+  <div class="tools">보기 <span class="seg" id="zoom"><button data-z="50">50%</button><button data-z="75" class="on">75%</button><button data-z="100">100%</button></span><button class="link" data-toast="실제로는 팀 구글 시트로 연결돼요 (데모)">원본 구글 시트 열기 ↗</button></div>
 </header>
 <main>
-  <div class="flow">
-    <div><b>① 명령어 한 줄 실행</b>주 1회 <span class="cmd">monitor --week</span></div>
-    <div><b>② 자동 검색 · 캡처</b>경쟁사 5곳 · 키워드 9개 · PC/모바일 광고 영역</div>
-    <div><b>③ 지난 주차와 이미지 비교</b>동일 · 재등장 · 신규 소재 자동 판별</div>
-    <div><b>④ 구글 시트 주차별 적재</b>아래 시트처럼 열 하나 = 한 주</div>
-  </div>
-  <div class="grid2">
-    <section class="card"><h3>경쟁사별 소재 변화 요약<small>7월 5주차 ~ 10월 2주차 · 12주</small></h3><table class="sum" id="sum"></table></section>
-    <section class="card"><h3>이번 주(10월 2주차) 변화<small>자동 판별 결과</small></h3><ul class="changes" id="changes"></ul></section>
-  </div>
-  <div class="brands" id="brands"></div>
-  <div class="sheet-box zoom-75" id="box"><div class="labels" id="labels"></div><div class="sheet-wrap" id="wrap"><table class="sheet" id="sheet"></table></div></div>
-  <p class="note">'N주차와 동일한 소재 사용'은 지난 캡처와 이미지 비교로 자동 표시돼요. 몇 주 쉬었다가 다시 나온 소재는 '재등장'으로 따로 잡힙니다.</p>
+  <p class="tab-note" id="tab-note"></p>
+  <div class="sheet-box z75" id="box"><div class="labels-wrap"><table class="labels" id="labels"></table></div><div class="sheet-wrap" id="wrap"><table class="sheet" id="sheet"></table></div></div>
+  <nav class="sheet-tabs" id="tabs" aria-label="시트 탭"></nav>
 </main>
 <div class="toast" id="toast"></div>
 <script>
 (() => {
-  let seed = 917;
+  let seed = 4117;
   const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
   const pick = (a) => a[Math.floor(rnd() * a.length)];
   const WEEKS = ["7월 5주차", "8월 1주차", "8월 2주차", "8월 3주차", "8월 4주차", "9월 1주차", "9월 2주차", "9월 3주차", "9월 4주차", "10월 1주차", "10월 2주차"];
-  WEEKS.unshift("7월 4주차");
-  const BRANDS = [["경쟁사 A", "COMPETITOR A", "#1f3b73"], ["경쟁사 B", "COMPETITOR B", "#7a2e2e"], ["경쟁사 C", "COMPETITOR C", "#2f5d4a"], ["경쟁사 D", "COMPETITOR D", "#5b4a2e"], ["경쟁사 E", "COMPETITOR E", "#3d3566"]];
-  const SLOTS = ["브랜드검색 PC", "브랜드검색 MO", "파워링크 PC", "파워링크 MO"];
-  const HEAD = ["가을 시즌 최대 30% 혜택", "무료 실측 · 견적 이벤트", "신학기 수납 특가", "리모델링 상담 신청 시 사은품", "첫 구매 5% 추가 할인", "주방 리모델링 기획전", "시스템창 교체 특별가", "고객 후기 이벤트", "추석 맞이 감사 세일", "쇼룸 방문 예약 혜택", "욕실 리모델링 패키지", "베스트 침대 특가"];
+  const ENT = [{ name: "자사", logo: "SAMPLE", color: "#d0202b", bg: "#f4c9cd", domain: "sample-home.com" }, ...["A", "B", "C", "D", "E"].map((x, i) => ({ name: `경쟁사 ${x}`, logo: `COMPETITOR ${x}`, color: ["#1f3b73", "#7a2e2e", "#2f5d4a", "#5b4a2e", "#3d3566"][i], bg: ["#cfcfcf", "#cdd1ec", "#c9daf0", "#bfeee6", "#f8d6bd"][i], domain: `competitor-${x.toLowerCase()}.com` }))];
+  const KEYWORDS = ["인테리어", "아파트리모델링", "벽지", "창호", "바닥재", "도배장판", "중문", "주방인테리어"];
+  const HEAD = ["가을 시즌 최대 30% 혜택", "무료 실측 · 견적 이벤트", "신학기 수납 특가", "리모델링 상담 신청 시 사은품", "첫 구매 5% 추가 할인", "주방 리모델링 기획전", "시스템창 교체 특별가", "고객 후기 이벤트", "추석 맞이 감사 세일", "쇼룸 방문 예약 혜택", "욕실 리모델링 패키지", "베스트 상품 특가"];
   const DESC = ["공간 그대로 구현되는 3D 설계, 무료 상담으로 시작하세요.", "전문가 관리부터 A/S까지, 한 번에 해결하는 인테리어.", "지금 상담 신청 시 추가 혜택, 기간 한정 프로모션.", "시공 사례 1,000건, 우리 집에 맞는 견적을 받아보세요."];
-  const CHIPS = [["이벤트", "견적 받기", "시공사례"], ["혜택 보기", "쇼룸 예약", "상담 신청"], ["베스트", "신상품", "매장 안내"]];
   const PAL = [["#c9b8a3", "#efe6da"], ["#9fb4c9", "#e3ecf5"], ["#b5c9a3", "#e8f1de"], ["#d1a3a3", "#f6e3e3"], ["#a8a3c9", "#e7e5f5"], ["#c9c3a3", "#f3f0dc"]];
-  let cid = 0;
-  const mk = (b) => ({ id: ++cid, head: pick(HEAD), desc: pick(DESC), chips: pick(CHIPS), pal: pick(PAL), pal2: pick(PAL), b });
-  // 경쟁사 × 구분별 주차 시퀀스 (같은 소재 유지 · 교체 · 재등장 · 미노출)
-  const data = {};
-  BRANDS.forEach((b, bi) => {
-    data[bi] = {};
-    SLOTS.forEach((s, si) => {
-      const pool = [mk(bi)]; const seq = [pool[0]];
-      for (let w = 1; w < WEEKS.length; w++) {
-        const r = rnd(), prev = seq[w - 1];
-        if (s.startsWith("파워링크") && r < .04) seq.push(null);
-        else if (r < .13) { const c = mk(bi); pool.push(c); seq.push(c); }
-        else if (r < .18 && pool.length > 1) { const old = pool.filter((c) => c !== prev)[Math.floor(rnd() * (pool.length - 1))]; seq.push(old || prev); }
-        else seq.push(prev || pool[pool.length - 1]);
-      }
-      data[bi][si] = seq;
-    });
-  });
-  const status = (seq, w) => {
-    const c = seq[w]; if (!c) return { k: "none" };
-    if (w > 0 && seq[w - 1] === c) { let f = w; while (f > 0 && seq[f - 1] === c) f--; return { k: "same", from: f }; }
-    const first = seq.indexOf(c); if (first < w) return { k: "re", from: first }; return { k: "new" };
+  const mk = () => ({ head: pick(HEAD), head2: pick(HEAD), desc: pick(DESC), pal: pick(PAL), pal2: pick(PAL) });
+  // 주차별 캡처 시퀀스: 같은 소재 유지가 대부분, 가끔 교체 · 예전 소재 재사용 · 미노출(빈 칸)
+  const sequence = (runRate) => {
+    const pool = [mk()], seq = [rnd() < runRate ? pool[0] : null];
+    for (let w = 1; w < WEEKS.length; w++) {
+      const r = rnd(), prev = seq[w - 1];
+      if (rnd() > runRate) { seq.push(null); continue; }
+      if (!prev) { if (r < .5) seq.push(pool[pool.length - 1]); else { const c = mk(); pool.push(c); seq.push(c); } continue; }
+      if (r < .14) { const c = mk(); pool.push(c); seq.push(c); }
+      else if (r < .2 && pool.length > 1) { const others = pool.filter((c) => c !== prev); seq.push(others[Math.floor(rnd() * others.length)]); }
+      else seq.push(prev);
+    }
+    return seq;
   };
-  const adBSA = (c, bi) => { const [n, logo, col] = BRANDS[bi]; return `<div class="ad"><div class="top"><span class="logo" style="color:${col}">${logo}<span>홈페이지</span></span><span class="adm">광고</span></div><div class="ev"><b>이벤트</b>${c.head}</div><div class="hero"><div class="img" style="background:linear-gradient(140deg,${c.pal[0]},${c.pal[1]})"></div><div><div class="hl">${c.head}</div><div class="ds">${c.desc}</div><div class="chips">${c.chips.map((x) => `<span>${x}</span>`).join("")}</div></div></div><div class="thumbs">${["시리즈", "BEST", "매장 혜택", "시공사례"].map((t, i) => `<div><i style="background:linear-gradient(140deg,${(i % 2 ? c.pal2 : c.pal)[0]},${(i % 2 ? c.pal2 : c.pal)[1]})"></i><em>${t}</em></div>`).join("")}</div></div>`; };
-  const adPL = (c, bi) => { const [n, logo] = BRANDS[bi]; const one = (h, d, p) => `<div class="ad"><div class="url"><b>●</b> ${n} · www.example-${String.fromCharCode(97 + bi)}.com <span class="adm">광고</span></div><div class="row"><div><div class="hl">${n} 공식몰 · ${h}</div><div class="ds">${d}</div><div class="chips"><span>상담 신청</span><span>견적 받기</span></div></div><div class="mini">${[0, 1, 2].map((i) => `<i style="background:linear-gradient(140deg,${p[0]},${p[1]})"></i>`).join("")}</div></div></div>`; return `<div class="pl">${one(c.head, c.desc, c.pal)}${one(pick(HEAD.filter((x) => x !== c.head)), pick(DESC), c.pal2)}</div>`; };
-  let brand = 0;
-  function render() {
-    document.getElementById("brands").innerHTML = BRANDS.map(([n], i) => `<button data-b="${i}" class="${i === brand ? "on" : ""}">${n}</button>`).join("");
-    document.getElementById("labels").innerHTML = `<div class="lh">구분</div>` + SLOTS.map((s) => `<div>${s}</div>`).join("");
-    const head = `<tr>${WEEKS.map((w) => `<th>${w}</th>`).join("")}</tr>`;
-    const rows = SLOTS.map((s, si) => { const seq = data[brand][si]; return `<tr>${WEEKS.map((w, wi) => { const st = status(seq, wi); if (st.k === "none") return `<td class="none">광고 미노출</td>`; if (st.k === "same") return `<td class="same">${WEEKS[st.from]}와 동일한 소재 사용</td>`; const badge = st.k === "re" ? `<div class="badge-line"><span class="tag re">재등장 · ${WEEKS[st.from]} 소재</span></div>` : wi > 0 ? `<div class="badge-line"><span class="tag new">신규 소재</span></div>` : ""; return `<td>${badge}${s.startsWith("브랜드") ? adBSA(seq[wi], brand) : adPL(seq[wi], brand)}</td>`; }).join("")}</tr>`; }).join("");
-    document.getElementById("sheet").innerHTML = head + rows;
-    document.getElementById("wrap").scrollLeft = 99999;
-  }
-  // 요약 · 이번 주 변화
-  const sum = BRANDS.map(([n], bi) => { let ch = 0, re = 0, last = "-"; SLOTS.forEach((s, si) => { const seq = data[bi][si]; seq.forEach((c, w) => { const st = status(seq, w); if (w > 0 && (st.k === "new" || st.k === "re")) { ch++; if (st.k === "re") re++; last = WEEKS.indexOf(last) < w ? WEEKS[w] : last; } }); }); const cur = data[bi][0][WEEKS.length - 1]; return `<tr><td><b>${n}</b></td><td class="n">${ch}회</td><td class="n">${re}회</td><td>${last}</td><td>${cur ? cur.head : "-"}</td></tr>`; });
-  document.getElementById("sum").innerHTML = `<tr><th>경쟁사</th><th style="text-align:right">소재 교체</th><th style="text-align:right">재등장</th><th>마지막 교체</th><th>현재 브랜드검색 메시지</th></tr>` + sum.join("");
-  const lastW = WEEKS.length - 1, items = [];
-  BRANDS.forEach(([n], bi) => SLOTS.forEach((s, si) => { const seq = data[bi][si], st = status(seq, lastW); if (st.k === "new") items.push(`<li><span class="tag new">신규</span><span><b>${n}</b> ${s} — '${seq[lastW].head}'</span></li>`); if (st.k === "re") items.push(`<li><span class="tag re">재등장</span><span><b>${n}</b> ${s} — ${WEEKS[st.from]} 소재 다시 집행</span></li>`); if (st.k === "none") items.push(`<li><span class="tag off">미노출</span><span><b>${n}</b> ${s} — 광고 내려감</span></li>`); }));
-  document.getElementById("changes").innerHTML = items.length ? items.join("") : `<li><span class="tag off">변화 없음</span><span>모든 경쟁사가 지난주와 같은 소재 사용</span></li>`;
-  document.getElementById("meta").textContent = `보관본 · ${WEEKS[0]} ~ ${WEEKS[lastW]} · 저장 2026-10-19 18:13`;
+  const DATA = {};
+  ENT.slice(1).forEach((e) => { DATA["[브]" + e.name] = { kind: "brand", ent: e, rows: ["브랜드검색 PC", "파워링크 PC", "브랜드검색 MOBILE", "파워링크 MOBILE"].map((label) => ({ label, seq: sequence(label.startsWith("파워") ? .85 : .97) })) }; });
+  // 키워드마다 경쟁사별 집행 여부가 다름: 일부는 그 키워드 광고를 안 함(전 주차 '미운영 중으로 확인')
+  KEYWORDS.forEach((k) => {
+    const rates = ENT.map((e, i) => i === 0 ? .92 : (rnd() < .3 ? 0 : [.8, .6, .5, .75, .45][i - 1]));
+    DATA[k] = { kind: "keyword", rows: ["PC", "MOBILE"].flatMap((dev) => ENT.map((e, i) => ({ dev, ent: e, seq: rates[i] ? sequence(rates[i]) : WEEKS.map(() => null) }))) };
+  });
+  // 앞 주차에 같은 소재가 있으면 그 주차 (실제 도구는 캡처 이미지 비교로 판별)
+  const sameFrom = (seq, w) => { const c = seq[w]; if (!c) return -1; const first = seq.indexOf(c); return first < w ? first : -1; };
+  const grad = (p) => `linear-gradient(140deg,${p[0]},${p[1]})`;
+  const bsa = (c, e, mo) => `<div class="ad${mo ? " mo" : ""}"><div class="top"><span class="logo" style="color:${e.color}">${e.logo}<span>홈페이지</span></span><span class="adm">광고</span></div><div class="ev"><b>이벤트</b>${c.head}</div><div class="hero"><div class="img" style="background:${grad(c.pal)}"></div><div><div class="hl">${c.head}</div><div class="ds">${c.desc}</div><div class="chips"><span>이벤트</span><span>견적 받기</span><span>시공사례</span></div></div></div>${mo ? "" : `<div class="thumbs">${[0, 1, 2, 3].map((i) => `<i style="background:${grad(i % 2 ? c.pal2 : c.pal)}"></i>`).join("")}</div>`}</div>`;
+  const pl = (c, e, mo, two) => {
+    const one = (h, p) => `<div class="ad${mo ? " mo" : ""}"><div class="url"><b>●</b> ${e.name} · www.${e.domain} <span class="adm">광고</span></div><div class="row"><div><div class="hl">${e.name === "자사" ? "SAMPLE" : e.name} 공식 · ${h}</div><div class="ds">${c.desc}</div><div class="chips"><span>상담 신청</span><span>견적 받기</span></div></div><div class="mini">${[0, 1, 2].map(() => `<i style="background:${grad(p)}"></i>`).join("")}</div></div></div>`;
+    return `<div class="pl">${one(c.head, c.pal)}${two ? one(c.head2, c.pal2) : ""}</div>`;
+  };
+  let tab = "인테리어";
+  try { const h = decodeURIComponent(location.hash.slice(1)); if (h) tab = h; } catch (e) {}
+  const render = () => {
+    const d = DATA[tab], brand = d.kind === "brand", fullH = brand ? 300 : 160;
+    document.getElementById("tab-note").innerHTML = brand
+      ? `<b>${tab}</b> · 경쟁사 브랜드명 검색 결과의 브랜드검색 · 파워링크(해당 브랜드 도메인)를 PC · 모바일로 캡처`
+      : `<b>${tab}</b> · ※ 파워링크 상위 노출(PC 10개 / 모바일 5개) 안에서 못 찾으면 '더보기' 전체 광고주 목록도 최대 4페이지(약 100건)까지 추가 확인 → 그래도 없으면 '미운영 중으로 확인'으로 표기`;
+    const heights = d.rows.map((r) => r.seq.some(Boolean) ? fullH : 40);
+    const tr = (i, cells) => `<tr style="height:${heights[i]}px">${cells}</tr>`;
+    document.getElementById("labels").innerHTML = brand
+      ? `<tr><th style="width:130px">구분</th></tr>` + d.rows.map((r, i) => tr(i, `<td>${r.label}</td>`)).join("")
+      : `<tr><th style="width:70px">디바이스</th><th style="width:100px">자사 · 경쟁사</th></tr>` + d.rows.map((r, i) => tr(i, `${i % ENT.length === 0 ? `<td class="dev" rowspan="${ENT.length}">${r.dev}</td>` : ""}<td class="ent" style="background:${r.ent.bg}">${r.ent.name}</td>`)).join("");
+    const body = d.rows.map((r, ri) => {
+      const mo = brand ? r.label.includes("MOBILE") : r.dev === "MOBILE", isBsa = brand && r.label.startsWith("브랜드"), rowH = heights[ri];
+      return tr(ri, WEEKS.map((w, wi) => {
+        const c = r.seq[wi];
+        if (!c) return `<td class="same">미운영 중으로 확인</td>`;
+        const f = sameFrom(r.seq, wi);
+        if (f >= 0) return `<td class="same">${WEEKS[f]}와 동일한 소재 사용</td>`;
+        return `<td><div class="clip" style="max-height:${rowH - 16}px">${isBsa ? bsa(c, d.ent, mo) : pl(c, brand ? d.ent : r.ent, mo, brand)}</div></td>`;
+      }).join(""));
+    }).join("");
+    document.getElementById("sheet").innerHTML = `<tr>${WEEKS.map((w) => `<th>${w}</th>`).join("")}</tr>` + body;
+    document.getElementById("wrap").scrollLeft = 0;
+    document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.t === tab));
+  };
+  if (!DATA[tab]) tab = "인테리어";
+  const brands = Object.keys(DATA).filter((k) => k.startsWith("[브]"));
+  document.getElementById("tabs").innerHTML = KEYWORDS.map((k) => `<button data-t="${k}">${k}</button>`).join("") + `<span class="sep"></span>` + brands.map((k) => `<button data-t="${k}">${k}</button>`).join("");
+  document.getElementById("meta").textContent = `보관본 · ${WEEKS[0]} ~ ${WEEKS[WEEKS.length - 1]} · 탭 ${brands.length + KEYWORDS.length}개 (키워드 ${KEYWORDS.length} · 경쟁사 브랜드 ${brands.length})`;
   document.addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
-    if (b.dataset.b) { brand = Number(b.dataset.b); render(); }
-    if (b.dataset.z) { document.querySelectorAll("#zoom button").forEach((x) => x.classList.toggle("on", x === b)); const w = document.getElementById("box"); w.className = "sheet-box" + (b.dataset.z === "100" ? "" : " zoom-" + b.dataset.z); document.getElementById("wrap").scrollLeft = 99999; }
+    if (b.dataset.t) { tab = b.dataset.t; render(); }
+    if (b.dataset.z) { document.querySelectorAll("#zoom button").forEach((x) => x.classList.toggle("on", x === b)); document.getElementById("box").className = "sheet-box" + (b.dataset.z === "100" ? "" : " z" + b.dataset.z); }
     if (b.dataset.toast) { const t = document.getElementById("toast"); t.textContent = b.dataset.toast; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 1800); }
   });
   render();

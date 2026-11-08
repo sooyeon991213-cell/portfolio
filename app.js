@@ -59,7 +59,7 @@
       <div class="campaign-table" role="table">
         <div class="campaign-row campaign-head" role="row"><span>업종</span><span>광고주</span><span>KPI</span></div>
         ${data.hero.campaigns.map((group) => `
-        <div class="campaign-group" role="row"><b>${escapeHTML(group.company)}</b><span>${escapeHTML(group.period)} · ${escapeHTML(group.role)}</span></div>
+        <div class="campaign-group" role="row"><b>${escapeHTML(group.company)}${group.formerly ? ` <small class="formerly">(${escapeHTML(group.formerly)})</small>` : ""}</b><span>${escapeHTML(group.period)} · ${escapeHTML(group.role)}</span></div>
         ${group.rows.map((row) => {
           const color = projectColor(row.project);
           return `
@@ -205,7 +205,43 @@
   const tags = (items, kind) => items && items.length ? `<span class="tag-list ${kind}">${items.map((item) => `<span class="tag">${escapeHTML(item)}</span>`).join("")}</span>` : "";
   const circled = (n) => "①②③④⑤⑥⑦⑧⑨"[n - 1] || String(n);
 
-  // 케이스 카드: 왼쪽은 정보 · KPI · Approach · Insight, 오른쪽은 Results(어떤 Approach에서 나왔는지 표시) · 그래프 · 대표 소재
+  // 도식: split(비중 막대 여러 줄) · funnel(퍼널 단계별 Before → After 이벤트)
+  const SPLIT_TONES = ["t0", "t1", "t2", "t3", "t4", "t5"];
+  const diagramMarkup = (d) => {
+    if (!d) return "";
+    const head = `<figcaption class="chart-head"><strong>${escapeHTML(d.title)}</strong>${d.note ? `<span>${escapeHTML(d.note)}</span>` : ""}</figcaption>`;
+    if (d.type === "split") {
+      return `<figure class="chart diagram split">${head}${d.rows.map((row) => {
+        const total = row.parts.reduce((sum, part) => sum + part.value, 0);
+        // 좁은 칸은 이름을 빼고(아주 좁으면 숫자도 빼고) 막대 아래 범례로 표시
+        const narrow = row.parts.map((part) => part.value / total < 0.14);
+        const seg = (part, i) => {
+          const share = part.value / total;
+          const inner = !narrow[i] ? `<b>${escapeHTML(part.name)}</b><em>${part.value}%</em>` : share >= 0.06 ? `<em>${part.value}%</em>` : "";
+          return `<span class="split-seg ${SPLIT_TONES[i % 6]}${narrow[i] ? " narrow" : ""}" style="flex:${share}" title="${escapeHTML(`${part.name} ${part.value}%`)}">${inner}</span>`;
+        };
+        const legend = narrow.some(Boolean) ? `<div class="split-legend">${row.parts.map((part, i) => narrow[i] ? `<span><i class="split-seg ${SPLIT_TONES[i % 6]}"></i>${escapeHTML(part.name)} ${part.value}%</span>` : "").join("")}</div>` : "";
+        return `<div class="split-row"><span class="split-label">${escapeHTML(row.label)}</span><div class="split-bar">${row.parts.map(seg).join("")}</div>${legend}</div>`;
+      }).join("")}</figure>`;
+    }
+    if (d.type === "funnel") {
+      const box = (item, isNew) => `<span class="ev${isNew ? " new" : ""}">${escapeHTML(item)}</span>`;
+      return `<figure class="chart diagram funnel">${head}
+        <div class="funnel-grid">
+          <span class="fh">퍼널 단계</span><span class="fh">Before</span><span></span><span class="fh">After</span>
+          ${d.stages.map((stage, i) => `
+            <span class="stage s${i}">${escapeHTML(stage.name)}</span>
+            <div class="evs">${stage.before.map((item) => box(item)).join("")}</div>
+            <span class="arrow" aria-hidden="true">${i === 1 ? "»" : ""}</span>
+            <div class="evs">${stage.after.map((item) => box(item.name, item.isNew)).join("")}</div>`).join("")}
+        </div>
+        <div class="funnel-legend"><span><i class="ev-swatch"></i>기존에 설치된 이벤트</span><span><i class="ev-swatch new"></i>신규 설치한 이벤트</span></div>
+      </figure>`;
+    }
+    return "";
+  };
+
+  // 케이스 카드 (제안서 Success Case 형식): 왼쪽 KPI → Approach → Results, 오른쪽 해시태그 · 핵심 숫자 원형 · 도식 · 그래프 · 대표 소재
   const caseModal = document.createElement("div");
   caseModal.className = "case-backdrop";
   caseModal.hidden = true;
@@ -217,13 +253,15 @@
     const insight = project.insight || [];
     const images = imageMarkup(project);
     const approach = project.approach || [];
+    const results = project.results || [];
+    const keys = results.filter((item) => item.key).slice(0, 3);
     return `
     <article class="case-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
       <header class="case-head">
         <div>
-          <p class="case-eyebrow">${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.current ? " · 진행 중" : ""}</p>
-          <h3 id="case-title">${escapeHTML(project.brand)}</h3>
-          <p class="case-sub">${escapeHTML(project.campaign || "")}</p>
+          <p class="case-eyebrow">Success Case · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.current ? " · 진행 중" : ""}</p>
+          <h3 id="case-title">${escapeHTML(project.brand)} <span class="case-campaign">${escapeHTML(project.campaign || "")}</span></h3>
+          ${project.headline ? `<p class="case-headline">${escapeHTML(project.headline)}</p>` : ""}
         </div>
         <div class="case-nav">
           <button type="button" class="case-step" data-step="-1" aria-label="이전 프로젝트">←</button>
@@ -250,18 +288,18 @@
             <ol class="approach-list">${approach.map((step, i) => `
               <li><span class="approach-no">${circled(i + 1)}</span><div><b>${escapeHTML(step.t)}</b><span>${rich(step.d)}</span></div></li>`).join("")}</ol>
           </section>
+          <section class="case-block">
+            <h4>Results</h4>
+            <ul class="result-list">${results.map((item) => `
+              <li><b>${escapeHTML(item.value)}</b><span>${escapeHTML(item.label)}${item.ref && approach[item.ref - 1] ? ` <em class="result-ref">${circled(item.ref)}</em>` : ""}</span></li>`).join("")}</ul>
+          </section>
           ${insight.length ? `<section class="case-block insight"><h4>Insight</h4>${insight.map((line) => `<p>${rich(line)}</p>`).join("")}</section>` : ""}
         </div>
         <div class="case-right">
-          <section class="case-results">
-            <h4>Results</h4>
-            <div class="result-grid count-${Math.min((project.results || []).length, 6)}">${(project.results || []).map((item) => `
-              <div class="result-card">
-                ${item.ref && approach[item.ref - 1] ? `<span class="result-ref">${circled(item.ref)} ${escapeHTML(approach[item.ref - 1].t)}</span>` : ""}
-                <strong>${escapeHTML(item.value)}</strong>
-                <span>${escapeHTML(item.label)}</span>
-              </div>`).join("")}</div>
-          </section>
+          ${(project.hashtags || []).length ? `<div class="case-hashtags">${project.hashtags.map((tag) => `<span>#${escapeHTML(tag)}</span>`).join("")}</div>` : ""}
+          ${keys.length ? `<div class="key-stats count-${keys.length}">${keys.map((item) => `
+            <div class="key-stat"><strong>${escapeHTML(item.value)}</strong><span>${escapeHTML(item.key)}</span></div>`).join("")}</div>` : ""}
+          ${diagramMarkup(project.diagram)}
           ${charts.length ? `<div class="case-charts count-${charts.length}">${charts.map(chartMarkup).join("")}</div>` : ""}
           ${images ? `<div class="case-creatives"><h4>대표 소재</h4>${images}</div>` : ""}
         </div>
@@ -308,9 +346,10 @@
   byId("career-list").innerHTML = data.career.map((entry) => `
     <article class="timeline-item">
       <span class="timeline-dot" aria-hidden="true"></span>
-      <h3>${escapeHTML(entry.company)}</h3>
+      <h3>${escapeHTML(entry.company)}${entry.formerly ? ` <small class="formerly">(${escapeHTML(entry.formerly)})*</small>` : ""}</h3>
       <div class="timeline-meta"><span class="timeline-period">${escapeHTML(entry.period)}</span>${entry.detail ? `<span class="timeline-detail">${escapeHTML(entry.detail)}</span>` : ""}</div>
       ${entry.numbers.length ? `<div class="timeline-numbers">${entry.numbers.map((item) => `<span class="timeline-number"><span>${escapeHTML(item.label)}</span>${item.value ? `<strong>${escapeHTML(item.value)}</strong>` : ""}</span>`).join("")}</div>` : ""}
+      ${entry.footnote ? `<p class="timeline-footnote">${escapeHTML(entry.footnote)}</p>` : ""}
     </article>`).join("");
 
   optionalRich(byId("automation-summary"), data.automation.summary);

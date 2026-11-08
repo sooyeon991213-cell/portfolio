@@ -30,7 +30,7 @@ window.PORTFOLIO = {
         ]
       },
       {
-        company: "데이위즈 (구 엔포니)", period: "2022.07 – 2024.12", role: "마케팅팀 매니저",
+        company: "데이위즈", formerly: "구 엔포니", period: "2022.07 – 2024.12", role: "마케팅팀 매니저",
         rows: [
           { industry: "여성 패션 쇼핑몰", project: "blackfriday", brand: "블랙업, 슬로우앤드, 더무드 등 SMB 8곳", kpi: "ROAS·매출", how: "구글, 메타, 네이버, 매출 대비 예산 설계, 호스팅사(Cafe24·메이크샵) 데이터 분석", budget: "약 30억" }
         ]
@@ -107,6 +107,12 @@ window.PORTFOLIO = {
       budget: "19.3억",
       contribution: 80,
       highlight: { value: "-80%", label: "지인페스타 전환 CPA, 전년 하반기 대비" },
+      headline: "상시·시즌 캠페인 재편과 SA 구조 정리로 상담신청 효율 개선",
+      hashtags: ["풀퍼널 운영", "시즌 캠페인", "SA 구조 개선"],
+      diagram: { type: "split", title: "지인페스타 트래픽 : 전환 예산 비중", note: "상반기 결과를 분석해 하반기 재편", rows: [
+        { label: "상반기", parts: [{ name: "트래픽", value: 31 }, { name: "전환", value: 69 }] },
+        { label: "하반기", parts: [{ name: "트래픽", value: 55 }, { name: "전환", value: 45 }] }
+      ] },
       goal: "인테리어 업체를 고르는 긴 탐색 과정(정보 탐색 → 업체 비교 → 상담신청)에서 LX하우시스를 상담 고려 업체로 올리고, 상담신청 DB로 연결",
       kpis: ["상담신청 DB", "GA 세션", "상담신청 CPA"],
       media: ["네이버 파워링크", "네이버 브랜드검색", "네이버 플레이스", "Google SA", "Meta", "Google Demand Gen", "Google PMax", "네이버 GFA", "카카오", "TikTok", "DV360", "당근"],
@@ -119,12 +125,12 @@ window.PORTFOLIO = {
         { t: "고단가 Only 캠페인 정리", d: "네이버 SA 예산 12%를 쓰고 상담 기여는 4.2%였던 샷시·창호·벽지 등 고단가 키워드 캠페인 OFF" }
       ],
       results: [
-        { value: "-80%", label: "하반기 지인페스타 전환 CPA, 전년 하반기 대비 (상담신청 163 → 452건)", ref: 3 },
-        { value: "258%", label: "BAU 상담신청 목표 달성률 (8월), 6~9월 4개월 연속 초과", ref: 1 },
+        { value: "-80%", label: "하반기 지인페스타 전환 CPA, 전년 하반기 대비 (상담신청 163 → 452건)", ref: 3, key: "지인페스타 전환 CPA" },
+        { value: "258%", label: "BAU 상담신청 목표 달성률 (8월), 6~9월 4개월 연속 초과", ref: 1, key: "BAU 상담신청 목표 달성" },
         { value: "-38%", label: "하반기 리드젠 리드 CPA, 역대 지인페스타 최저", ref: 3 },
         { value: "-21%", label: "취향의발견 트래픽 세션 단가, 노희영 소재 투입 후", ref: 4 },
         { value: "-37%", label: "네이버 SA CPC, Only 캠페인 OFF 후 (CPA 18만 → 10만 원대)", ref: 6 },
-        { value: "-42.7%", label: "SA 상담신청 CPA, 1월 → 9월 (비용 -44%에도 상담신청 유지)", ref: 5 }
+        { value: "-42.7%", label: "SA 상담신청 CPA, 1월 → 9월 (비용 -44%에도 상담신청 유지)", ref: 5, key: "SA 상담신청 CPA" }
       ],
       charts: [
         {
@@ -173,20 +179,29 @@ window.PORTFOLIO = {
       budget: "8.35억",
       contribution: 70,
       highlight: { value: "-80.9%", label: "게시글당 비용, AI 인물 → 브랜드필름 스틸컷" },
-      goal: "앱의 신규 소셜(여행 동행) 기능을 알리고, 여행 게시글 작성을 하루 100건까지 끌어올리기",
+      headline: "Attribution 신규 이벤트 설계·최적화와 브랜드필름 소재로 게시글 작성 비용 절감",
+      hashtags: ["퍼널 재설계", "이벤트 기반 최적화", "브랜드필름"],
+      diagram: { type: "funnel", title: "이벤트 신규 설계", note: "최종 액션과 연결된 Upper·Mid 퍼널 신규 이벤트 설치", stages: [
+        { name: "Upper Funnel", before: ["소셜 탭 조회"], after: [{ name: "소셜 탭 조회", isNew: true }, { name: "소셜 게시글 조회", isNew: true }] },
+        { name: "Mid Funnel", before: ["소셜 게시글 내 댓글 작성", "소셜 게시글 내 대댓글 작성"], after: [{ name: "소셜 게시글 내 댓글 작성" }, { name: "소셜 게시글 내 대댓글 작성" }, { name: "소셜 게시글 참여 버튼 클릭", isNew: true }] },
+        { name: "Low Funnel", before: ["소셜 게시글 작성"], after: [{ name: "소셜 게시글 작성" }] }
+      ] },
+      goal: "최종 액션인 [소셜 게시글 작성] 이벤트당 비용을 낮추고 캠페인 효율 개선, 여행 게시글 하루 100건",
       kpis: ["여행 게시글 작성", "소셜 조회", "게시글당 비용"],
       media: ["Meta", "Google", "TikTok", "Apple Search Ads", "네이버 GFA", "네이버 브랜드검색", "Threads", "데이블", "X", "마이리얼트립", "트리플", "키로뷰"],
       approach: [
         { t: "초기 론칭", d: "쓸 수 있는 이미지가 없어 생성형 AI로 여행지·동행 유형별 인물 소재를 만들고, 게시글 작성 최적화 중심으로 운영" },
-        { t: "측정 설계", d: "에어브릿지 소셜 이벤트 3개·iOS SKAN 4.0 전환값 기준을 기획해 개발 요청, Meta 캠페인을 트래픽·앱 설치·소셜 조회 단계로 세분화" },
+        { t: "측정 설계", d: "[소셜 게시글 작성] 하나로만 최적화하니 전환 수가 적어 CAC 변동이 크고, 중간 퍼널 이벤트가 없어 흐름 분석이 어려웠음 → Upper·Mid 퍼널 신규 이벤트(소셜 탭·게시글 조회, 참여 버튼 클릭)와 iOS SKAN 4.0 전환값 기준을 기획해 개발 요청" },
+        { t: "이벤트별 최적화", d: "캠페인 목적에 맞춰 신규 이벤트별 최적화 전략을 나눠 운영 (In-App Action / App Retargeting)" },
         { t: "브랜드필름", d: "뉴욕·상하이·오사카·싱가포르 숏폼 4편 촬영·8월 집중 운영, 스틸컷은 퍼포먼스 소재로 재활용" },
         { t: "신규 매체 발굴", d: "데이블, X, 사람인, 에브리타임 테스트 → 마이리얼트립, 트리플, 키로뷰(인천공항), Threads까지 14개 매체 운영" }
       ],
       results: [
-        { value: "+69%", label: "광고 기여 게시글, 브랜드필름 투입 후 (일 100건 목표 달성)", ref: 3 },
-        { value: "-80.9%", label: "게시글당 비용, AI 인물 → 브랜드필름 스틸컷 소재", ref: 3 },
-        { value: "-90.3%", label: "소셜 조회당 비용, 이벤트 재설계 후 재참여 캠페인", ref: 2 },
-        { value: "7배", label: "소셜 조회, 같은 타겟·소진에서 게시글 최적화 대비 (게시글 3배)", ref: 2 }
+        { value: "-54%", label: "Meta In-App Action 캠페인 게시글 작성당 비용", ref: 3, key: "In-App Action 게시글 작성당 비용" },
+        { value: "-72%", label: "Meta App Retargeting 캠페인 게시글 작성당 비용", ref: 3, key: "App Retargeting 게시글 작성당 비용" },
+        { value: "7배", label: "소셜 조회, 같은 타겟·소진에서 게시글 작성 최적화 대비 (게시글 3배)", ref: 2 },
+        { value: "+69%", label: "광고 기여 게시글, 브랜드필름 투입 후 (일 100건 목표 달성)", ref: 4 },
+        { value: "-80.9%", label: "게시글당 비용, AI 인물 → 브랜드필름 스틸컷 소재", ref: 4, key: "스틸컷 소재 게시글당 비용" }
       ],
       charts: [
         {
@@ -232,6 +247,12 @@ window.PORTFOLIO = {
       budget: "약 1억",
       contribution: 60,
       highlight: { value: "224%", label: "인도네시아 TikTok 도달 KPI" },
+      headline: "국가별 캠페인 구조와 도달 최적화로 인도네시아 도달 KPI 2배 이상 달성",
+      hashtags: ["글로벌 캠페인", "도달 최적화", "브랜드 리프트"],
+      diagram: { type: "split", title: "국가별 캠페인 구조", note: "예산 비중 (%)", rows: [
+        { label: "인도네시아", parts: [{ name: "Reach", value: 56 }, { name: "View", value: 24 }, { name: "Conversion", value: 20 }] },
+        { label: "멕시코", parts: [{ name: "Reach", value: 65 }, { name: "View", value: 35 }] }
+      ] },
       goal: "[Jinjja Love] 5개국 캠페인 중 인도네시아 전담·멕시코 서포트. 18–34세 도달과 영상 조회로 진라면 인지도 확보",
       kpis: ["도달", "영상 조회", "브랜드 리프트"],
       media: ["Meta", "TikTok"],
@@ -242,10 +263,10 @@ window.PORTFOLIO = {
         { t: "성과 보고", d: "중간·최종 리포트 작성, 국가별 Brand Lift Study 결과 취합" }
       ],
       results: [
-        { value: "224%", label: "인도네시아 TikTok 도달 KPI (2초 조회 KPI 219%)", ref: 2 },
+        { value: "224%", label: "인도네시아 TikTok 도달 KPI (2초 조회 KPI 219%)", ref: 2, key: "인도네시아 TikTok 도달 KPI" },
         { value: "90%", label: "인도네시아 타겟 도달, 목표 40%를 2주차에 넘김", ref: 2 },
         { value: "44%", label: "인플루언서 Reach 도달 중 영상 1개가 만든 비중", ref: 3 },
-        { value: "+4.3%p", label: "인도네시아 비보조 인지도, APAC 벤치마크 1.4%p의 약 3배", ref: 4 }
+        { value: "+4.3%p", label: "인도네시아 비보조 인지도, APAC 벤치마크 1.4%p의 약 3배", ref: 4, key: "인도네시아 비보조 인지도" }
       ],
       charts: [
         {
@@ -293,34 +314,28 @@ window.PORTFOLIO = {
       budget: "3.73억",
       contribution: 50,
       highlight: { value: "-44.2%", label: "Instagram 숏폼 CPV, 첫 주 → 마지막 주" },
+      headline: "9:16 숏폼 상시 로테이션으로 CPV를 낮추며 조회수 확보",
+      hashtags: ["숏폼 로테이션", "CPV 최적화", "브랜드 리프트"],
+      diagram: { type: "split", title: "3단 Wave 예산 배분과 구간 CPV", note: "캠페인 전체", rows: [
+        { label: "예산", parts: [{ name: "런칭 · CPV 14.5원", value: 26 }, { name: "확산 · CPV 12.6원", value: 57 }, { name: "최적화 · CPV 8.2원", value: 17 }] }
+      ] },
       goal: "실사·애니 두 세계관의 9:16 숏폼으로 조회수를 확보하고, 소바바치킨 인지도 높이기",
       kpis: ["조회수", "CPV", "브랜드 리프트"],
       media: ["Instagram", "TVING"],
       approach: [
         { t: "9:16 숏폼 중심 편성", d: "세로형 Shorts(스토리·릴스)에 Instagram 예산의 92%를 두고, 실사·애니 광고 세트를 나눠 운영" },
         { t: "숏폼 상시 로테이션", d: "일자별 CPV·VTR로 소재를 교체, 총 36종 투입·18종 중단, 동시 8~18종 유지" },
-        { t: "승자 소재 집중", d: "'얘들아 이거 나만 보여?'(애니) 소재가 한동안 Shorts를 이끌며 소진의 25%를 차지, 트래픽은 상위 소재 1종에 90% 집중" },
+        { t: "승자 소재 집중", d: "애니 '얘들아 이거 나만 보여?'(Shorts 소진 25%)와 실사 '황민현 우산씬'(19%)이 한동안 Shorts를 이끌었고, 트래픽은 우산씬 1종에 90% 집중" },
         { t: "TVING 패키지 전환", d: "1주 집중 패키지로 런칭 물량을 확보한 뒤 7월 노출 보장 패키지로 바꿔 단가를 낮추고 물량 유지" }
       ],
       results: [
-        { value: "-44.2%", label: "Instagram 숏폼 CPV, 첫 주 13원 → 마지막 주 7원 (VTR 48.5% → 56.2%)", ref: 2 },
+        { value: "-44.2%", label: "Instagram 숏폼 CPV, 첫 주 13원 → 마지막 주 7원 (VTR 48.5% → 56.2%)", ref: 2, key: "Instagram 숏폼 CPV" },
         { value: "12원", label: "Instagram 평균 CPV, 제안 14원 대비 -17%", ref: 1 },
         { value: "-52%", label: "트래픽 CPC, 승자 소재 집중 후 248원 → 119원", ref: 3 },
-        { value: "-47%", label: "TVING CPV 24원 (제안 대비), VTR 93.8%", ref: 4 },
-        { value: "+6.3%p", label: "Instagram 비보조 인지도, APAC 벤치마크 1.5%p의 약 4배", ref: 1 }
+        { value: "-47%", label: "TVING CPV 24원 (제안 대비), VTR 93.8%", ref: 4, key: "TVING CPV" },
+        { value: "+6.3%p", label: "Instagram 비보조 인지도, APAC 벤치마크 1.5%p의 약 4배", ref: 1, key: "비보조 인지도" }
       ],
       charts: [
-        {
-          type: "columns",
-          title: "구간별 CPV",
-          note: "캠페인 전체, 원 · 낮을수록 좋음",
-          unit: "원",
-          items: [
-            { label: "런칭", value: 14.5 },
-            { label: "확산", value: 12.6 },
-            { label: "효율 최적화", value: 8.2 }
-          ]
-        },
         {
           type: "pairs",
           title: "Instagram 브랜드 리프트",
@@ -335,7 +350,9 @@ window.PORTFOLIO = {
         }
       ],
       images: [
+        { src: "./assets/sobaba-real-b2.jpg", alt: "실사 숏폼 '황민현 우산씬'", ratio: "9 / 16" },
         { src: "./assets/sobaba-c3.jpg", alt: "애니 숏폼 '얘들아 이거 나만 보여?'", ratio: "9 / 16" },
+        { src: "./assets/sobaba-real-c2.jpg", alt: "실사 숏폼 '최애 황민현은?'", ratio: "9 / 16" },
         { src: "./assets/sobaba-kv.jpg", alt: "세계관 키비주얼 (애니)" }
       ],
       insight: [
@@ -348,12 +365,17 @@ window.PORTFOLIO = {
       campaign: "블랙프라이데이 매출·신규 고객 캠페인",
       industry: "여성 패션 쇼핑몰",
       color: ["#222222", "#E5E5E5"],
-      company: "데이위즈 (구 엔포니)",
+      company: "데이위즈",
       period: "2024.10 — 2024.11",
       budget: "예산 8,800만 원",
       contribution: 65,
       contributionLabel: "60–70%",
       highlight: { value: "601%", label: "Google ROAS, 자사 최고 매출" },
+      headline: "매출 기반 예산 설계와 매체별 역할 분리로 블랙프라이데이 자사 최고 매출",
+      hashtags: ["예산 설계", "신규 고객", "블랙프라이데이"],
+      diagram: { type: "split", title: "블프 예산 8,800만 원 배분", note: "예상 매출 11억 × 광고비 비중 8%", rows: [
+        { label: "매체", parts: [{ name: "Meta", value: 50 }, { name: "Google", value: 25 }, { name: "네이버 검색", value: 9 }, { name: "네이버 GFA", value: 8 }, { name: "카카오", value: 5 }, { name: "기타", value: 3 }] }
+      ] },
       goal: "1년 중 가장 큰 행사인 블랙프라이데이에 매출과 ROAS를 최대로 끌어올리고 신규 고객 확보",
       kpis: ["매출", "ROAS", "신규 고객"],
       media: ["Meta", "Google PMax", "Google Demand Gen", "Google SA", "네이버 GFA"],
@@ -365,8 +387,8 @@ window.PORTFOLIO = {
       ],
       results: [
         { value: "자사 최고", label: "블랙프라이데이 브랜드 매출", ref: 1 },
-        { value: "601%", label: "Google ROAS, 8일 광고비 약 1,270만 원 (Demand Gen 새 사용자 98%)", ref: 4 },
-        { value: "528%", label: "Meta ROAS, 8일 광고비 약 3,600만 원", ref: 3 }
+        { value: "601%", label: "Google ROAS, 8일 광고비 약 1,270만 원 (Demand Gen 새 사용자 98%)", ref: 4, key: "Google ROAS" },
+        { value: "528%", label: "Meta ROAS, 8일 광고비 약 3,600만 원", ref: 3, key: "Meta ROAS" }
       ],
       charts: [
         {
@@ -392,26 +414,28 @@ window.PORTFOLIO = {
       period: "2025.07 — 현재",
       detail: "디지털 광고대행사, 대리, 4개 광고주 캠페인 PM (LX하우시스, 트래블월렛, CJ제일제당 소바바, 오뚜기 진라면)",
       numbers: [
-        { label: "4개 광고주 미디어믹스 설계, 매체 운영, 소재 기획, 리포트", value: "광고비 32억" },
-        { label: "LX하우시스 BAU(시공사례 트래픽·상담신청 이벤트 전환)·D2C 직계약 상시 운영", value: "BAU 상담신청 6~9월 연속 목표 초과" },
-        { label: "LX하우시스 성수기 지인페스타(티징·본 캠페인·리드젠)·하반기 취향의발견(노희영 소재) 운영", value: "전환 CPA -80%" },
-        { label: "LX하우시스 SA 구조 정리, 전환 키워드 기준 데일리 입찰, 고단가 Only 캠페인 OFF", value: "SA 상담신청 CPA -42.7%" },
-        { label: "트래블월렛 소재 A/B 테스트·신규 매체 테스트", value: "게시글당 비용 -80.9%" },
+        { label: "4개 광고주 미디어믹스 설계, 매체 운영, 소재 기획, 리포트", value: "" },
+        { label: "LX하우시스 BAU(시공사례 트래픽·상담신청 이벤트 전환)·D2C 직계약 상시 운영", value: "" },
+        { label: "LX하우시스 성수기 지인페스타(티징·본 캠페인·리드젠)·하반기 취향의발견(노희영 소재) 운영", value: "" },
+        { label: "LX하우시스 SA 구조 정리, 전환 키워드 기준 데일리 입찰, 고단가 Only 캠페인 OFF", value: "" },
+        { label: "트래블월렛 소재 A/B 테스트·신규 매체 테스트", value: "" },
         { label: "SA·DA 데일리 리포트, 리포트 대시보드, 네이버 경쟁사 모니터링 직접 개발 (LX하우시스)", value: "" }
       ]
     },
     {
-      company: "데이위즈 (구 엔포니)",
+      company: "데이위즈",
+      formerly: "구 엔포니",
+      footnote: "*2024년 크리마 자회사로 편입되며 엔포니에서 이름이 바뀐 같은 회사",
       period: "2022.07 — 2024.12",
-      detail: "광고대행사 마케팅팀 매니저. SMB 인터넷 여성 패션 쇼핑몰 8곳 담당, 구글·메타 누적 광고비 약 30억 원, 10개 매체 운영. 2024년 크리마 자회사로 편입되며 엔포니에서 이름이 바뀐 같은 회사",
+      detail: "광고대행사 마케팅팀 매니저. SMB 인터넷 여성 패션 쇼핑몰 8곳 담당, 구글·메타 누적 광고비 약 30억 원, 10개 매체 운영.",
       numbers: [
-        { label: "블랙업 블랙프라이데이 예산 설계(8,800만 원), 6개 매체 운영, 자사 최고 매출", value: "ROAS 601%, 528%" },
-        { label: "SMB 쇼핑몰 8곳 구글·메타 운영 (2022.09 – 2024.11, 누적 약 30억)", value: "합산 ROAS 약 600%" },
-        { label: "비바루비 네이버 파워링크 운영 (평균 노출순위 2.71위)", value: "ROAS 770%" },
-        { label: "T사 연령대별 가입·매출 분석 후 2030 캠페인 분리", value: "가입률 +30%, ROAS 1.2배" },
+        { label: "블랙업 블랙프라이데이 예산 설계(8,800만 원), 6개 매체 운영, 자사 최고 매출", value: "" },
+        { label: "SMB 쇼핑몰 8곳 구글·메타 운영 (2022.09 – 2024.11, 누적 약 30억)", value: "" },
+        { label: "비바루비 네이버 파워링크 운영 (평균 노출순위 2.71위)", value: "" },
+        { label: "T사 연령대별 가입·매출 분석 후 2030 캠페인 분리", value: "" },
         { label: "7개 쇼핑몰 신상 등록 수 × 매출 관계 분석, 광고·컨설팅 제안에 활용", value: "" },
         { label: "호스팅사 매출·방문 데이터 수집 자동화 (개발자와 빅쿼리 → 구글 시트)", value: "" },
-        { label: "GA4 결제 이탈 분석 중 iOS 결제 오류 발견", value: "이탈률 36 → 20%" }
+        { label: "GA4 결제 이탈 분석 중 iOS 결제 오류 발견", value: "" }
       ]
     },
     {
@@ -419,20 +443,20 @@ window.PORTFOLIO = {
       period: "2021.08 — 2022.07",
       detail: "광고 솔루션사 BIZ팀 매니저",
       numbers: [
-        { label: "수산물 스마트스토어 운영·검색광고, 배송·컴플레인 프로세스 정립", value: "판매 90%+ 광고 유입" },
+        { label: "수산물 스마트스토어 운영·검색광고, 배송·컴플레인 프로세스 정립", value: "" },
         { label: "광고 분석 솔루션 ADVisor 대시보드 기획, 1차 와이어프레임 반영, 매뉴얼 전사 가이드화", value: "" }
       ]
     }
   ],
   automation: {
     // 2026-11-08 수연이 피드백: 설명을 늘리고, '내가 자동화했다'가 보이게. 단계(steps)는 {t: 단계, d: 내가 만든 것}
-    summary: "LX하우시스를 담당하며 반복되던 리포트·모니터링 업무를 Python과 Claude Code로 직접 자동화했습니다.\n매체 RAW 다운로드부터 리포트 생성까지 코드로 만들고, 팀원 PC에도 설치해 제가 없는 날에도 돌아가게 했습니다.",
+    summary: "반복되던 SA·DA 리포트 제작과 경쟁사 검색광고 모니터링을 자동화하고, 성과 데이터를 한눈에 확인할 수 있는 통합 대시보드를 구축했습니다.\n매체 데이터 수집·가공, 리포트 생성, 성과 시각화, 경쟁사 소재 트래킹까지 각 업무를 하나의 프로세스로 연결해 반복 작업을 줄이고, 성과 분석·인사이트 발굴·개선안 수립에 집중할 수 있는 환경을 만들었습니다.",
     tools: [
       {
         name: "SA·DA 데일리 리포트 자동화",
         stack: "Python, Playwright, Excel, Claude Code",
         steps: [
-          { t: "평일 오전 자동 실행", d: "작업 스케줄러에 등록, 출근 전에 리포트 작업 시작" },
+          { t: "평일 오전 자동 실행", d: "작업 스케줄러를 통해 평일 오전 지정된 시간에 리포트 자동화 스크립트가 자동 실행" },
           { t: "매체 RAW 수집", d: "구글, 메타, 카카오, 네이버 광고 관리자에서 보고서를 자동으로 내려받음" },
           { t: "지표 통일·GA 결합", d: "매체마다 다른 지표 칼럼을 하나로 맞추고, GA 세션·상담신청 데이터를 붙임" },
           { t: "SA·DA 리포트 생성", d: "SA 리포트에는 네이버 키워드별 실시간 노출 순위까지 조회" },
@@ -484,8 +508,8 @@ window.PORTFOLIO = {
       {
         name: "네이버 경쟁사 검색광고 모니터링 자동화",
         stack: "Playwright, Google Sheets API, Claude Code",
-        image: "./assets/naver-monitoring.jpg",
-        caption: "경쟁사 광고를 주차별로 축적하고, 동일·재등장 소재 여부 자동 판별",
+        image: "./assets/naver-monitoring-kw.jpg",
+        caption: "실제 시트 키워드 탭(PC): 자사·경쟁사 파워링크를 주차별로 쌓고, 동일 소재·미운영 여부를 자동 표기",
         demo: { href: "https://sooyeon991213-cell.github.io/portfolio/monitoring-demo/", label: "모니터링 시트 데모 열기 (가상 데이터)", printNote: "※ PDF에서 위 버튼이나 화면 이미지를 누르면 웹에서 데모(가상 데이터)가 열립니다." },
         problem: [
           "매주 경쟁사 핵심 키워드를 PC·모바일에서 하나씩 검색·캡처",
