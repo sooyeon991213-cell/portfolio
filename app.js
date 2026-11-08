@@ -1,10 +1,12 @@
 (() => {
   const data = window.PORTFOLIO;
   const byId = (id) => document.getElementById(id);
-  const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+  // 가운뎃점(·) 앞뒤에서는 줄이 바뀌지 않게 보이지 않는 연결 문자(U+2060)를 붙임 ("조회·작성"이 "조회· / 작성"으로 끊기는 문제)
+  const joinDots = (text) => text.replace(/·/g, "⁠·⁠");
+  const escapeHTML = (value) => joinDots(String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]));
   const optionalText = (element, value) => {
     if (!value) return;
-    element.textContent = value;
+    element.textContent = joinDots(value);
     element.hidden = false;
   };
   // content.js에서 **굵게** 로 감싼 부분을 강조해서 보여줌
@@ -55,7 +57,7 @@
     holder.setAttribute("aria-label", "업종별 캠페인");
     holder.innerHTML = `
       <div class="campaign-table" role="table">
-        <div class="campaign-row campaign-head" role="row"><span>업종</span><span>광고주</span><span>KPI</span><span>운영</span><span>광고비</span></div>
+        <div class="campaign-row campaign-head" role="row"><span>업종</span><span>광고주</span><span>KPI</span></div>
         ${data.hero.campaigns.map((group) => `
         <div class="campaign-group" role="row"><b>${escapeHTML(group.company)}</b><span>${escapeHTML(group.period)} · ${escapeHTML(group.role)}</span></div>
         ${group.rows.map((row) => {
@@ -65,8 +67,6 @@
           <span class="c-industry"><i aria-hidden="true"></i>${escapeHTML(row.industry)}</span>
           <span class="c-brand">${escapeHTML(row.brand)}</span>
           <span class="c-kpi">${escapeHTML(row.kpi)}</span>
-          <span class="c-how">${escapeHTML(row.how)}</span>
-          <span class="c-budget">${escapeHTML(row.budget || "–")}</span>
         </div>`;
         }).join("")}`).join("")}
       </div>

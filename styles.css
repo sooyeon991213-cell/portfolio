@@ -38,6 +38,9 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body { margin: 0; background: var(--paper); color: var(--ink); transition: background .25s ease, color .25s ease; }
+/* 2026-11-08 한국어 줄바꿈: 단어 중간에서 끊지 않고, 끝 줄에 한 단어만 남지 않게 */
+body { word-break: keep-all; overflow-wrap: break-word; }
+h1, h2, h3, p, li, dd, span { text-wrap: pretty; }
 button, a { color: inherit; font: inherit; }
 a { text-decoration: none; }
 button { cursor: pointer; }
@@ -338,9 +341,9 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 .hero:has(.campaign-mode) .hero-heading-row { padding-top: clamp(20px, 2.6vw, 36px); }
 .hero:has(.campaign-mode) .hero-intro { margin-top: 20px; }
 .campaign-table { margin-top: 10px; }
-.campaign-row { display: grid; grid-template-columns: 128px minmax(0, 1.25fr) minmax(0, .95fr) minmax(0, 2fr) 96px; gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; letter-spacing: -.02em; word-break: keep-all; }
+.campaign-row { display: grid; grid-template-columns: 150px minmax(0, 1.3fr) minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; letter-spacing: -.02em; word-break: keep-all; }
 .campaign-head { padding: 0 0 7px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
-.campaign-head span:last-child, .c-budget { text-align: right; }
+.c-budget { text-align: right; }
 .campaign-group { display: flex; align-items: baseline; gap: 10px; padding: 14px 0 3px; }
 .campaign-group b { font-size: 13px; font-weight: 800; letter-spacing: -.03em; }
 .campaign-group span { color: var(--muted); font-size: 11px; font-weight: 560; }
@@ -366,7 +369,7 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 }
 /* 2026-11-08 숫자보다 '한 일'이 먼저 보이게 */
 .competency-items { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 0; }
-.competency-items li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; letter-spacing: -.025em; word-break: keep-all; }
+.competency-items li { display: grid; gap: 2px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; letter-spacing: -.025em; word-break: keep-all; }
 .competency-items li b { flex: none; color: #4f7a12; font-size: 12px; font-weight: 700; white-space: nowrap; }
 :root[data-theme="dark"] .competency-items li b { color: var(--accent); }
 .project-card .project-title { order: 0; margin: 18px 0 6px; font-size: clamp(19px, 1.8vw, 23px); }
