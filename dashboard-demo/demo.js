@@ -396,7 +396,7 @@
     if (!t) return;
     if (t.dataset.toast) { toast(t.dataset.toast); return; }
     if (t.matches("#preset button")) { S.preset = t.dataset.p; [S.from, S.to] = PRESET[t.dataset.p](); render(); return; }
-    if (t.matches("#tabs button")) { S.tab = t.dataset.t; history.replaceState(null, "", "#" + S.tab); render(); window.scrollTo({ top: 0 }); return; }
+    if (t.matches("#tabs button")) { S.tab = t.dataset.t; window.history.replaceState(null, "", "#" + S.tab); render(); window.scrollTo({ top: 0 }); return; }
     if (t.dataset.sort) { const id = t.dataset.sort, i = Number(t.dataset.i), cur = S.sort[id]; S.sort[id] = { i, dir: cur && cur.i === i && cur.dir === "desc" ? "asc" : "desc" }; render(); return; }
     if (t.dataset.page) { S.page[t.dataset.page] = Number(t.dataset.p); render(); return; }
     if (t.dataset.chip) { const g = t.dataset.chip, v = t.dataset.v; if (t.hasAttribute("data-multi")) { const all = [...document.querySelectorAll(`[data-chip="${g}"]`)].map((b) => b.dataset.v); let cur = S.chips[g] || all.slice(); cur = cur.includes(v) ? cur.filter((x) => x !== v) : cur.concat(v); S.chips[g] = cur.length ? cur : all; } else S.chips[g] = v; S.page["cr-g"] = 1; S.page[g.replace(/-[a-z]+$/, "")] = 1; render(); return; }

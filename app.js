@@ -304,7 +304,7 @@
         : `<li><span class="step-text"><b>${escapeHTML(step.t)}</b>${step.d ? `<small>${escapeHTML(step.d)}</small>` : ""}</span></li>`).join("")}</ol>` : ""}
       <dl class="tool-facts">
         <div><dt>업무 과제</dt><dd>${listOrText(tool.problem)}</dd></div>
-        <div><dt>자동화 구현</dt><dd>${listOrText(tool.built)}</dd></div>
+        <div><dt>구현 방식</dt><dd>${listOrText(tool.built)}</dd></div>
         <div><dt>운영 효과</dt><dd>${listOrText(tool.effect)}</dd></div>
       </dl>
     </article>`).join("");
