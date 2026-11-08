@@ -234,7 +234,7 @@ window.PORTFOLIO = {
       name: "블랙업(BLACKUP) 블랙프라이데이 매출 · 신규 고객 캠페인",
       period: "2024.10 — 2024.11",
       budget: "예산 8,800만 원",
-      highlight: { value: "767%", label: "Google ROAS · 자사 최고 매출" },
+      highlight: { value: "601%", label: "Google ROAS · 자사 최고 매출" },
       role: "미디어믹스 설계 · 전 매체 운영",
       goal: "SMB 여성 패션 쇼핑몰의 1년 중 가장 큰 행사 · 매출과 ROAS 최대화, 신규 고객 확보",
       facts: [
@@ -245,12 +245,12 @@ window.PORTFOLIO = {
       work: [
         "**예산 설계** 전년 블프 매출 10.6억 기준 예상 매출 11억 × 광고비 비중 8%(평소 6%) = 8,800만 원, 6개 매체에 배분\n→ 메타 50 · 구글 25 · 네이버 검색 9 · GFA 8 · 카카오 5 · 타게팅게이츠 3 (%)",
         "**Meta** 유입 : 전환 9 : 1까지 전환 비중 확대, 미도달 타겟은 예약 캠페인으로 분리\n→ 8일 광고비 약 3,600만 원, Meta ROAS 528%",
-        "**Google** PMax · 영상 · 검색 · Demand Gen 구성, Demand Gen은 신규 고객 전용\n→ Google ROAS 767%, 새 사용자 비중 98%",
+        "**Google** PMax · 영상 · 검색 · Demand Gen 구성, Demand Gen은 신규 고객 전용\n→ 8일 광고비 약 1,270만 원, Google ROAS 601%, 새 사용자 비중 98%",
         "**CRM** '장바구니 이탈' · '구매 1회 고객' 세그먼트 앱 푸시, 앱 전용 혜택 구성\n→ 앱 푸시 참여율 92%"
       ],
       metrics: [
         { value: "자사 최고", label: "블랙프라이데이 브랜드 매출" },
-        { value: "767%", label: "Google ROAS · Demand Gen 새 사용자 비중 98%" },
+        { value: "601%", label: "Google ROAS · Demand Gen 새 사용자 비중 98%" },
         { value: "528%", label: "Meta ROAS · 8일 광고비 약 3,600만 원" },
         { value: "92%", label: "CRM 앱 푸시 참여율 · 새 사용자율 64%" }
       ],
@@ -260,7 +260,7 @@ window.PORTFOLIO = {
           title: "블랙프라이데이 매체별 ROAS",
           unit: "%",
           items: [
-            { label: "Google", value: 767 },
+            { label: "Google", value: 601 },
             { label: "Meta", value: 528 }
           ]
         }
@@ -414,7 +414,7 @@ window.PORTFOLIO = {
       period: "2022.07 — 2024.12",
       detail: "광고대행사 마케팅팀 매니저 · SMB 인터넷 여성 패션 쇼핑몰 8곳 담당 · 구글 · 메타 누적 광고비 약 30억 원, 10개 매체 운영 · 2024년 크리마 자회사로 편입되며 엔포니에서 이름이 바뀐 같은 회사",
       numbers: [
-        { label: "블랙업 블랙프라이데이 예산 설계(8,800만 원) · 6개 매체 운영, 자사 최고 매출", value: "ROAS 767% · 528%" },
+        { label: "블랙업 블랙프라이데이 예산 설계(8,800만 원) · 6개 매체 운영, 자사 최고 매출", value: "ROAS 601% · 528%" },
         { label: "SMB 쇼핑몰 8곳 구글 · 메타 운영 (2022.09 – 2024.11, 누적 약 30억)", value: "합산 ROAS 약 600%" },
         { label: "비바루비 네이버 파워링크 운영 (평균 노출순위 2.71위)", value: "ROAS 770%" },
         { label: "T사 연령대별 가입 · 매출 분석 후 2030 캠페인 분리", value: "가입률 +30%, ROAS 1.2배" },
