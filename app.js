@@ -313,7 +313,7 @@
         ${mediaRows}
         <div class="s-body">
           <section class="s-sec"><h4>KPI</h4><p>${rich(project.goal || "")}</p></section>
-          <section class="s-sec"><h4>Approach</h4><ul class="s-list">${(project.approach || []).map((step) => `<li><b>${escapeHTML(step.t)}</b> ${rich(step.d).replace(/\n/g, "<br>")}</li>`).join("")}</ul></section>
+          <section class="s-sec"><h4>Approach</h4><ul class="s-approach">${(project.approach || []).map((step, i) => `<li><b><i>${String(i + 1).padStart(2, "0")}</i>${escapeHTML(step.t)}</b>${String(step.d || "").split("\n").map((line) => `<span>${rich(line)}</span>`).join("")}</li>`).join("")}</ul></section>
           <section class="s-sec"><h4>Results</h4><ul class="s-list results">${(project.results || []).map((line) => `<li>${rich(line).replace(/\n/g, "<br>")}</li>`).join("")}</ul></section>
         </div>
         <p class="s-page">${String(index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</p>

@@ -726,3 +726,11 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 /* 11/09: LX 결과가 5줄이 되어 왼쪽 여백을 조금 줄임 (남는 슬라이드는 space-evenly로 다시 벌어짐) */
 .s-left { padding-top: 32px; padding-bottom: 20px; }
 .s-body { gap: 10px; }
+/* 11/09: Approach = 2×2 카드(번호 + 제목 + 짧은 줄) */
+.s-approach { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 22px; margin: 0; padding: 0; list-style: none; }
+.s-approach li { padding-top: 8px; border-top: 1px solid var(--line); }
+.s-approach b { display: flex; align-items: baseline; gap: 7px; margin-bottom: 4px; color: var(--ink); font-size: 13.5px; font-weight: 750; letter-spacing: -.02em; }
+.s-approach b i { color: var(--b); font-size: 11px; font-style: normal; font-weight: 700; letter-spacing: .02em; }
+.s-approach span { position: relative; display: block; padding-left: 10px; color: var(--ink); font-size: 12.5px; line-height: 1.55; letter-spacing: -.01em; }
+.s-approach span::before { content: "-"; position: absolute; left: 0; top: 0; color: var(--muted); }
+.case-backdrop.stacked .s-approach { grid-template-columns: minmax(0, 1fr); }
