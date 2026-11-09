@@ -723,3 +723,6 @@ h1.results.long { font-size: clamp(30px, 5.9vw, 76px); }
 .s-media { display: grid; gap: 5px; }
 .s-media-row { display: grid; grid-template-columns: 26px minmax(0, 1fr); align-items: start; }
 .s-media-row > b { padding-top: 2px; color: var(--b); font-size: 11px; font-weight: 750; letter-spacing: .02em; }
+/* 11/09: LX 결과가 5줄이 되어 왼쪽 여백을 조금 줄임 (남는 슬라이드는 space-evenly로 다시 벌어짐) */
+.s-left { padding-top: 32px; padding-bottom: 20px; }
+.s-body { gap: 10px; }
