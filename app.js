@@ -296,15 +296,21 @@
   const caseMarkup = (project, index) => {
     const slide = project.slide || {};
     const budgetLabel = project.budget ? (/^예산/.test(project.budget) ? project.budget : `광고비 ${project.budget}`) : "";
-    const meta = [project.industry, budgetLabel, project.contribution ? `기여도 ${project.contributionLabel || `${project.contribution}%`}` : ""].filter(Boolean);
+    const budgetItem = project.budget ? (/^예산/.test(project.budget) ? ["예산", project.budget.replace(/^예산\s*/, "")] : ["광고비", project.budget]) : null;
+    const meta = [project.industry ? ["업종", project.industry] : null, budgetItem,
+      project.contribution ? ["기여도", project.contributionLabel || `${project.contribution}%`] : null].filter(Boolean);
+    const media = project.media || {};
+    const mediaRows = Array.isArray(media) ? tags(media, "media")
+      : `<div class="s-media">${[["SA", media.sa], ["DA", media.da]].filter(([, list]) => list && list.length)
+          .map(([label, list]) => `<div class="s-media-row"><b>${label}</b>${tags(list, "media")}</div>`).join("")}</div>`;
     return `
     <article class="case-panel slide" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
       <div class="s-left">
         <p class="s-eyebrow">Success Case · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}</p>
         <h3 id="case-title" class="s-title">${escapeHTML(project.brand)}</h3>
         <p class="s-sub">${escapeHTML(project.campaign || "")}</p>
-        <p class="s-meta">${meta.map(escapeHTML).join(" · ")}</p>
-        ${tags(project.media, "media")}
+        <p class="s-meta">${meta.map(([label, value]) => `<span><em>${escapeHTML(label)}</em>${escapeHTML(value)}</span>`).join("")}</p>
+        ${mediaRows}
         <div class="s-body">
           <section class="s-sec"><h4>KPI</h4><p>${rich(project.goal || "")}</p></section>
           <section class="s-sec"><h4>Approach</h4><ul class="s-list">${(project.approach || []).map((step) => `<li><b>${escapeHTML(step.t)}</b> ${rich(step.d)}</li>`).join("")}</ul></section>

@@ -83,7 +83,9 @@ window.PORTFOLIO = {
       highlight: { value: "-80%", label: "지인페스타 상담신청 전환 CPA, 전년 하반기 대비" },
       goal: "인테리어 업체를 고르는 긴 여정(탐색 → 비교 → 상담신청)에서 LX하우시스를 상담 고려 업체로 올리고 상담신청 DB로 연결",
       kpis: ["상담신청 DB", "GA 세션", "상담신청 CPA"],
-      media: ["네이버 파워링크", "네이버 브랜드검색", "네이버 플레이스", "Google SA", "Meta", "Google Demand Gen", "Google PMax", "네이버 GFA", "카카오", "TikTok", "DV360", "당근"],
+      // 11/09 2026년 2~10월 월별 미디어믹스(공유 드라이브 05. 미디어믹스) 기준
+      media: { sa: ["네이버 파워링크", "네이버 브랜드검색", "네이버 플레이스", "Google SA"],
+        da: ["Meta", "Google PMax", "Google Demand Gen", "네이버 GFA", "카카오 비즈보드", "TikTok Pangle", "DV360", "당근", "ADN", "OK캐쉬백", "KB Ads", "토스", "Pinterest"] },
       approach: [
         { t: "여정별 역할 분리", d: "탐색은 시공사례 트래픽, 상담신청은 이벤트 소재 전환 캠페인으로 상시 운영, D2C 직계약 별도 편성" },
         { t: "시즌 캠페인", d: "지인페스타 티징 → 본 → 리드젠, 하반기 취향의발견은 노희영 소재로 사전 인지 후 전환" },
@@ -122,7 +124,7 @@ window.PORTFOLIO = {
       highlight: { value: "-80.9%", label: "게시글당 비용, AI 인물 → 브랜드필름 스틸컷" },
       goal: "최종 액션인 [소셜 게시글 작성]의 비용을 낮추고, 여행 게시글 하루 100건 확보",
       kpis: ["여행 게시글 작성", "소셜 조회", "게시글당 비용"],
-      media: ["Meta", "Google", "TikTok", "Apple Search Ads", "네이버 GFA", "네이버 브랜드검색", "Threads", "데이블", "X", "마이리얼트립", "트리플", "키로뷰"],
+      media: { sa: ["Apple Search Ads", "네이버 브랜드검색"], da: ["Meta", "Google", "TikTok", "네이버 GFA", "Threads", "데이블", "X", "마이리얼트립", "트리플", "키로뷰"] },
       approach: [
         { t: "초기 론칭", d: "이미지 리소스가 없어 생성형 AI로 여행지·동행 유형별 인물 소재 제작" },
         { t: "측정 설계", d: "게시글 작성만으로는 전환이 적어 Upper·Mid 퍼널 이벤트를 기획, 개발 요청" },
@@ -161,7 +163,7 @@ window.PORTFOLIO = {
       highlight: { value: "224%", label: "인도네시아 TikTok 도달 KPI" },
       goal: "[Jinjja Love] 5개국 캠페인 중 인도네시아 전담, 멕시코 서포트. 18–34세 도달과 영상 조회로 진라면 인지도 확보",
       kpis: ["도달", "영상 조회", "브랜드 리프트"],
-      media: ["Meta", "TikTok"],
+      media: { da: ["Meta", "TikTok"] },
       approach: [
         { t: "국가별 구조", d: "인도네시아 Reach : View : Conversion = 56 : 24 : 20, 멕시코 Reach : View = 65 : 35" },
         { t: "도달 최적화", d: "빈도 하루 1회 제한, 캠페인 조회자 제외, 지역 타겟 해제로 신규 도달 확대" },
@@ -222,7 +224,7 @@ window.PORTFOLIO = {
       highlight: { value: "-44.2%", label: "Instagram 숏폼 CPV, 첫 주 → 마지막 주" },
       goal: "실사·애니 두 세계관의 9:16 숏폼으로 조회수를 확보하고, 소바바치킨 인지도 높이기",
       kpis: ["조회수", "CPV", "브랜드 리프트"],
-      media: ["Instagram", "TVING"],
+      media: { da: ["Instagram", "TVING"] },
       approach: [
         { t: "9:16 숏폼 중심", d: "Instagram 예산의 92%를 Shorts(스토리·릴스)에 두고 실사·애니 세트 분리 운영" },
         { t: "상시 로테이션", d: "일자별 CPV·VTR로 소재 교체, 36종 투입·18종 중단, 동시 8~18종 유지" },
@@ -266,7 +268,7 @@ window.PORTFOLIO = {
       highlight: { value: "601%", label: "Google ROAS, 자사 최고 매출" },
       goal: "1년 중 가장 큰 행사인 블랙프라이데이에 매출과 ROAS를 최대로 끌어올리고 신규 고객 확보",
       kpis: ["매출", "ROAS", "신규 고객"],
-      media: ["Meta", "Google PMax", "Google Demand Gen", "Google SA", "네이버 GFA"],
+      media: { sa: ["Google SA"], da: ["Meta", "Google PMax", "Google Demand Gen", "네이버 GFA"] },
       approach: [
         { t: "예산 설계", d: "전년 블프 매출 10.6억 기준 예상 매출 11억 × 광고비 비중 8%(평소 6%) = 8,800만 원" },
         { t: "사전 유입 → 리타겟", d: "1주 전부터 유입을 모으고 기간 중 리타겟, 이후 재구매·첫 구매 캠페인 분리" },
