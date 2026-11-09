@@ -21,46 +21,42 @@ window.PORTFOLIO = {
     badge: "",
     // 핵심 역량 카드 4개 (11/08 수연이: 리포팅 자동화를 퍼널 분석 앞으로) · proofs는 회사가 다른 근거를 섞어서
     competencies: [
+      // 11/09 수연이: 이력서 핵심 역량과 같은 내용으로, 성과 숫자는 빼고 한 일만
       {
         title: "SA·DA 운영·최적화",
         items: [
-          { did: "LX하우시스 지인페스타 트래픽과 전환 예산 비중 재설계", result: "전환 CPA -80%" },
-          { did: "네이버 확장검색, 구글 Non-Brand 입찰전략 테스트", result: "상담신청 +108.6%" },
-          { did: "SMB 쇼핑몰 8곳 구글·메타 운영, 매출 대비 광고비로 예산 설계", result: "합산 ROAS 약 600%" }
+          { did: "10개 이상 매체 운영, 일·월 예산 페이싱과 매출 대비 광고비·KPI 기준 예산 재배분" },
+          { did: "SA는 검색어, 매치 유형, 입찰 전략 / DA는 목적별 미디어믹스, 타겟, 소재 최적화" }
         ]
       },
       {
         title: "리포팅 자동화·AI 활용",
         items: [
-          { did: "매체 RAW 수집부터 리포트·대시보드 반영까지 자동화", result: "1~2시간 → 약 10분" },
-          { did: "리포트 대시보드화, 월간 리포트 자동 생성", result: "월간 리포트 3분" },
-          { did: "네이버 경쟁사 검색광고 주차별 자동 수집", result: "5개 브랜드, 키워드 9개" }
+          { did: "Claude Code 바이브 코딩으로 SA·DA 데일리·월간 리포팅 자동화" },
+          { did: "성과 대시보드와 네이버 경쟁사 광고 모니터링 직접 구축" }
         ]
       },
       {
         title: "퍼널 분석·측정 고도화",
         items: [
-          { did: "트래블월렛 에어브릿지 이벤트와 iOS SKAN 전환값 기준 기획", result: "조회당 비용 -90.3%" },
-          { did: "LX하우시스 GA 기준 세션 수·전환 수 최대화로 운영", result: "" },
-          { did: "T사 쇼핑몰 연령대별 가입·매출 분석 후 2030 캠페인 분리", result: "2030 회원가입률 +30%" }
+          { did: "GA4 회원가입 퍼널 분석, 채널별 새 사용자·이탈률로 매체 역할 정의" },
+          { did: "GA4 잠재고객 Google Ads 연동, Airbridge 이벤트·SKAN 4.0 전환값 기준 기획 및 개발 요청" }
         ]
       },
       {
         title: "크리에이티브 기획",
         items: [
-          { did: "트래블월렛 브랜드필름 스틸컷 vs AI 인물 소재 테스트", result: "게시글당 비용 -80.9%" },
-          { did: "LX하우시스 벽지 소재를 이미지에서 영상으로 전환", result: "상담신청 3 → 61건" },
-          { did: "소바바 실사와 애니 숏폼 일자별 로테이션", result: "CPV -44.2%" }
+          { did: "경쟁사 소재, 업종 레퍼런스, 신규 광고 포맷을 매월 모니터링해 광고주에 공유" },
+          { did: "캠페인 목표와 타깃, 매체 특성에 맞춘 콘셉트, 소구점, 카피, 포맷 기획" },
+          { did: "실사·AI 인물, 영상, 모션그래픽 등 제작 방향 제안, 성과 기반 베리에이션 협의" }
         ]
       }
     ],
     // 카드 아래 도구 칩 (앞의 '이름:'은 굵게 보임)
     capabilities: [
-      "매체: Meta, Google Ads, 네이버 SA/GFA, 카카오, TikTok, DV360, Apple Search Ads, 당근",
-      "측정: GA4, 에어브릿지, SKAN 4.0, Brand Lift Study",
-      "커머스: Cafe24, 메이크샵, 스마트스토어",
-      "자동화: Python, Claude Code, Playwright, Google Sheets API",
-      "글로벌: 멕시코·인도네시아 캠페인"
+      "매체: Meta, Google Ads, 네이버 SA·GFA, 카카오, TikTok, DV360, Apple Search Ads, 당근",
+      "측정·커머스: GA4, 에어브릿지, Cafe24, 메이크샵, 스마트스토어 관리자",
+      "자동화·AI: Python, Claude Code, Playwright, Google Sheets API"
     ]
   },
   // 2026-11-08 프로젝트 구조: 제목 = 광고주, 소제목 = 캠페인. 케이스는 KPI → Approach → Results.
@@ -82,7 +78,7 @@ window.PORTFOLIO = {
       period: "2026.01 — 현재",
       budget: "19.3억",
       contribution: 80,
-      highlight: { value: "-80%", label: "지인페스타 전환 CPA, 전년 하반기 대비" },
+      highlight: { value: "-80%", label: "지인페스타 상담신청 전환 CPA, 전년 하반기 대비" },
       goal: "인테리어 업체를 고르는 긴 여정(탐색 → 비교 → 상담신청)에서 LX하우시스를 상담 고려 업체로 올리고 상담신청 DB로 연결",
       kpis: ["상담신청 DB", "GA 세션", "상담신청 CPA"],
       media: ["네이버 파워링크", "네이버 브랜드검색", "네이버 플레이스", "Google SA", "Meta", "Google Demand Gen", "Google PMax", "네이버 GFA", "카카오", "TikTok", "DV360", "당근"],
@@ -93,7 +89,7 @@ window.PORTFOLIO = {
         { t: "SA 운영", d: "네이버 파워링크·구글 SA를 검색 의도별로 운영, 전환 키워드 기준 데일리 입찰, 신규 키워드 발굴" }
       ],
       results: [
-        "하반기 지인페스타 전환 CPA 전년 대비 **80% 절감**, 상담신청 163 → 452건",
+        "하반기 지인페스타 상담신청 전환 CPA 전년 대비 **80% 절감**, 상담신청 163 → 452건",
         "BAU 상담신청 6~9월 4개월 연속 목표 초과, 8월 **258%** 달성",
         "리드젠 리드 CPA **38% 개선**, 역대 지인페스타 최저",
         "고단가 Only 캠페인 OFF 후 네이버 SA CPC **37% 절감**, SA 상담신청 CPA **42.7% 개선**"
@@ -106,7 +102,7 @@ window.PORTFOLIO = {
       slide: {
         tone: "dark",
         signals: [{ label: "Signal", text: "상반기 결과 분석" }, { label: "Learning", text: "참여시간 기준 매체 선택" }],
-        top: { kind: "side", stats: [{ value: "-80%", label: "지인페스타 전환 CPA\n전년 하반기 대비" }, { value: "258%", label: "BAU 상담신청\n목표 달성 (8월)" }],
+        top: { kind: "side", stats: [{ value: "-80%", label: "지인페스타\n상담신청 전환 CPA\n전년 하반기 대비" }, { value: "258%", label: "BAU 상담신청\n목표 달성 (8월)" }],
           images: [{ src: "./assets/lx-top-keyvisual.jpg", alt: "하반기 지인페스타 키비주얼", w: 900, h: 900 }, { src: "./assets/lx-top-noh.jpg", alt: "취향의발견 큰손 노희영 주방 편", w: 900, h: 900 }] },
         visuals: ["diagram"]
       }
@@ -257,7 +253,7 @@ window.PORTFOLIO = {
     {
       id: "blackfriday",
       brand: "블랙업",
-      campaign: "블랙프라이데이 매출·신규 고객 캠페인",
+      campaign: "블랙프라이데이 매출·신규 고객 확보 캠페인",
       industry: "여성 패션 쇼핑몰",
       color: ["#222222", "#E5E5E5"],
       company: "데이위즈",

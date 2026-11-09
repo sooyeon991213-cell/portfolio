@@ -142,7 +142,7 @@
         <button class="project-card" type="button" data-index="${projects.indexOf(project)}" style="${brandStyle(project)}" aria-haspopup="dialog">
           <span class="project-card-top">
             <span class="project-brand"><i aria-hidden="true"></i>${escapeHTML(project.industry || "")}</span>
-            <span class="project-tag">${escapeHTML(project.company || "")}${project.current ? " · 진행 중" : ""}</span>
+            <span class="project-tag">${escapeHTML(project.company || "")}</span>
           </span>
           <span class="project-title">${escapeHTML(project.brand)}</span>
           <span class="project-sub">${escapeHTML(project.campaign || "")}</span>
@@ -300,7 +300,7 @@
     return `
     <article class="case-panel slide" role="dialog" aria-modal="true" aria-labelledby="case-title" style="${brandStyle(project)}">
       <div class="s-left">
-        <p class="s-eyebrow">Success Case · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}${project.current ? " · 진행 중" : ""}</p>
+        <p class="s-eyebrow">Success Case · ${escapeHTML(project.company || "")} · ${escapeHTML(project.period)}</p>
         <h3 id="case-title" class="s-title">${escapeHTML(project.brand)}</h3>
         <p class="s-sub">${escapeHTML(project.campaign || "")}</p>
         <p class="s-meta">${meta.map(escapeHTML).join(" · ")}</p>
