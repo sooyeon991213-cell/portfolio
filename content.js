@@ -40,7 +40,7 @@ window.PORTFOLIO = {
       {
         title: "퍼널 분석·측정 고도화",
         items: [
-          { did: "GA4 세션 볼륨뿐 아니라 참여율·참여 시간까지 보고 세션의 질을 고려해 매체 예산 배분" },
+          { did: "GA4 매체별 참여율·참여 시간과 첫 유입 채널별 재방문 경로 분석, 세션 품질 기반 예산 배분" },
           { did: "GA4 마케팅 채널별 새 사용자·이탈률 분석, 잠재고객 Google Ads 연동" },
           { did: "Airbridge 이벤트 전환값 기준 기획 및 개발 요청" }
         ]
@@ -50,14 +50,14 @@ window.PORTFOLIO = {
         items: [
           { did: "경쟁사 소재, 업종 레퍼런스, 신규 광고 포맷을 매월 모니터링해 광고주에 공유" },
           { did: "캠페인 목표와 타깃, 매체 특성에 맞춘 콘셉트, 소구점, 카피, 포맷 기획" },
-          { did: "실사·AI 인물, 영상, 모션그래픽 등 제작 방향 제안, 성과 기반 베리에이션 협의" }
+          { did: "실사·AI 인물, 영상, 모션그래픽 등 제작 방향 제안, 성과 기반 위닝소재 발굴" }
         ]
       }
     ],
     // 카드 아래 도구 칩 (앞의 '이름:'은 굵게 보임)
     capabilities: [
       "매체: Meta, Google Ads, 네이버 SA·GFA, 카카오, TikTok, DV360, Apple Search Ads, 당근",
-      "측정·커머스: GA4, 에어브릿지, Cafe24, 메이크샵, 스마트스토어 관리자",
+      "측정·커머스: GA4, Looker Studio, 에어브릿지, Cafe24, 메이크샵, 스마트스토어 관리자",
       "자동화·AI: Python, Claude Code, Playwright, Google Sheets API"
     ]
   },
